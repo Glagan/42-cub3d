@@ -1,4 +1,4 @@
-R 1920 1080
+R 1280 720
 NO ./path_to_the_north_texture
 SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
