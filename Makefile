@@ -6,11 +6,11 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/10/29 14:09:07 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/10/29 14:17:41 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			=	cub3d.c config.c utils/ft_strlen.c utils/ft_substr.c \
+SRCS			=	main.c cub3d.c config.c utils/ft_strlen.c utils/ft_substr.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJS			= $(SRCS:.c=.o)
 

@@ -6,11 +6,12 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/29 14:13:06 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:49:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
+#include <stdio.h>
 
 static t_config
 	*new_config(void)
@@ -20,15 +21,15 @@ static t_config
 	config = NULL;
 	if (!(config = (t_config*)malloc(sizeof(*config))))
 		return (NULL);
-	config->requested_height = 1280;
-	config->requested_width = 720;
+	config->requested_width = 1280;
+	config->requested_height = 720;
 	config->north_texture_path = NULL;
 	config->south_texture_path = NULL;
 	config->west_texture_path = NULL;
 	config->east_texture_path = NULL;
 	config->sprite_texture_path = NULL;
-	config->floor_color = 0xA0764C;
-	config->sky_color = 0x33C6E3;
+	config->floor_color = 0xa0764c;
+	config->sky_color = 0x33c6e3;
 	config->map = NULL;
 	config->save_arg = 0;
 	return (config);
@@ -42,10 +43,9 @@ static int
 
 	i = 0;
 	while (line[++i])
-		if (line[i] != ' ' || line[i] != '\t'
-			|| !(line[i] >= '0' && line[i] <= '9'))
+		if (line[i] != ' ' && line[i] != '\t'
+			&& !(line[i] >= '0' && line[i] <= '9'))
 			return (0);
-		i++;
 	i = 1;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
@@ -54,7 +54,7 @@ static int
 	tmp = 0;
 	while (line[i] && line[i] >= '0' && line[i] <= '9')
 		tmp = (tmp * 10) + (line[i++] - '0');
-	if (tmp <= 0 || !line[i])
+	if (tmp <= 0 || !line[i++])
 		return (0);
 	config->requested_width = tmp;
 	tmp = 0;
@@ -84,11 +84,10 @@ static int
 	start = 2;
 	while (line[start] && (line[start] == ' ' || line[start] == '\t'))
 		start++;
-		return (0);
-	end = ft_strlen(line) - 1;
+	end = ft_strlen(line);
 	while (line[end] == ' ' || line[end] == '\t')
 		end--;
-	if (start == 2 || start - end <= 0
+	if (start == 2 || end - start <= 0
 		|| !(path = ft_substr(line, start, end - start)))
 		return (0);
 	if (line[0] == 'N' && line[1] == 'O')
@@ -105,6 +104,20 @@ static int
 static int
 	parse_sprite_texture(t_config *config, char const *line)
 {
+	int		start;
+	int		end;
+	char	*path;
+
+	start = 1;
+	while (line[start] && (line[start] == ' ' || line[start] == '\t'))
+		start++;
+	end = ft_strlen(line);
+	while (line[end] == ' ' || line[end] == '\t')
+		end--;
+	if (start == 1 || end - start <= 0
+		|| !(path = ft_substr(line, start, end - start)))
+		return (0);
+	config->sprite_texture_path = path;
 	return (1);
 }
 
@@ -125,10 +138,11 @@ static int
 	rgb = 0;
 	while (rgb < 3)
 	{
+		tmp = 0;
 		while (line[i] >= '0' && line[i] <= '9')
 			tmp = (tmp * 10) + (line[i++] - '0');
 		if (tmp < 0 || tmp > 255
-			||(rgb < 2 && line[i] != ',') || (rgb == 2 && line[i]))
+			|| (rgb < 2 && line[i] != ',') || (rgb == 2 && line[i]))
 			return (0);
 		color += (tmp << (16 - (rgb * 8)));
 		i++;
@@ -149,13 +163,14 @@ t_config
 	char		*line;
 	int			r;
 
-	if ((c_fd = open(conf_path, O_RDONLY)) < 0)
+	if ((c_fd = open(conf_path, O_RDONLY)) < 0
+		|| !(config = new_config()))
 		return (NULL);
-	if (!(config = new_config()))
-		return (NULL);
-	while (get_next_line(c_fd, &line) || !line[0])
+	line = NULL;
+	r = 1;
+	while (get_next_line(c_fd, &line) || ft_strlen(line) > 0)
 	{
-		if (!r)
+		if (r)
 		{
 			if (line[0] == 'R')
 				r = parse_dimensions(config, line);
@@ -173,6 +188,7 @@ t_config
 		free(line);
 	}
 	free(line);
+	close(c_fd);
 	if (!r)
 		return (NULL);
 	return (config);

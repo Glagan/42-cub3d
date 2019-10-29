@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.h                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:42:27 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/29 13:43:20 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:17:16 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
 char
-	*ft_substr(char const *s, unsigned int start, int len)
+	*ft_substr(char const *s, int start, int len)
 {
 	int		i;
 	int		j;

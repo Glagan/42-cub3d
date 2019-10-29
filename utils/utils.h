@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/29 13:44:14 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:17:20 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 
 int		ft_strlen(char const *str);
 
-char	*ft_substr(char const *s, unsigned int start, int len);
+char	*ft_substr(char const *s, int start, int len);
 
 #endif
