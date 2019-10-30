@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 15:24:13 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/30 12:38:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:40:15 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,16 @@ int
 }
 
 // todo: free map_buffer somewhere
+
+/**
+ * 
+ * 
+ * 
+ * CHECK VALID MIGHT BE BUGGED
+ * 
+ * 
+ * 
+ */
 
 int
 	parse_map(t_config *config, t_str *map_buffer)
