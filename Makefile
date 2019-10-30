@@ -6,20 +6,16 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/10/29 16:26:29 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/10/30 12:22:52 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	main.c cub3d.c \
 					config/config.c config/map.c \
-					utils/ft_strlen.c utils/ft_substr.c \
+					utils/ft_strlen.c utils/ft_substr.c utils/ft_in_set.c \
+					utils/str.c utils/ft_strdup.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJS			= $(SRCS:.c=.o)
-
-BONUS			=	ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
-					ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
-					ft_lstmap.c ft_lstnew.c ft_lstsize.c
-BONUS_OBJS		= $(BONUS:.c=.o)
 
 CC				= gcc
 RM				= rm -f

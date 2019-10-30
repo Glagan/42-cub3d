@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:19:29 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/29 16:51:41 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:19:33 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int
 		{
 			if (first == (*list))
 				first = lt[1];
-			lst_clear(&(*list)->str);
+			str_clear(&(*list)->str);
 			free((*list));
 			if (lt[0])
 				lt[0]->next = lt[1];

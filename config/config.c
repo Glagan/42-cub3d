@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/29 16:50:36 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:36:53 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ t_config
 	char		*line;
 	int			r;
 	int			in_map;
-	t_map_buffer	*map_buffer;
+	t_str		*map_buffer;
 
 	if ((c_fd = open(conf_path, O_RDONLY)) < 0
 		|| !(config = new_config()))
@@ -187,7 +187,7 @@ t_config
 		if (in_map && ft_strlen(line) == 0)
 			r = 0;
 		else if (r && in_map)
-			r = add_map_line(&map_buffer, line);
+			r = !!str_add_back(&map_buffer, line);
 		else if (r && ft_strlen(line) > 0)
 		{
 			if (line[0] == 'R')
@@ -203,7 +203,7 @@ t_config
 				r = parse_color(config, line);
 			else
 			{
-				r = add_map_line(&map_buffer, line);
+				r = !!str_add_back(&map_buffer, line);
 				in_map = 1;
 			}
 		}
@@ -212,10 +212,10 @@ t_config
 	if (!in_map)
 		return (NULL);
 	if (ft_strlen(line) > 0)
-		r = add_map_line(&map_buffer, line);
+		r = !!str_add_back(&map_buffer, line);
 	free(line);
 	close(c_fd);
-	if (!r || !parse_map(config, &map_buffer))
+	if (!r || !parse_map(config, map_buffer))
 		return (NULL);
 	return (config);
 }

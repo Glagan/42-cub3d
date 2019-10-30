@@ -6,37 +6,11 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:00:46 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/22 15:29:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/30 12:22:24 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char
-	*ft_strdup(char const *s1)
-{
-	char	*str;
-	size_t	i;
-
-	if (!s1)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		i++;
-	}
-	str = (char*)malloc(sizeof(*str) * (i + 1));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = 0;
-	return (str);
-}
 
 t_fd
 	*find_fd(t_fd **list, int fd, int *new)
