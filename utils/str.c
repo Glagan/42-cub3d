@@ -6,11 +6,25 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:09:03 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/30 12:19:15 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 10:44:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+int
+	str_length(t_str *str)
+{
+	int	i;
+
+	i = 0;
+	while (str)
+	{
+		str = str->next;
+		i++;
+	}
+	return (i);
+}
 
 t_str
 	*str_add_back(t_str **str, char const *content)

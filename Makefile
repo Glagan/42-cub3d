@@ -6,14 +6,14 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/10/30 12:22:52 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/10/31 11:51:38 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	main.c cub3d.c \
-					config/config.c config/map.c \
+					config/config.c config/map.c config/map_check.c \
 					utils/ft_strlen.c utils/ft_substr.c utils/ft_in_set.c \
-					utils/str.c utils/ft_strdup.c \
+					utils/str.c utils/ft_strdup.c utils/ft_split.c utils/ft_atoi.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJS			= $(SRCS:.c=.o)
 

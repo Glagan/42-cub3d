@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/30 12:36:48 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 11:51:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "../gnl/get_next_line.h"
 # include "../utils/utils.h"
 
-# define DIRECTIONS 			"NSEW"
-# define VALID_MAP_CHARACTERS 	" 012NSEW"
+# define DIRECTIONS "NSEW"
+# define VALID_MAP_CHARACTERS " 012NSEW"
 
 typedef struct	s_config
 {
@@ -39,6 +39,14 @@ typedef struct	s_config
 }				t_config;
 
 t_config		*parse_config(char const *conf_path);
+
+int				count_check_columns(char const *line);
+
+int				check_top_bottom_borders(t_str *map_buffer);
+
+int				check_left_right_borders(t_str *map_buffer);
+
+int				check_valid(t_config *config, t_str *map_buffer);
 
 int				parse_map(t_config *config, t_str *map_buffer);
 

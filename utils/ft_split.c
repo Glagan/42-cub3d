@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/29 13:42:27 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 11:50:07 by ncolomer         ###   ########.fr       */
+/*   Created: 2019/10/31 10:43:10 by ncolomer          #+#    #+#             */
+/*   Updated: 2019/10/31 11:05:05 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char
-	*ft_substr(char const *s, int start, int len)
+t_str
+	*ft_split(char const *org, char sep)
 {
 	int		i;
-	int		j;
-	char	*str;
+	int		start;
+	t_str	*str;
 
-	str = (char*)malloc(sizeof(*s) * (len + 1));
-	if (!str)
-		return (NULL);
+	start = 0;
 	i = 0;
-	j = 0;
-	while (s[i])
+	str = NULL;
+	while (org[i])
 	{
-		if (i >= start && j < len)
+		if (org[i] == sep)
 		{
-			str[j] = s[i];
-			j++;
+			if (i - start > 0
+				&& !str_add_back(&str, ft_substr(org, start, i - start)))
+				return ((void*)((uintptr_t)str_clear(&str)));
+			start = ++i;
 		}
-		i++;
+		else
+			i++;
 	}
-	str[j] = 0;
+	if (i - start > 0
+		&& !str_add_back(&str, ft_substr(org, start, i - start)))
+		return ((void*)((uintptr_t)str_clear(&str)));
 	return (str);
 }

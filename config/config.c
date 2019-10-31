@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/30 12:36:53 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 11:42:04 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,30 @@ static t_config
 static int
 	parse_dimensions(t_config *config, char const *line)
 {
-	int	i;
-	int	tmp;
+	int		i;
+	int		tmp;
+	t_str	*str;
+	t_str	*param;
 
 	i = 0;
 	while (line[++i])
-		if (line[i] != ' ' && !(line[i] >= '0' && line[i] <= '9'))
+		if (line[i] != ' ' && line[i] < '0' && line[i] > '9')
 			return (0);
-	i = 1;
-	while (line[i] && line[i] == ' ')
-		i++;
-	if (i == 1 || !line[i])
-		return (0);
-	tmp = 0;
-	while (line[i] && line[i] >= '0' && line[i] <= '9')
-		tmp = (tmp * 10) + (line[i++] - '0');
-	if (tmp <= 0 || !line[i++])
-		return (0);
+	str = NULL;
+	if (!(str = ft_split(line, ' '))
+		|| str_length(str) != 3)
+		return (str_clear(&str));
+	param = str->next;
+	tmp = ft_atoi(param->content);
+	if (tmp <= 1)
+		return (str_clear(&str));
 	config->requested_width = tmp;
-	tmp = 0;
-	while (line[i] && line[i] >= '0' && line[i] <= '9')
-		tmp = (tmp * 10) + (line[i++] - '0');
-	while (line[i] && line[i] == ' ')
-		i++;
-	if (tmp <= 0 || line[i])
-		return (0);
+	param = param->next;
+	tmp = ft_atoi(param->content);
+	if (tmp <= 1)
+		return (str_clear(&str));
 	config->requested_height = tmp;
-	return (1);
+	return (str_clear(&str) | 1);
 }
 
 static int
@@ -127,42 +124,35 @@ static int
 static int
 	parse_color(t_config *config, char const *line)
 {
-	int	i;
-	int	rgb;
-	int	tmp;
-	int	color;
+	int			i;
+	int			tmp;
+	unsigned	color;
+	t_str		*str[3];
 
 	i = 1;
-	while (line[i] && line[i] == ' ')
-		i++;
-	if (i == 1)
-		return (0);
-	color = 0;
-	rgb = 0;
-	while (rgb < 3)
-	{
-		tmp = 0;
-		while (line[i] >= '0' && line[i] <= '9')
-			tmp = (tmp * 10) + (line[i++] - '0');
-		if (tmp < 0 || tmp > 255
-			|| (rgb < 2 && line[i] != ','))
+	while (line[i])
+		if (!ft_in_set(line[i++], " ,0123456789"))
 			return (0);
-		color += (tmp << (16 - (rgb * 8)));
-		if (rgb == 2)
-		{
-			while (line[i] && line[i] == ' ')
-				i++;
-			if (line[i])
-				return (0);
-		}
-		i++;
-		rgb++;
+	str[0] = NULL;
+	str[1] = NULL;
+	if (!(str[0] = ft_split(line, ' ')) || str_length(str[0]) != 2
+		|| !(str[1] = ft_split(str[0]->next->content, ','))
+		|| str_length(str[1]) != 3)
+		return (str_clear(&str[0]) && str_clear(&str[1]));
+	str[2] = str[1];
+	i = -1;
+	color = 0;
+	while (str[2] && (++i || 1))
+	{
+		if ((tmp = ft_atoi(str[2]->content)) < 0 || tmp > 255)
+			return (str_clear(&str[0]) && str_clear(&str[1]));
+		color += (tmp << (16 - (i++ * 8)));
+		str[2] = str[2]->next;
 	}
-	if (line[0] == 'F')
-		config->floor_color = color;
-	else
-		config->sky_color = color;
-	return (1);
+	i = (line[0] == 'F')
+		? (config->floor_color = color)
+		: (config->sky_color = color);
+	return ((str_clear(&str[0]) && str_clear(&str[1])) | 1);
 }
 
 t_config

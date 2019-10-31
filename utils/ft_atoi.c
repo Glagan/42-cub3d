@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_in_set.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/30 11:49:38 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 11:50:18 by ncolomer         ###   ########.fr       */
+/*   Created: 2019/10/31 10:56:05 by ncolomer          #+#    #+#             */
+/*   Updated: 2019/10/31 10:56:52 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
 int
-	ft_in_set(char c, char const *set)
+	ft_atoi(char const *str)
 {
 	int	i;
+	int	start;
+	int	is_neg;
+	int	res;
 
+	if (!str)
+		return (0);
 	i = 0;
-	while (set[i])
-	{
-		if (c == set[i])
-			return (c);
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' ||
+			str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		i++;
-	}
-	return (0);
+	is_neg = (str[i] == '-') ? -1 : 1;
+	if (is_neg == -1 || str[i] == '+')
+		i++;
+	start = i;
+	res = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+		res = (res * 10) + (str[i++] - '0');
+	return (res * is_neg);
 }
