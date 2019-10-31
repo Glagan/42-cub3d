@@ -9,3 +9,5 @@
 * http://www.playfuljs.com/a-first-person-engine-in-265-lines/
 * https://qst0.github.io/ft_libgfx/
 * https://web.archive.org/web/20160325100729/http://freespace.virgin.net/hugo.elias/graphics/x_main.htm
+
+* https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C

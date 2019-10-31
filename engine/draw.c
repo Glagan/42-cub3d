@@ -6,38 +6,40 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:45:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 17:29:42 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 21:25:52 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "engine.h"
 
-/**
- * TODO: anti aliased line...
- */
 int
 	draw_line(t_window *window, t_pos *p1, t_pos *p2, int color)
 {
 	t_pos	d;
-	float	x;
-	float	y;
-	float	delta_y;
-	float	delta_x;
+	t_pos	s;
+	int		err;
+	int		e2;
 
-	printf("{draw line x1:%d y1:%d x2:%d y2:%d}\n", p1->x, p1->y, p2->x, p2->y);
-	d.x = p2->x - p1->x;
-	d.y = p2->y - p1->y;
-	x = p1->x;
-	y = (float)p1->y;
-	delta_y = (p2->x > p1->x) ? ((float)d.y / (float)d.x) : -((float)d.y / (float)d.x);
-	delta_y /= 2;
-	delta_x = (p2->x > p1->x) ? .5 : -.5;
-	while ((int)x != (int)p2->x)
+	d.x = abs(p2->x - p1->x);
+	d.y = abs(p2->y - p1->y);
+	s.x = (p1->x < p2->x) ? 1 : -1;
+	s.y = (p1->y < p2->y) ? 1 : -1;
+	err = (d.x > d.y ? d.x : -d.y) >> 1;
+	while (1)
 	{
-		mlx_pixel_put(window->ptr, window->win, x, y, color);
-		y = (y + delta_y);
-		x += delta_x;
+		mlx_pixel_put(window->ptr, window->win, p1->x,   p1->y, color);
+		if (p1->x == p2->x && p1->y == p2->y)
+			break;
+		e2 = err;
+		if (e2 >- d.x) {
+			err -= d.y;
+			p1->x += s.x;
+		}
+		if (e2 < d.y) {
+			err += d.x;
+			p1->y += s.y;
+		}
 	}
 	return (1);
 }

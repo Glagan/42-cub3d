@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 13:46:26 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 22:45:17 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void
 		*angle = 90;
 	else if (config->map[(*y * config->columns) + *x] == 'W')
 		*angle = 180;
+	config->map[(*y * config->columns) + *x] = '0';
 }
 
 t_camera
@@ -57,7 +58,6 @@ t_camera
 		return (NULL);
 	find_start_pos(config, &x, &y, &angle);
 	camera->angle = angle;
-	camera->x = x;
-	camera->y = y;
+	set_pos(&camera->pos, x, y);
 	return (camera);
 }

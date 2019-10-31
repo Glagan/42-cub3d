@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 16:11:57 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 22:25:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_str			*str_last(t_str *str);
 
 int				str_clear(t_str **list);
 
-void			pos(t_pos *pos, int x, int y);
+void			set_pos(t_pos *pos, int x, int y);
+
+void			copy_pos(t_pos *pos, t_pos *org);
 
 #endif

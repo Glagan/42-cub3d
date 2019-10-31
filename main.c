@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 17:08:48 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 22:47:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void
 	t_window	*window;
 
 	config = game->config;
+	camera = game->camera;
 	printf("#CONFIG" \
 		"\nwidth\t\t%d" \
 		"\nheight\t\t%d" \
@@ -46,7 +47,13 @@ void
 	{
 		j = 0;
 		while (j < config->columns)
-			printf("%c ", config->map[(i * config->columns) + j++]);
+		{
+			if (i == camera->pos.y && j == camera->pos.x)
+				printf("  ");
+			else
+				printf("%c ", config->map[(i * config->columns) + j]);
+			j++;
+		}
 		if (i == config->rows - 1)
 			printf("\n");
 		else
@@ -54,12 +61,11 @@ void
 		i++;
 	}
 
-	camera = game->camera;
 	printf("#CAMERA" \
 		"\nx:\t%d" \
 		"\ny:\t%d" \
 		"\nangle:\t%d (degrees)\n",
-		camera->x, camera->y, camera->angle);
+		camera->pos.x, camera->pos.y, camera->angle);
 
 	window = game->window;
 	printf("#WINDOW" \
@@ -87,7 +93,7 @@ int
 		return (EXIT_FAILURE); // TODO: print error
 	printf_infos(game);
 	mlx_key_hook(game->window->win, &key_event, game);
-	mlx_mouse_hook(game->window->win, &mouse_event, game);
+	//mlx_mouse_hook(game->window->win, &mouse_event, game);
 	mlx_hook(game->window->win, X_EVENT_EXIT, 0, &exit_hook, game);
 	mlx_loop_hook(game->window->ptr, &main_loop, game);
 	mlx_loop(game->window->ptr);
