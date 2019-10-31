@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 14:56:48 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:31:29 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,26 +86,9 @@ int
 	if (!(game->window = new_window(game->config)))
 		return (EXIT_FAILURE); // TODO: print error
 	printf_infos(game);
-	printf("mouse_hook:%d\n", mlx_mouse_hook(game->window->ptr, &mouse_event, game));
-	printf("loop_hook:%d\n", mlx_loop_hook(game->window->ptr, &main_loop, game));
-	/*int	x;
-	int	y;
-	int	color;
-
-	color = 0xFFFFFF;
-	y = 0;
-	while (y < game->window->height)
-	{
-		x = 0;
-		while (x < game->window->width)
-		{
-			mlx_pixel_put(game->window->ptr, game->window->win, x++, y, game->config->floor_color);
-			color -= 1;
-			if (color < 0)
-				color = 0xFFFFFF;
-		}
-		y++;
-	}*/
+	mlx_key_hook(game->window->ptr, &key_event, game);
+	mlx_mouse_hook(game->window->ptr, &mouse_event, game);
+	mlx_loop_hook(game->window->ptr, &main_loop, game);
 	mlx_loop(game->window->ptr);
 	return (EXIT_SUCCESS);
 }

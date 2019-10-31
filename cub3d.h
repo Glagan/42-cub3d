@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 14:42:24 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 15:08:40 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef	struct	s_game
 }				t_game;
 
 t_game			*new_game(void);
+
+int				key_event(int keycode, t_game *game);
 
 int				mouse_event(int button, int x, int y, t_game *game);
 
