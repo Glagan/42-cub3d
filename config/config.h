@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 11:51:10 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 14:46:34 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,36 @@
 
 # include <fcntl.h>
 # include <unistd.h>
-# include "../gnl/get_next_line.h"
-# include "../utils/utils.h"
+# include "gnl/get_next_line.h"
+# include "utils/utils.h"
 
 # define DIRECTIONS "NSEW"
 # define VALID_MAP_CHARACTERS " 012NSEW"
 
 typedef struct	s_config
 {
-	int		requested_height;
-	int		requested_width;
-	char	*north_texture_path;
-	char	*south_texture_path;
-	char	*west_texture_path;
-	char	*east_texture_path;
-	char	*sprite_texture_path;
-	int		floor_color;
-	int		sky_color;
-	int		*map;
-	int		rows;
-	int		columns;
-	int		save_arg;
+	int			requested_height;
+	int			requested_width;
+	char		*north_texture_path;
+	char		*south_texture_path;
+	char		*west_texture_path;
+	char		*east_texture_path;
+	char		*sprite_texture_path;
+	unsigned	floor_color;
+	unsigned	sky_color;
+	int			*map;
+	int			rows;
+	int			columns;
+	int			save_arg;
 }				t_config;
+
+int				parse_dimensions(t_config *config, char const *line);
+
+int				parse_texture_path(t_config *config, char const *line);
+
+int				parse_sprite_texture(t_config *config, char const *line);
+
+int				parse_color(t_config *config, char const *line);
 
 t_config		*parse_config(char const *conf_path);
 

@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 14:42:24 by ncolomer         ###   ########.fr       */
+/*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
+/*   Updated: 2019/10/31 13:47:29 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef ENGINE_H
+# define ENGINE_H
 
-# include "engine/engine.h"
+# include "mlx/mlx.h"
 # include "config/config.h"
 
-typedef	struct	s_game
+typedef	struct	s_window
 {
-	t_config	*config;
-	t_window	*window;
-	t_camera	*camera;
-}				t_game;
+	void		*ptr;
+	void		*win;
+	int			width;
+	int			height;
+}				t_window;
 
-t_game			*new_game(void);
+typedef struct	s_camera
+{
+	int	x;
+	int	y;
+	int	angle;
+}				t_camera;
 
-int				mouse_event(int button, int x, int y, t_game *game);
+t_camera		*new_camera(t_config *config);
 
-int				main_loop(t_game *game);
+t_window		*new_window(t_config *config);
 
 #endif

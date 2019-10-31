@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 10:43:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 11:05:05 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 12:21:04 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_str
 		{
 			if (i - start > 0
 				&& !str_add_back(&str, ft_substr(org, start, i - start)))
-				return ((void*)((uintptr_t)str_clear(&str)));
+				return (PTR_CAST(str_clear(&str)));
 			start = ++i;
 		}
 		else
@@ -36,6 +36,6 @@ t_str
 	}
 	if (i - start > 0
 		&& !str_add_back(&str, ft_substr(org, start, i - start)))
-		return ((void*)((uintptr_t)str_clear(&str)));
+		return (PTR_CAST(str_clear(&str)));
 	return (str);
 }

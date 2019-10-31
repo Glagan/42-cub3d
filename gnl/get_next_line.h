@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:19:57 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/30 12:22:28 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 13:09:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "../utils/utils.h"
+# include "utils/utils.h"
 
 # define BUFFER_SIZE 128
 

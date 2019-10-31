@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 11:51:23 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 12:20:43 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define UTILS_H
 
 # include <stdlib.h>
+
+# define PTR_CAST(a) (void*)((uintptr_t)(a))
+
+typedef struct	s_pos
+{
+	int	x;
+	int	y;
+}				t_pos;
 
 typedef struct	s_str
 {

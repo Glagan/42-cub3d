@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 14:42:24 by ncolomer         ###   ########.fr       */
+/*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
+/*   Updated: 2019/10/31 13:49:44 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "engine.h"
 
-# include "engine/engine.h"
-# include "config/config.h"
-
-typedef	struct	s_game
+t_window
+	*new_window(t_config *config)
 {
-	t_config	*config;
 	t_window	*window;
-	t_camera	*camera;
-}				t_game;
 
-t_game			*new_game(void);
-
-int				mouse_event(int button, int x, int y, t_game *game);
-
-int				main_loop(t_game *game);
-
-#endif
+	if (!(window = (t_window*)malloc(sizeof(*window))))
+		return (NULL);
+	window->width = config->requested_width;
+	window->height = config->requested_height;
+	if (!(window->ptr = mlx_init())
+		|| !(window->win =	mlx_new_window(
+			window->ptr,
+			window->width,
+			window->height,
+			"cub3d"))
+		)
+	{
+		free(window);
+		return (NULL);
+	}
+	return (window);
+}
