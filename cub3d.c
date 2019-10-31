@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 15:16:24 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 17:12:45 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,53 @@
 #include "cub3d.h"
 
 int
+	exit_hook(t_game *game)
+{
+	mlx_destroy_window(game->window->ptr, game->window->win);
+	exit(0);
+	return (0);
+}
+
+int
 	key_event(int keycode, t_game *game)
 {
+	char	*str;
+	t_pos	s_pos;
+
 	printf("{key press code:%d}\n", keycode);
-	mlx_pixel_put(game->window->ptr, game->window->win, 0, 0, game->config->floor_color);
-	return (1);
+	pos(&s_pos, 5, 2);
+	str = ft_itoa(keycode);
+	clear_window(game->window);
+	draw_string(game->window, &s_pos, str, 0xFFFFFF);
+	free(str);
+	return (0);
 }
 
 int
 	mouse_event(int button, int x, int y, t_game *game)
 {
-	printf("{click button:%d x:%d y:%d}\n", button, x, y);
-	mlx_pixel_put(game->window->ptr, game->window->win, x, y, game->config->floor_color);
-	return (1);
+	int		color;
+	t_pos	r_pos;
+	t_pos	dest;
+
+	printf("{click button:%d x:%3d y:%3d}\n", button, x, y);
+	pos(&r_pos, x, y);
+	pos(&dest, game->window->width / 2, game->window->height / 2);
+	if (button == LEFT_CLICK)
+		color = 0xFFFF00;
+	else if (button == RIGHT_CLICK)
+		color = 0x00FFFF;
+	else
+		color = 0xFF00FF;
+	clear_window(game->window);
+	draw_line(game->window, &dest, &r_pos, 0xFFFFFF);
+	return (0);
 }
 
 int
 	main_loop(t_game *game)
 {
 	(void)game;
-	/*int	x;
-	int	y;
-	int	color;
-
-	color = 0xFFFFFF;
-	y = 0;
-	while (y < game->window->height)
-	{
-		x = 0;
-		while (x < game->window->width)
-		{
-			mlx_pixel_put(game->window->ptr, game->window->win, x++, y, game->config->floor_color);
-			color -= 1;
-			if (color < 0)
-				color = 0xFFFFFF;
-		}
-		y++;
-	}*/
+	//clear_window(game->window);
 	return (0);
 }

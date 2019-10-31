@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 15:31:29 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 17:08:48 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int
 	if (!(game->window = new_window(game->config)))
 		return (EXIT_FAILURE); // TODO: print error
 	printf_infos(game);
-	mlx_key_hook(game->window->ptr, &key_event, game);
-	mlx_mouse_hook(game->window->ptr, &mouse_event, game);
+	mlx_key_hook(game->window->win, &key_event, game);
+	mlx_mouse_hook(game->window->win, &mouse_event, game);
+	mlx_hook(game->window->win, X_EVENT_EXIT, 0, &exit_hook, game);
 	mlx_loop_hook(game->window->ptr, &main_loop, game);
 	mlx_loop(game->window->ptr);
 	return (EXIT_SUCCESS);

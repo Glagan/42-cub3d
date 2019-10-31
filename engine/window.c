@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 13:49:44 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 17:06:55 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ t_window
 		free(window);
 		return (NULL);
 	}
+	window->origin.x = 0;
+	window->origin.y = 0;
+	window->size.x = window->width;
+	window->size.y = window->height;
 	return (window);
 }

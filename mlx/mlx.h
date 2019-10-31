@@ -134,7 +134,7 @@ int	mlx_hook(void *win_ptr, int x_event, int x_mask,
 int     mlx_mouse_hide();
 int     mlx_mouse_show();
 int     mlx_mouse_move(void *win_ptr, int x, int y);
-int     mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
+//int     mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
 
 int	mlx_do_key_autorepeatoff(void *mlx_ptr);
 int	mlx_do_key_autorepeaton(void *mlx_ptr);

@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/10/31 15:27:05 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/10/31 16:27:13 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,15 @@ SRCS			=	main.c cub3d.c game.c \
 					config/parse_params.c \
 					utils/ft_strlen.c utils/ft_substr.c utils/ft_in_set.c \
 					utils/str.c utils/ft_strdup.c utils/ft_split.c utils/ft_atoi.c \
+					utils/pos.c utils/ft_itoa.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c \
-					engine/window.c engine/camera.c
+					engine/window.c engine/camera.c engine/draw.c engine/shortcuts.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
 CFLAGS			= -g -Wall -Wextra -Werror -I.
-LIBS			= -L. -lmlx -framework OpenGL -framework AppKit -lm
+LIBS			= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
 
 NAME			= cub3d
 

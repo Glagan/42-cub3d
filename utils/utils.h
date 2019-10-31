@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 12:20:43 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 16:11:57 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int				ft_atoi(char const *str);
 
 t_str			*ft_split(char const *org, char sep);
 
+char			*ft_itoa(int n);
+
 int				str_length(t_str *str);
 
 t_str			*str_add_back(t_str **str, char const *content);
@@ -48,5 +50,7 @@ t_str			*str_add_back(t_str **str, char const *content);
 t_str			*str_last(t_str *str);
 
 int				str_clear(t_str **list);
+
+void			pos(t_pos *pos, int x, int y);
 
 #endif
