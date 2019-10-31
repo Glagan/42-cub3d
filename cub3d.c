@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 22:43:44 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/10/31 23:10:28 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ int
 	return (0);
 }
 
+/**
+ * Make angle move 10 by 10 (or something, Wolfenstein has 6.92)
+ * and update move_camera (or maybe update_camera doesn't need to be updated)
+ */
 int
 	key_event(int keycode, t_game *game)
 {
