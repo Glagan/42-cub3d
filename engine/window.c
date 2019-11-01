@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 19:51:08 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 19:53:11 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int
 	return (new);
 }
 
-/*static void
+static void
 	draw_sky_floor(t_game *game)
 {
 	(void)game;
-	int		i;
+	/*int		i;
 	t_pos	p;
 	t_pos	wh;
 	int		shade_height;
@@ -81,93 +81,81 @@ int
 		draw_rectangle(game->window, &p, &wh,
 			shade_color(game->config->floor_color, 1. + (.5 * i)));
 		i++;
-	}
+	}*/
+}
+
+/*static int
+	dda_hori(t_pos *pos)
+{
+	int	length;
+
+	//if ()
 }*/
+
+static void
+	ray_cast(t_game *game, t_raysult *ray, t_pos *pos, double angle)
+{
+	int		hit;
+	t_pos	l_pos;
+	t_pos	sin_cos;
+	t_pos	map_pos;
+	t_pos	difference;
+	t_pos	direction;
+
+	(void)ray;
+	copy_pos(&l_pos, pos);
+	set_pos(&map_pos, (int)pos->x, (int)pos->y);
+	set_pos(&sin_cos, sin(angle), cos(angle));
+	printf("{difference %lfx%lfy}\n", difference.x, difference.y);
+	printf("{direction %lfx%lfy}\n", direction.x, direction.y);
+	hit = 0;
+	while (!hit)
+	{
+		set_pos(&difference, l_pos.x - map_pos.x + cos(angle),
+							l_pos.y - map_pos.y + sin(angle));
+		if (difference.x > 0)
+			l_pos.x += 1;
+		else
+			l_pos.x += -1;
+		if (difference.y > 0)
+			l_pos.y += 1;
+		else
+			l_pos.y += -1;
+		set_pos(&map_pos, (int)l_pos.x, (int)l_pos.y);
+		if (MAP(map_pos, game->config) == '1')
+			hit = 1;
+	}
+	printf("{wall hit %lfx%lfy}\n", map_pos.x, map_pos.y);
+	if (map_pos.x - pos->x >= map_pos.y - pos->y)
+		ray->distance = map_pos.x - pos->x;
+	else
+		ray->distance = map_pos.y - pos->y;
+	ray->distance *= cos(angle);
+}
 
 void
 	update_window(t_game *game)
 {
 	int			i;
-	double 		cameraX;
-	t_pos		ray_dir;
-	t_pos		map;
-	t_pos		side_dist;
-	t_pos		delta_dist;
-	double 		perp_wall_dist;
-	t_pos		step;
-	int			hit;
-	int			side;
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
-	t_pos		line_start;
-	t_pos		line_end;
+	t_raysult	ray;
+	double		angle_step;
+	t_pos		start;
+	t_pos		end;
 
+	set_pos(&start, 0, 0);
+	set_pos(&end, 0, 0);
 	clear_window(game->window);
-	//draw_sky_floor(game);
+	draw_sky_floor(game);
 	i = 0;
 	while (i < game->window->width)
 	{
-		cameraX = 2 * i / (double)game->window->width - 1;
-		set_pos(&ray_dir,
-			game->camera->dir_vec.x + game->camera->plane.x * cameraX,
-			game->camera->dir_vec.y + game->camera->plane.y * cameraX);
-		set_pos(&map, (int)game->camera->pos.x, (int)game->camera->pos.y);
-		set_pos(&delta_dist, fabs(1. / ray_dir.x), fabs(1. / ray_dir.y));
-		hit = 0;
-		if (ray_dir.x < 0)
-		{
-			step.x = -1;
-			side_dist.x = (game->camera->pos.x - map.x) * delta_dist.x;
-		}
-		else
-		{
-			step.x = 1;
-			side_dist.x = (map.x + 1.0 - game->camera->pos.x) * delta_dist.x;
-		}
-		if (ray_dir.y < 0)
-		{
-			step.y = -1;
-			side_dist.y = (game->camera->pos.y - map.y) * delta_dist.y;
-		}
-		else
-		{
-			step.y = 1;
-			side_dist.y = (map.y + 1.0 - game->camera->pos.y) * delta_dist.y;
-		}
-		while (hit == 0)
-		{
-			//jump to next map square, OR in x-direction, OR in y-direction
-			if (side_dist.x < side_dist.y)
-			{
-				side_dist.x += delta_dist.x;
-				map.x += step.x;
-				side = 0;
-			}
-			else
-			{
-				side_dist.y += delta_dist.y;
-				map.y += step.y;
-				side = 1;
-			}
-			if (MAP(map, game->config) >= '1')
-				hit = 1;
-		}
-		if (side == 0)
-			perp_wall_dist = (map.x - game->camera->pos.x + (1 - step.x) / 2.) / ray_dir.x;
-		else
-			perp_wall_dist = (map.y - game->camera->pos.y + (1 - step.y) / 2.) / ray_dir.y;
-		line_height = (int)(game->window->height / perp_wall_dist);
-		printf("{line_height:%d}\n", line_height);
-		draw_start = -line_height / 2. + game->window->height / 2.;
-		if(draw_start < 0)
-			draw_start = 0;
-		draw_end = line_height / 2. + game->window->height / 2.;
-		if(draw_end >= game->window->height)
-			draw_end = game->window->height - 1;
-		set_pos(&line_start, i, draw_start);
-		set_pos(&line_end, i, draw_start + line_height);
-		draw_line(game->window, &line_start, &line_end, 0xFFFFFF);
+		// focal_length = 0.8 ?
+		angle_step = atan2(((double)i / game->window->width) - .5, 0.8);
+		ray_cast(game, &ray, &game->camera->pos, game->camera->angle + angle_step);
+		int height = game->window->height / ray.distance;
+		set_pos(&start, i, game->window->height / 2 - height / 2);
+		set_pos(&end, i, game->window->height / 2 + height / 2);
+		draw_line(game->window, &start, &end, 0xFFFFFF);
 		i++;
 	}
 }
