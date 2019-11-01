@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 22:42:26 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:04:52 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,27 @@ int
 	return (mlx_clear_window(window->ptr, window->win));
 }
 
+static void
+	ray_cast(t_raysult *ray, t_pos *pos, double angle)
+{
+	(void)ray;
+	(void)pos;
+	(void)angle;
+}
+
 void
 	update_window(t_game *game)
 {
-	int	i;
-	int	j;
+	int			i;
+	t_raysult	ray;
+	double		angle_step;
 
 	clear_window(game->window);
+	angle_step = game->window->width / 0.8; // focal_length = 0.8 ?
 	i = 0;
-	while (i < game->config->rows)
+	while (i < game->window->width)
 	{
-		j = 0;
-		while (j < game->config->columns)
-		{
-			if (i == game->camera->pos.y && j == game->camera->pos.x)
-				printf("  ");
-			else
-				printf("%c ", game->config->map[(i * game->config->columns) + j]);
-			j++;
-		}
-		if (i == game->config->rows - 1)
-			printf("\n");
-		else
-			printf("\n");
+		ray_cast(&ray, &game->camera->pos, game->camera->angle + (angle_step * i));
 		i++;
 	}
-	printf("#CAMERA" \
-		"\nx:\t%d" \
-		"\ny:\t%d" \
-		"\nangle:\t%d (degrees)\n",
-		game->camera->pos.x, game->camera->pos.y, game->camera->angle);
 }

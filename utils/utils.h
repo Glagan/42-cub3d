@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 22:25:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 12:00:01 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 typedef struct	s_pos
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }				t_pos;
 
 typedef struct	s_str
@@ -51,7 +51,7 @@ t_str			*str_last(t_str *str);
 
 int				str_clear(t_str **list);
 
-void			set_pos(t_pos *pos, int x, int y);
+void			set_pos(t_pos *pos, double x, double y);
 
 void			copy_pos(t_pos *pos, t_pos *org);
 

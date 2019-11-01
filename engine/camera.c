@@ -6,58 +6,105 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 22:45:17 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:24:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "engine.h"
 
 static void
-	find_start_pos(t_config *config, int *x, int *y, int *angle)
+	find_start_pos_angle(t_config *config, t_camera *camera)
 {
 	int	stop;
 
 	stop = 0;
-	*y = 0;
-	while (!stop && *y < config->rows)
+	camera->pos.y = 0;
+	while (!stop && camera->pos.y < config->rows)
 	{
-		*x = 0;
-		while (!stop && *x < config->columns)
+		camera->pos.x = 0;
+		while (!stop && camera->pos.x < config->columns)
 		{
-			if (ft_in_set(config->map[(*y * config->columns) + *x],
-					DIRECTIONS))
+			if (ft_in_set(MAP(camera->pos, config), DIRECTIONS))
 			{
 				stop = 1;
 				break ;
 			}
-			(*x)++;
+			(camera->pos.x)++;
 		}
 		if (!stop)
-			(*y)++;
+			(camera->pos.y)++;
 	}
-	if (config->map[(*y * config->columns) + *x] == 'N')
-		*angle = 270;
-	else if (config->map[(*y * config->columns) + *x] == 'E')
-		*angle = 0;
-	else if (config->map[(*y * config->columns) + *x] == 'S')
-		*angle = 90;
-	else if (config->map[(*y * config->columns) + *x] == 'W')
-		*angle = 180;
-	config->map[(*y * config->columns) + *x] = '0';
+	if (MAP(camera->pos, config) == 'N')
+		camera->angle = M_PI_2;
+	else if (MAP(camera->pos, config) == 'E')
+		camera->angle = 0.;
+	else if (MAP(camera->pos, config) == 'S')
+		camera->angle = M_3_PI_2;
+	else if (MAP(camera->pos, config) == 'W')
+		camera->angle = M_PI;
+	MAP(camera->pos, config) = '0';
 }
 
 t_camera
 	*new_camera(t_config *config)
 {
-	int			angle;
-	int			x;
-	int			y;
 	t_camera	*camera;
 
 	if (!(camera = (t_camera*)malloc(sizeof(*camera))))
 		return (NULL);
-	find_start_pos(config, &x, &y, &angle);
-	camera->angle = angle;
-	set_pos(&camera->pos, x, y);
+	find_start_pos_angle(config, camera);
 	return (camera);
+}
+
+int
+	move_camera(t_game *game, double angle)
+{
+	t_pos		n_pos;
+	t_camera	*camera;
+
+	camera = game->camera;
+	copy_pos(&n_pos, &camera->pos);
+	n_pos.x += (cos(M_2_M_PI - angle) * .2);
+	n_pos.y += (sin(M_2_M_PI - angle) * .2);
+	printf("{trying to move to x%lfy%lf}\n", n_pos.x, n_pos.y);
+	if (n_pos.x < game->config->columns && n_pos.y < game->config->rows
+		&& MAP(n_pos, game->config) == '0')
+	{
+		printf("{moved to x%lfy%lf}\n", n_pos.x, n_pos.y);
+		copy_pos(&camera->pos, &n_pos);
+		return (1);
+	}
+	return (0);
+}
+
+void
+	debug_print_camera(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->config->rows)
+	{
+		j = 0;
+		while (j < game->config->columns)
+		{
+			if (i == (int)game->camera->pos.y && j == (int)game->camera->pos.x)
+				printf("  ");
+			else
+				printf("%c ", MAP_XY(j, i, game->config));
+			j++;
+		}
+		if (i == game->config->rows - 1)
+			printf("\n");
+		else
+			printf("\n");
+		i++;
+	}
+	printf("#CAMERA" \
+		"\nx:\t%lf" \
+		"\ny:\t%lf" \
+		"\nangle:\t%lf (radians)\n",
+		game->camera->pos.x, game->camera->pos.y, game->camera->angle);
 }

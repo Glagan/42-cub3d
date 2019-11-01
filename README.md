@@ -11,5 +11,8 @@
 * https://web.archive.org/web/20160325100729/http://freespace.virgin.net/hugo.elias/graphics/x_main.htm
 * https://github.com/qst0/ft_libgfx
 * https://lodev.org/cgtutor/raycasting.html
+* https://calcworkshop.com/wp-content/uploads/unit-circle-radians-degrees.png
+* https://upload.wikimedia.org/wikipedia/commons/e/ed/30_degree_rotations_expressed_in_radian_measure.svg
+* https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique#/media/Fichier:Unit_circle_angles_color.svg
 
 * https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C

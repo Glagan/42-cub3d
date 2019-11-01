@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 13:30:45 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 12:36:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,12 @@ t_game
 	game->config = NULL;
 	game->camera = NULL;
 	return (game);
+}
+
+int
+	clear_game(t_game *game)
+{
+	mlx_destroy_window(game->window->ptr, game->window->win);
+	exit(0);
+	return (0);
 }

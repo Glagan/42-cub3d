@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:45:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 21:25:52 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 12:49:56 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,23 @@ int
 	int		err;
 	int		e2;
 
-	d.x = abs(p2->x - p1->x);
-	d.y = abs(p2->y - p1->y);
+	printf("{draw line %lfx1%lfy1 %lfx1%lfy1}\n", p1->x, p1->y, p2->x, p2->y);
+	d.x = fabs(p2->x - p1->x);
+	d.y = fabs(p2->y - p1->y);
 	s.x = (p1->x < p2->x) ? 1 : -1;
 	s.y = (p1->y < p2->y) ? 1 : -1;
-	err = (d.x > d.y ? d.x : -d.y) >> 1;
-	while (1)
+	err = (int)(d.x > d.y ? d.x : -d.y) >> 1;
+	while (p1->x != p2->x && p1->y != p2->y)
 	{
 		mlx_pixel_put(window->ptr, window->win, p1->x,   p1->y, color);
-		if (p1->x == p2->x && p1->y == p2->y)
-			break;
 		e2 = err;
-		if (e2 >- d.x) {
+		if (e2 >- d.x)
+		{
 			err -= d.y;
 			p1->x += s.x;
 		}
-		if (e2 < d.y) {
+		if (e2 < d.y)
+		{
 			err += d.x;
 			p1->y += s.y;
 		}
@@ -50,7 +51,7 @@ int
 	int	x;
 	int	y;
 
-	printf("{draw rectangle x:%d y:%d width:%d height:%d}\n", p->x, p->y, wh->x, wh->y);
+	printf("{draw rectangle x:%lf y:%lf width:%lf height:%lf}\n", p->x, p->y, wh->x, wh->y);
 	y = p->y;
 	while (y < p->y + wh->x)
 	{

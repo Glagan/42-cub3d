@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 22:47:09 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:09:25 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void
 			if (i == camera->pos.y && j == camera->pos.x)
 				printf("  ");
 			else
-				printf("%c ", config->map[(i * config->columns) + j]);
+				printf("%c ", MAP_XY(j, i, config));
 			j++;
 		}
 		if (i == config->rows - 1)
@@ -61,11 +61,7 @@ void
 		i++;
 	}
 
-	printf("#CAMERA" \
-		"\nx:\t%d" \
-		"\ny:\t%d" \
-		"\nangle:\t%d (degrees)\n",
-		camera->pos.x, camera->pos.y, camera->angle);
+	debug_print_camera(game);
 
 	window = game->window;
 	printf("#WINDOW" \
@@ -96,6 +92,7 @@ int
 	//mlx_mouse_hook(game->window->win, &mouse_event, game);
 	mlx_hook(game->window->win, X_EVENT_EXIT, 0, &exit_hook, game);
 	mlx_loop_hook(game->window->ptr, &main_loop, game);
+	update_window(game);
 	mlx_loop(game->window->ptr);
 	return (EXIT_SUCCESS);
 }

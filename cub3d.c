@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 23:10:28 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:21:16 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,61 +16,33 @@
 int
 	exit_hook(t_game *game)
 {
-	mlx_destroy_window(game->window->ptr, game->window->win);
-	exit(0);
-	return (0);
+	return (clear_game(game));
 }
 
-int
-	move_camera(t_game *game, t_pos *pos, int direction)
-{
-	t_camera	*camera;
-
-	camera = game->camera;
-	if (camera->angle >= 225 && camera->angle <= 315)
-		pos->y += (-direction);
-	else if (camera->angle >= 45 && camera->angle <= 135)
-		pos->y += (direction);
-	if (camera->angle >= 315 || camera->angle <= 45)
-		pos->x += (direction);
-	else if (camera->angle >= 135 && camera->angle <= 225)
-		pos->x += (-direction);
-	printf("{trying to move to x%dy%d}\n", pos->x, pos->y);
-	if (pos->x < game->config->columns && pos->y < game->config->rows
-		&& game->config->map[(pos->y * game->config->columns) + pos->x] == '0')
-	{
-		printf("{moved to x%dy%d}\n", pos->x, pos->y);
-		copy_pos(&camera->pos, pos);
-		return (1);
-	}
-	return (0);
-}
-
-/**
- * Make angle move 10 by 10 (or something, Wolfenstein has 6.92)
- * and update move_camera (or maybe update_camera doesn't need to be updated)
- */
 int
 	key_event(int keycode, t_game *game)
 {
-	t_pos		new_pos;
 	t_camera	*camera;
 	int			update;
 
 	printf("{key press code:%d}\n", keycode);
+	if (keycode == KEY_ESC)
+		return (clear_game(game));
 	camera = game->camera;
 	update = 1;
-	copy_pos(&new_pos, &camera->pos);
-	if (keycode == KEY_W)
-		update = move_camera(game, &new_pos, 1);
+	if (keycode == KEY_W || keycode == KEY_S)
+		update = move_camera(game, camera->angle);
 	else if (keycode == KEY_A)
-		camera->angle = (camera->angle == 0) ? 315 : camera->angle - 45;
+		camera->angle = fmod(camera->angle + M_PI_6, M_2_M_PI);
 	else if (keycode == KEY_D)
-		camera->angle = (camera->angle + 45) % 360;
-	else if (keycode == KEY_S)
-		update = move_camera(game, &new_pos, -1);
+	{
+		camera->angle -= M_PI_6;
+		if (camera->angle < 0.)
+			camera->angle = M_2_M_PI + camera->angle;
+	}
 	if (update)
 		update_window(game);
+	debug_print_camera(game);
 	return (0);
 }
 

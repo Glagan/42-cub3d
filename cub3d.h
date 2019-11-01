@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 22:29:01 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 13:15:11 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define KEY_TAB	48
 
 t_game			*new_game(void);
+
+int				clear_game(t_game *game);
 
 int				key_event(int keycode, t_game *game);
 

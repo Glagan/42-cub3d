@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 14:46:34 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 14:23:15 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 
 # define DIRECTIONS "NSEW"
 # define VALID_MAP_CHARACTERS " 012NSEW"
+
+/*# define _P_POS(p)			(int)pos->p
+# define MAP_P(pos, conf) 	conf->map[(_P_POS(y) * conf->columns) + _P_POS(x)]*/
+# define _POS(p)			(int)p
+# define MAP(p, c) 			c->map[(_POS(p.y) * c->columns) + _POS(p.x)]
+# define MAP_XY(x, y, c) 	c->map[(y * c->columns) + x]
 
 typedef struct	s_config
 {
