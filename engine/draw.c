@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:45:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 12:49:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 15:19:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,16 @@ int
 int
 	draw_rectangle(t_window *window, t_pos *p, t_pos *wh, int color)
 {
-	int	x;
-	int	y;
+	t_pos	c;
 
 	printf("{draw rectangle x:%lf y:%lf width:%lf height:%lf}\n", p->x, p->y, wh->x, wh->y);
-	y = p->y;
-	while (y < p->y + wh->x)
+	c.y = p->y;
+	while (c.y < p->y + wh->y)
 	{
-		x = p->x;
-		while (x < p->x + wh->y)
-			mlx_pixel_put(window->ptr, window->win, x++, y, color);
-		y++;
+		c.x = p->x;
+		while (c.x < p->x + wh->x)
+			mlx_pixel_put(window->ptr, window->win, c.x++, c.y, color);
+		c.y++;
 	}
 	return (1);
 }
