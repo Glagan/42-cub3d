@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 16:10:23 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 18:33:54 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int
 static void
 	draw_sky_floor(t_game *game)
 {
-	int		i;
+	(void)game;
+	/*int		i;
 	t_pos	p;
 	t_pos	wh;
 	int		shade_height;
@@ -80,30 +81,50 @@ static void
 		draw_rectangle(game->window, &p, &wh,
 			shade_color(game->config->floor_color, 1. + (.5 * i)));
 		i++;
-	}
+	}*/
 }
 
+/*static int
+	dda_hori(t_pos *pos)
+{
+	int	length;
+
+	//if ()
+}*/
+
 static void
-	ray_cast(t_raysult *ray, t_pos *pos, double angle)
+	ray_cast(t_game *game, t_raysult *ray, t_pos *pos, double angle)
 {
 	int		hit;
-	t_pos	step;
-	double	sin_v;
-    double	cos_v;
+	t_pos	sin_cos;
+	t_pos	map_pos;
+	t_pos	difference;
+	t_pos	direction;
 
 	(void)ray;
 	(void)pos;
 	(void)angle;
-
-	copy_pos(&step, pos);
+	set_pos(&map_pos, (int)pos->x, (int)pos->y);
+	set_pos(&sin_cos, sin(angle), cos(angle));
+	set_pos(&difference, pos->x - map_pos.x + cos(angle),
+						pos->y - map_pos.y + sin(angle));
+	if (difference.x > 0)
+		direction.x = 1;
+	else
+		direction.x = -1;
+	if (difference.y > 0)
+		direction.y = 1;
+	else
+		direction.y = -1;
+	printf("{difference %lfx%lfy}\n", difference.x, difference.y);
+	printf("{direction %lfx%lfy}\n", direction.x, direction.y);
 	hit = 0;
 	while (!hit)
 	{
-		cos_v = cos(angle);
-		sin_v = sin(angle);
-		printf("{cosinus:%lf, sinus:%lf}\n", cos_v, sin_v);
-		hit = 1;
+		if (MAP(map_pos, game->config) == '1')
+			hit = 1;
 	}
+	// distance etc
 }
 
 void
@@ -120,11 +141,7 @@ void
 	{
 		// focal_length = 0.8 ?
 		angle_step = atan2(((double)i / game->window->width) - .5, 0.8);
-		/*ray.distance = 0;
-		ray.side = 0;
-		ray.wall_pos.x = 0;
-		ray.wall_pos.y = 0;*/
-		ray_cast(&ray, &game->camera->pos, game->camera->angle + angle_step);
+		ray_cast(game, &ray, &game->camera->pos, game->camera->angle + angle_step);
 		i++;
 	}
 }
