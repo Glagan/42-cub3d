@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 19:53:11 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 20:08:34 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,6 @@ static void
 		i++;
 	}*/
 }
-
-/*static int
-	dda_hori(t_pos *pos)
-{
-	int	length;
-
-	//if ()
-}*/
 
 static void
 	ray_cast(t_game *game, t_raysult *ray, t_pos *pos, double angle)
