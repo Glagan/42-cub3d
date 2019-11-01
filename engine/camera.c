@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 14:24:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 19:10:21 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_camera
 	if (!(camera = (t_camera*)malloc(sizeof(*camera))))
 		return (NULL);
 	find_start_pos_angle(config, camera);
+	set_pos(&camera->dir_vec, -1, 0);
+	set_pos(&camera->plane, 0, 0.66);
 	return (camera);
 }
 

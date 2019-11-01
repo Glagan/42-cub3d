@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 18:33:54 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 19:11:14 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,35 +96,41 @@ static void
 	ray_cast(t_game *game, t_raysult *ray, t_pos *pos, double angle)
 {
 	int		hit;
+	t_pos	l_pos;
 	t_pos	sin_cos;
 	t_pos	map_pos;
 	t_pos	difference;
 	t_pos	direction;
 
 	(void)ray;
-	(void)pos;
-	(void)angle;
+	copy_pos(&l_pos, pos);
 	set_pos(&map_pos, (int)pos->x, (int)pos->y);
 	set_pos(&sin_cos, sin(angle), cos(angle));
-	set_pos(&difference, pos->x - map_pos.x + cos(angle),
-						pos->y - map_pos.y + sin(angle));
-	if (difference.x > 0)
-		direction.x = 1;
-	else
-		direction.x = -1;
-	if (difference.y > 0)
-		direction.y = 1;
-	else
-		direction.y = -1;
 	printf("{difference %lfx%lfy}\n", difference.x, difference.y);
 	printf("{direction %lfx%lfy}\n", direction.x, direction.y);
 	hit = 0;
 	while (!hit)
 	{
+		set_pos(&difference, l_pos.x - map_pos.x + cos(angle),
+							l_pos.y - map_pos.y + sin(angle));
+		if (difference.x > 0)
+			l_pos.x += 1;
+		else
+			l_pos.x += -1;
+		if (difference.y > 0)
+			l_pos.y += 1;
+		else
+			l_pos.y += -1;
+		set_pos(&map_pos, (int)l_pos.x, (int)l_pos.y);
 		if (MAP(map_pos, game->config) == '1')
 			hit = 1;
 	}
-	// distance etc
+	printf("{wall hit %lfx%lfy}\n", map_pos.x, map_pos.y);
+	if (map_pos.x - pos->x >= map_pos.y - pos->y)
+		ray->distance = map_pos.x - pos->x;
+	else
+		ray->distance = map_pos.y - pos->y;
+	ray->distance *= cos(angle);
 }
 
 void
@@ -133,7 +139,11 @@ void
 	int			i;
 	t_raysult	ray;
 	double		angle_step;
+	t_pos		start;
+	t_pos		end;
 
+	set_pos(&start, 0, 0);
+	set_pos(&end, 0, 0);
 	clear_window(game->window);
 	draw_sky_floor(game);
 	i = 0;
@@ -142,6 +152,10 @@ void
 		// focal_length = 0.8 ?
 		angle_step = atan2(((double)i / game->window->width) - .5, 0.8);
 		ray_cast(game, &ray, &game->camera->pos, game->camera->angle + angle_step);
+		int height = game->window->height / ray.distance;
+		set_pos(&start, i, game->window->height / 2 - height / 2);
+		set_pos(&end, i, game->window->height / 2 + height / 2);
+		draw_line(game->window, &start, &end, 0xFFFFFF);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 14:21:07 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/01 19:08:36 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef	struct	s_window
 typedef struct	s_camera
 {
 	double	angle;
+	t_pos	dir_vec;
+	t_pos	plane;
 	t_pos	pos;
 }				t_camera;
 
