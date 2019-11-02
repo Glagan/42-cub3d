@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/02 12:22:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/02 19:57:41 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int
 		if (camera->angle < 0.)
 			camera->angle = M_2_M_PI + camera->angle;
 	}
-	camera->angle_d = RAD_TO_DEG(camera->angle);
 	if (update)
 		update_window(game);
 	debug_print_camera(game);
@@ -71,7 +70,10 @@ int
 int
 	main_loop(t_game *game)
 {
-	(void)game;
-	//clear_window(game->window);
+	static int	updated = 0;
+
+	if (!updated)
+		update_window(game);
+	updated = 1;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 14:22:54 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/02 20:02:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static t_config
 
 	if (!(config = (t_config*)malloc(sizeof(*config))))
 		return (NULL);
-	config->requested_width = 720;
-	config->requested_height = 480;
+	config->requested_width = 320;
+	config->requested_height = 200;
 	config->north_texture_path = NULL;
 	config->south_texture_path = NULL;
 	config->west_texture_path = NULL;
@@ -33,6 +33,7 @@ static t_config
 	config->rows = 0;
 	config->columns = 0;
 	config->save_arg = 0;
+	config->fov = 1.0471975512;
 	return (config);
 }
 

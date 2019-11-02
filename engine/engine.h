@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/02 12:21:22 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/02 20:06:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define X_EVENT_EXIT			17
 
 # define M_2_M_PI	(M_PI * 2.)
+# define M_PI_3		(M_PI / 3.)
 # define M_PI_6		(M_PI / 6.)
 # define M_PI_12	(M_PI / 12.)
 # define M_3_PI_2	((3. * M_PI) / 2.)
@@ -32,7 +33,7 @@
 # define M_5_PI_4	((5. * M_PI) / 4.)
 # define M_7_PI_4	((7. * M_PI) / 4.)
 
-# define RAD_TO_DEG(x)	((int)(x * (180.0 / M_PI)))
+# define WALL_HEIGHT	64
 
 typedef struct	s_raysult
 {
@@ -49,12 +50,15 @@ typedef	struct	s_window
 	int			height;
 	t_pos		origin;
 	t_pos		size;
+	t_pos		half;
+	double		projection_distance;
+	double		angle_step;
 }				t_window;
 
 typedef struct	s_camera
 {
 	double	angle;
-	int		angle_d;
+	double	fov;
 	t_pos	pos;
 }				t_camera;
 

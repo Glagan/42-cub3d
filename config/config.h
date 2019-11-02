@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 18:30:38 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/02 19:59:51 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 /*# define _P_POS(p)			(int)pos->p
 # define MAP_P(pos, conf) 	conf->map[(_P_POS(y) * conf->columns) + _P_POS(x)]*/
 # define MAP(p, c) 			c->map[((int)p.y * c->columns) + (int)p.x]
-# define MAP_XY(x, y, c) 	c->map[(y * c->columns) + x]
+# define MAP_XY(x, y, c) 	c->map[((int)(y) * c->columns) + (int)(x)]
 
 typedef struct	s_config
 {
@@ -41,6 +41,7 @@ typedef struct	s_config
 	int			rows;
 	int			columns;
 	int			save_arg;
+	double		fov;
 }				t_config;
 
 int				parse_dimensions(t_config *config, char const *line);
