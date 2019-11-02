@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 19:51:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/02 12:22:32 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_camera
 	if (!(camera = (t_camera*)malloc(sizeof(*camera))))
 		return (NULL);
 	find_start_pos_angle(config, camera);
+	camera->angle_d = RAD_TO_DEG(camera->angle);
 	return (camera);
 }
 
@@ -105,6 +106,6 @@ void
 	printf("#CAMERA" \
 		"\nx:\t%lf" \
 		"\ny:\t%lf" \
-		"\nangle:\t%lf (radians)\n",
-		game->camera->pos.x, game->camera->pos.y, game->camera->angle);
+		"\nangle:\t%lf (radians) %d (degrees)\n",
+		game->camera->pos.x, game->camera->pos.y, game->camera->angle, game->camera->angle_d);
 }

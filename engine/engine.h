@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 19:51:41 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/02 12:21:22 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define M_5_PI_4	((5. * M_PI) / 4.)
 # define M_7_PI_4	((7. * M_PI) / 4.)
 
+# define RAD_TO_DEG(x)	((int)(x * (180.0 / M_PI)))
+
 typedef struct	s_raysult
 {
 	t_pos		wall_pos;
@@ -52,6 +54,7 @@ typedef	struct	s_window
 typedef struct	s_camera
 {
 	double	angle;
+	int		angle_d;
 	t_pos	pos;
 }				t_camera;
 
