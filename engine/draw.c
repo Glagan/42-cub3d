@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:45:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 19:51:22 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 17:28:04 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int
 	int		err;
 	int		e2;
 
-	printf("{draw line %lfx1%lfy1 %lfx1%lfy1}\n", p1->x, p1->y, p2->x, p2->y);
+	printf("{draw line %lfx1 %lfy1 %lfx1 %lfy1}\n", p1->x, p1->y, p2->x, p2->y);
 	d.x = fabs(p2->x - p1->x);
 	d.y = fabs(p2->y - p1->y);
 	s.x = (p1->x < p2->x) ? 1 : -1;
@@ -29,7 +29,7 @@ int
 	err = (int)(d.x > d.y ? d.x : -d.y) >> 1;
 	while (p1->x != p2->x && p1->y != p2->y)
 	{
-		mlx_pixel_put(window->ptr, window->win, p1->x,   p1->y, color);
+		mlx_pixel_put(window->ptr, window->win, p1->x, p1->y, color);
 		e2 = err;
 		if (e2 >- d.x)
 		{
@@ -41,6 +41,20 @@ int
 			err += d.x;
 			p1->y += s.y;
 		}
+	}
+	return (1);
+}
+
+int
+	draw_vertical_line(t_window *window, t_pos *start, int length, int color)
+{
+	int	i;
+
+	i = 0;
+	while (i < length)
+	{
+		mlx_pixel_put(window->ptr, window->win, start->x, start->y + i, color);
+		i++;
 	}
 	return (1);
 }

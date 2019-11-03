@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/02 20:06:09 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 17:27:21 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 # define M_5_PI_4	((5. * M_PI) / 4.)
 # define M_7_PI_4	((7. * M_PI) / 4.)
 
+/*# define tan_deg(x)	(tan(x * (M_PI / 180)) * (180 / M_PI))
+# define cos_deg(x)	(cos(x * (M_PI / 180)) * (180 / M_PI))
+# define sin_deg(x)	(sin(x * (M_PI / 180)) * (180 / M_PI))*/
+
 # define WALL_HEIGHT	64
 
 typedef struct	s_raysult
@@ -51,7 +55,7 @@ typedef	struct	s_window
 	t_pos		origin;
 	t_pos		size;
 	t_pos		half;
-	double		projection_distance;
+	int			projection_distance;
 	double		angle_step;
 }				t_window;
 
@@ -71,11 +75,14 @@ typedef	struct	s_game
 
 t_camera		*new_camera(t_config *config);
 
-int				move_camera(t_game *game, double angle);
+int				move_camera(t_game *game, int angle);
 
 t_window		*new_window(t_config *config);
 
 int				draw_line(t_window *window, t_pos *p1, t_pos *p2, int color);
+
+int				draw_vertical_line(t_window *window, t_pos *start,
+					int length, int color);
 
 int				draw_rectangle(t_window *window, t_pos *p1, t_pos *wh, int color);
 

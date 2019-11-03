@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/02 20:02:52 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 15:52:07 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ void
 		"\nsprite_texture\t\"%s\"" \
 		"\nsky_color\t#%x" \
 		"\nfloor_color\t#%x" \
+		"\nfov\t#%lf" \
 		"\nmap\t\t%dx%d\n",
 		config->requested_width, config->requested_height,
 		config->north_texture_path, config->south_texture_path,
 		config->west_texture_path, config->east_texture_path,
 		config->sprite_texture_path, config->sky_color, config->floor_color,
+		config->fov,
 		config->columns, config->rows
 	);
 	i = 0;
@@ -67,9 +69,12 @@ void
 	printf("#WINDOW" \
 		"\nwidth:\t%d" \
 		"\nheight:\t%d" \
+		"\nprojection_distance:\t%d" \
+		"\nangle_step:\t%lf" \
 		"\nptr:\t%p" \
 		"\nwindow:\t%p\n",
-		window->width, window->height, window->ptr, window->win);
+		window->width, window->height, window->projection_distance,
+		window->angle_step, window->ptr, window->win);
 }
 
 int
