@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 18:04:50 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 18:08:22 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ static void
 
 /**
  * TODO: wrong displayed height
+ * FIX: crash when looking around
+ * FIX: wrong side when moving left and right -- swaping formulas work but the actual one SHOULD work
  **/
 void
 	update_window(t_game *game)
