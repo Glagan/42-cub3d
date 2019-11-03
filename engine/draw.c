@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 15:45:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 17:28:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 17:42:53 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int
 	int		err;
 	int		e2;
 
-	printf("{draw line %lfx1 %lfy1 %lfx1 %lfy1}\n", p1->x, p1->y, p2->x, p2->y);
+	//printf("{draw line %lfx1 %lfy1 %lfx1 %lfy1}\n", p1->x, p1->y, p2->x, p2->y);
 	d.x = fabs(p2->x - p1->x);
 	d.y = fabs(p2->y - p1->y);
 	s.x = (p1->x < p2->x) ? 1 : -1;
@@ -64,7 +64,7 @@ int
 {
 	t_pos	c;
 
-	printf("{draw rectangle x:%lf y:%lf width:%lf height:%lf}\n", p->x, p->y, wh->x, wh->y);
+	//printf("{draw rectangle x:%lf y:%lf width:%lf height:%lf}\n", p->x, p->y, wh->x, wh->y);
 	c.y = p->y;
 	while (c.y < p->y + wh->y)
 	{

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 17:32:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 18:04:50 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_window
 	set_pos(&window->size, window->width, window->height);
 	set_pos(&window->half, window->width / 2, window->height / 2);
 	window->projection_distance = window->half.x / tan(config->fov / 2.);
-	window->angle_step = (double)config->fov / (double)window->width;
+	window->angle_step = config->fov / (double)window->width;
 	return (window);
 }
 
@@ -159,7 +159,7 @@ static void
 }
 
 /**
- * TODO: make it work...
+ * TODO: wrong displayed height
  **/
 void
 	update_window(t_game *game)
@@ -175,7 +175,7 @@ void
 	clear_window(w);
 	//draw_sky_floor(game);
 	half_fov = game->config->fov / 2;
-	printf("{camera_angle %lf half %lf angle_step %lf}\n", game->camera->angle, half_fov, w->angle_step);
+	//printf("{camera_angle %lf half %lf angle_step %lf}\n", game->camera->angle, half_fov, w->angle_step);
 	i = 0;
 	while (i < w->width)
 	{

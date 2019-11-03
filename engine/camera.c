@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 16:46:50 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 18:03:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_camera
 }
 
 int
-	move_camera(t_game *game, int angle)
+	move_camera(t_game *game, double angle)
 {
 	t_pos		n_pos;
 	t_camera	*camera;
@@ -69,12 +69,10 @@ int
 	copy_pos(&n_pos, &camera->pos);
 	n_pos.x += (cos(M_2_M_PI - angle) * .2);
 	n_pos.y += (sin(M_2_M_PI - angle) * .2);
-	printf("{trying to move to %lfx %lfy}\n", n_pos.x, n_pos.y);
-	if (n_pos.x< game->config->columns
+	if (n_pos.x < game->config->columns
 		&& n_pos.y < game->config->rows
 		&& MAP(n_pos, game->config) == '0')
 	{
-		printf("{moved to %lfx %lfy}\n", n_pos.x, n_pos.y);
 		copy_pos(&camera->pos, &n_pos);
 		return (1);
 	}
@@ -97,7 +95,7 @@ void
 		j = 0;
 		while (j < game->config->columns)
 		{
-			if (i == game->camera->pos.y && j == game->camera->pos.x)
+			if (i == (int)game->camera->pos.y && j == (int)game->camera->pos.x)
 				printf("  ");
 			else
 				printf("%c ", MAP_XY(j, i, game->config));

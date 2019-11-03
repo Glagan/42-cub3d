@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 15:52:07 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 17:51:46 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,10 @@
 void
 	printf_infos(t_game *game)
 {
-	int			i;
-	int			j;
 	t_config	*config;
-	t_camera	*camera;
 	t_window	*window;
 
 	config = game->config;
-	camera = game->camera;
 	printf("#CONFIG" \
 		"\nwidth\t\t%d" \
 		"\nheight\t\t%d" \
@@ -35,7 +31,7 @@ void
 		"\nsprite_texture\t\"%s\"" \
 		"\nsky_color\t#%x" \
 		"\nfloor_color\t#%x" \
-		"\nfov\t#%lf" \
+		"\nfov\t\t%lf" \
 		"\nmap\t\t%dx%d\n",
 		config->requested_width, config->requested_height,
 		config->north_texture_path, config->south_texture_path,
@@ -44,24 +40,6 @@ void
 		config->fov,
 		config->columns, config->rows
 	);
-	i = 0;
-	while (i < config->rows)
-	{
-		j = 0;
-		while (j < config->columns)
-		{
-			if (i == camera->pos.y && j == camera->pos.x)
-				printf("  ");
-			else
-				printf("%c ", MAP_XY(j, i, config));
-			j++;
-		}
-		if (i == config->rows - 1)
-			printf("\n");
-		else
-			printf("\n");
-		i++;
-	}
 
 	debug_print_camera(game);
 

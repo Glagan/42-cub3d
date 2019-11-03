@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 17:27:21 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 17:39:54 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef	struct	s_game
 
 t_camera		*new_camera(t_config *config);
 
-int				move_camera(t_game *game, int angle);
+int				move_camera(t_game *game, double angle);
 
 t_window		*new_window(t_config *config);
 
