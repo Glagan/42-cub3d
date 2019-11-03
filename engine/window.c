@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/02 20:09:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 14:50:18 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,19 +112,25 @@ static void
 		ray_pos.y = floor(pos->y + 1.);
 		direction.y = 1;
 	}
+	ray_pos.x = pos->x + (pos->y - ray_pos.y) / tan(angle);
 	direction.x = 1. / tan(angle);
 	printf("{direction %lfx %lfy}\n", direction.x, direction.y);
-	ray_pos.x = pos->x + (pos->y - ray_pos.y) / tan(angle);
 	hit = 0;
 	copy_pos(&map_pos, &ray_pos);
+	printf("{ray_pos %lfx %lfy}\n", ray_pos.x, ray_pos.y);
+	printf("{checking %lfx %lfy}\n", map_pos.x, map_pos.y);
+	if (MAP(map_pos, game->config) == '1')
+		hit = 1;
+	else
+		copy_pos(&map_pos, &ray_pos);
 	while (!hit)
 	{
-		//printf("{hori checking %lfx %lfy}\n", map_pos.x, map_pos.y);
+		set_pos(&map_pos, map_pos.x + direction.x, map_pos.y + direction.y);
+		printf("{checking %lfx %lfy}\n", map_pos.x, map_pos.y);
 		if (MAP(map_pos, game->config) == '1')
 			hit = 1;
-		set_pos(&map_pos, map_pos.x + direction.x, map_pos.y + direction.y);
 	}
-	distance.x = fabs((map_pos.x - ray_pos.x) / cos(M_PI));
+	distance.x = fabs((map_pos.x - pos->x) / cos(M_PI));
 
 	/**
 	 * Vertical
@@ -140,23 +146,29 @@ static void
 		ray_pos.x = floor(pos->x + 1.), 0;
 		direction.x = 1;
 	}
-	direction.y = tan(angle);
-	printf("{direction %lfx %lfy}\n", direction.x, direction.y);
 	ray_pos.y = pos->y + (pos->x - ray_pos.x) / tan(angle);
+	direction.y = tan(angle);
+	printf("{ray_pos %lfx %lfy}\n", ray_pos.x, ray_pos.y);
+	printf("{direction %lfx %lfy}\n", direction.x, direction.y);
 	hit = 0;
 	copy_pos(&map_pos, &ray_pos);
+	printf("{checking %lfx %lfy}\n", map_pos.x, map_pos.y);
+	if (MAP(map_pos, game->config) == '1')
+		hit = 1;
+	else
+		copy_pos(&map_pos, &ray_pos);
 	while (!hit)
 	{
-		//printf("{vert checking %lfx %lfy}\n", map_pos.x, map_pos.y);
+		set_pos(&map_pos, map_pos.x + direction.x, map_pos.y + direction.y);
+		printf("{checking %lfx %lfy}\n", map_pos.x, map_pos.y);
 		if (MAP(map_pos, game->config) == '1')
 			hit = 1;
-		set_pos(&map_pos, map_pos.x + direction.x, map_pos.y + direction.y);
 	}
-	distance.y = fabs((map_pos.x - ray_pos.x) / cos(M_PI));
+	distance.y = fabs((map_pos.x - pos->x) / cos(M_PI));
+	ray->distance = (distance.x > distance.y) ? distance.x : distance.y;
 }
 
 /**
- * TODO: rewrite with a fov of 60 instead of 90
  * TODO: make it work...
  * TODO: use the formulas from the site, with 64 pixel sizes
  **/
@@ -174,13 +186,14 @@ void
 	w = game->window;
 	clear_window(w);
 	//draw_sky_floor(game);
-	projection_start = game->camera->angle - M_PI_6;
+	projection_start = game->camera->angle - (game->config->fov / 2);
 	i = 0;
 	while (i < w->width)
 	{
+		printf("{column %d angle %lf (radians)}\n", i, projection_start + (w->angle_step * i));
 		ray_cast(game, &ray, &game->camera->pos, projection_start + (w->angle_step * i));
 		printf("{distance %lf}\n", ray.distance * cos(w->angle_step * i));
-		height = 64 / ray.distance * w->projection_distance;
+		height = 64 / (ray.distance * cos(projection_start + (w->angle_step * i))) * w->projection_distance;
 		printf("{height: %d}\n", height);
 		/*
 		set_pos(&start, i, (w->height / 2) - (height / 2));

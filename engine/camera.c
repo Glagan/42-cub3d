@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/02 19:59:26 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/03 14:45:06 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void
 	i = 0;
 	while (i < game->config->rows)
 	{
+		if (i == 0)
+			printf("   0 1 2 3 4 5 6 7 8 9101112131415161718192021222324252627282930\n 0 ");
+		else
+			printf("%2d ", i);
 		j = 0;
 		while (j < game->config->columns)
 		{
