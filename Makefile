@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/10/31 16:27:13 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/04 17:02:13 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS			=	main.c cub3d.c game.c \
 					utils/str.c utils/ft_strdup.c utils/ft_split.c utils/ft_atoi.c \
 					utils/pos.c utils/ft_itoa.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c \
-					engine/window.c engine/camera.c engine/draw.c engine/shortcuts.c
+					engine/window.c engine/camera.c engine/draw.c engine/shortcuts.c \
+					engine/raycast.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 17:39:54 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:19:23 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,18 @@
 # define M_5_PI_4	((5. * M_PI) / 4.)
 # define M_7_PI_4	((7. * M_PI) / 4.)
 
-/*# define tan_deg(x)	(tan(x * (M_PI / 180)) * (180 / M_PI))
-# define cos_deg(x)	(cos(x * (M_PI / 180)) * (180 / M_PI))
-# define sin_deg(x)	(sin(x * (M_PI / 180)) * (180 / M_PI))*/
-
 # define WALL_HEIGHT	64
+# define SPEED			.2
 
 typedef struct	s_raysult
 {
-	t_pos		wall_pos;
-	double		distance;
-	int			side;
+	double	distance;
+	int		side;
+	t_pos	ray_pos;
+	t_pos	ray_dir;
+	t_pos	side_dist;
+	t_pos	delta_dist;
+	t_pos	step;
 }				t_raysult;
 
 typedef	struct	s_window
@@ -52,18 +53,15 @@ typedef	struct	s_window
 	void		*win;
 	int			width;
 	int			height;
-	t_pos		origin;
 	t_pos		size;
 	t_pos		half;
-	int			projection_distance;
-	double		angle_step;
 }				t_window;
 
 typedef struct	s_camera
 {
-	double	angle;
-	double	fov;
 	t_pos	pos;
+	t_pos	dir;
+	t_pos	plane;
 }				t_camera;
 
 typedef	struct	s_game
@@ -75,7 +73,9 @@ typedef	struct	s_game
 
 t_camera		*new_camera(t_config *config);
 
-int				move_camera(t_game *game, double angle);
+int				move_camera(t_game *game, int f_b);
+
+int				rotate_camera(t_game *game, int direction);
 
 t_window		*new_window(t_config *config);
 
@@ -84,11 +84,15 @@ int				draw_line(t_window *window, t_pos *p1, t_pos *p2, int color);
 int				draw_vertical_line(t_window *window, t_pos *start,
 					int length, int color);
 
-int				draw_rectangle(t_window *window, t_pos *p1, t_pos *wh, int color);
+int				draw_rectangle(t_window *window, t_pos *p1, t_pos *wh,
+					int color);
 
-int				draw_string(t_window *window, t_pos *s_pos, char *str, int color);
+int				draw_string(t_window *window, t_pos *s_pos, char *str,
+					int color);
 
 int				clear_window(t_window *window);
+
+double			ray_cast(t_game *game, t_raysult *ray, double camera_x);
 
 void			update_window(t_game *game);
 

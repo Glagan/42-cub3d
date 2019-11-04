@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 11:35:33 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:29:42 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,25 @@ static void
 	camera->pos.x += .5;
 	camera->pos.y += .5;
 	if (MAP(camera->pos, config) == 'N')
-		camera->angle = M_PI_2;
+	{
+		set_pos(&camera->dir, 0, -1);
+		set_pos(&camera->plane, -.66, 0);
+	}
 	else if (MAP(camera->pos, config) == 'E')
-		camera->angle = 0.;
+	{
+		set_pos(&camera->dir, 1, 0);
+		set_pos(&camera->plane, 0, -.66);
+	}
 	else if (MAP(camera->pos, config) == 'S')
-		camera->angle = M_3_PI_2;
+	{
+		set_pos(&camera->dir, 0, 1);
+		set_pos(&camera->plane, .66, 0);
+	}
 	else if (MAP(camera->pos, config) == 'W')
-		camera->angle = M_PI;
+	{
+		set_pos(&camera->dir, -1, 0);
+		set_pos(&camera->plane, 0, .66);
+	}
 	MAP(camera->pos, config) = '0';
 }
 
@@ -52,6 +64,7 @@ t_camera
 	*new_camera(t_config *config)
 {
 	t_camera	*camera;
+	int			i;
 
 	if (!(camera = (t_camera*)malloc(sizeof(*camera))))
 		return (NULL);
@@ -59,24 +72,50 @@ t_camera
 	return (camera);
 }
 
+/*
+** TODO: Move X and Y axis independently to allow *walking* on walls
+*/
 int
-	move_camera(t_game *game, double angle)
+	move_camera(t_game *game, int f_b)
 {
+	t_camera	*c;
 	t_pos		n_pos;
-	t_camera	*camera;
 
-	camera = game->camera;
-	copy_pos(&n_pos, &camera->pos);
-	n_pos.x += (cos(angle) * .2);
-	n_pos.y += (sin(angle) * .2);
-	if (n_pos.x < game->config->columns
+	c = game->camera;
+	copy_pos(&n_pos, &c->pos);
+	if (!f_b)
+		set_pos(&n_pos,
+			n_pos.x + (c->dir.x * .4), n_pos.y + (c->dir.y * .4));
+	else
+		set_pos(&n_pos,
+			n_pos.x - (c->dir.x * .4), n_pos.y - (c->dir.y * .4));
+	if (n_pos.x >= 0 && n_pos.y >= 0
+		&& n_pos.x < game->config->columns
 		&& n_pos.y < game->config->rows
 		&& MAP(n_pos, game->config) == '0')
 	{
-		copy_pos(&camera->pos, &n_pos);
+		copy_pos(&c->pos, &n_pos);
 		return (1);
 	}
 	return (0);
+}
+
+int
+	rotate_camera(t_game *game, int direction)
+{
+	t_camera	*c;
+	t_pos		old;
+	double		rotation;
+
+	c = game->camera;
+	rotation = (!direction) ? -.2 : .2;
+	copy_pos(&old, &c->dir);
+	c->dir.x = (c->dir.x * cos(-rotation)) - (c->dir.y * sin(-rotation));
+	c->dir.y = (old.x * sin(-rotation)) + (c->dir.y * cos(-rotation));
+	copy_pos(&old, &c->plane);
+	c->plane.x = (c->plane.x * cos(-rotation)) - (c->plane.y * sin(-rotation));
+	c->plane.y = (old.x * sin(-rotation)) + (c->plane.y * cos(-rotation));
+	return (1);
 }
 
 void
@@ -95,7 +134,8 @@ void
 		j = 0;
 		while (j < game->config->columns)
 		{
-			if (i == (int)game->camera->pos.y && j == (int)game->camera->pos.x)
+			if (i == (int)game->camera->pos.y
+				&& j == (int)game->camera->pos.x)
 				printf("  ");
 			else
 				printf("%c ", MAP_XY(j, i, game->config));
@@ -110,6 +150,9 @@ void
 	printf("#CAMERA" \
 		"\nx:\t%lf" \
 		"\ny:\t%lf" \
-		"\nangle:\t%lf (radians)\n",
-		game->camera->pos.x, game->camera->pos.y, game->camera->angle);
+		"\nplane:\t%lfx %lfy" \
+		"\ndir:\t%lfx %lfy\n",
+		game->camera->pos.x, game->camera->pos.y,
+		game->camera->plane.x, game->camera->plane.y,
+		game->camera->dir.x, game->camera->dir.y);
 }

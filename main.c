@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 17:51:46 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:09:36 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ void
 		"\nsprite_texture\t\"%s\"" \
 		"\nsky_color\t#%x" \
 		"\nfloor_color\t#%x" \
-		"\nfov\t\t%lf" \
 		"\nmap\t\t%dx%d\n",
 		config->requested_width, config->requested_height,
 		config->north_texture_path, config->south_texture_path,
 		config->west_texture_path, config->east_texture_path,
 		config->sprite_texture_path, config->sky_color, config->floor_color,
-		config->fov,
 		config->columns, config->rows
 	);
 
@@ -47,12 +45,18 @@ void
 	printf("#WINDOW" \
 		"\nwidth:\t%d" \
 		"\nheight:\t%d" \
-		"\nprojection_distance:\t%d" \
-		"\nangle_step:\t%lf" \
 		"\nptr:\t%p" \
 		"\nwindow:\t%p\n",
-		window->width, window->height, window->projection_distance,
-		window->angle_step, window->ptr, window->win);
+		window->width, window->height,
+		window->ptr, window->win);
+}
+
+int
+	exit_error(char const *str)
+{
+	if (str)
+		write(STDOUT_FILENO, str, ft_strlen(str));
+	return (EXIT_FAILURE);
 }
 
 int
@@ -61,15 +65,15 @@ int
 	t_game	*game;
 
 	if (argc != 2) // TODO: look for -save
-		return (EXIT_FAILURE); // TODO: print error
+		return (exit_error("Error:\nNo map specified.\n"));
 	if (!(game = new_game()))
-		return (EXIT_FAILURE); // TODO: print error
+		return (exit_error("Error:\nmalloc error.\n"));
 	if (!(game->config = parse_config(argv[1])))
-		return (EXIT_FAILURE); // TODO: print error
+		return (exit_error("Error:\nInvalid map.\n"));
 	if (!(game->camera = new_camera(game->config)))
-		return (EXIT_FAILURE); // TODO: print error
+		return (exit_error("Error:\nmalloc error.\n"));
 	if (!(game->window = new_window(game->config)))
-		return (EXIT_FAILURE); // TODO: print error
+		return (exit_error("Error:\nmlx failed to create window.\n"));
 	printf_infos(game);
 	mlx_key_hook(game->window->win, &key_event, game);
 	//mlx_mouse_hook(game->window->win, &mouse_event, game);

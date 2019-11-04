@@ -6,12 +6,12 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 17:29:08 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:01:00 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "config.h"
 #include <stdio.h>
+#include "config.h"
 
 static t_config
 	*new_config(void)
@@ -33,7 +33,6 @@ static t_config
 	config->rows = 0;
 	config->columns = 0;
 	config->save_arg = 0;
-	config->fov = 1.0471975512;
 	return (config);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 16:46:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:06:58 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct	s_config
 	int			rows;
 	int			columns;
 	int			save_arg;
-	double		fov;
 }				t_config;
 
 int				parse_dimensions(t_config *config, char const *line);
