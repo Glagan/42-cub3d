@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 18:03:31 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:35:33 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int
 
 	camera = game->camera;
 	copy_pos(&n_pos, &camera->pos);
-	n_pos.x += (cos(M_2_M_PI - angle) * .2);
-	n_pos.y += (sin(M_2_M_PI - angle) * .2);
+	n_pos.x += (cos(angle) * .2);
+	n_pos.y += (sin(angle) * .2);
 	if (n_pos.x < game->config->columns
 		&& n_pos.y < game->config->rows
 		&& MAP(n_pos, game->config) == '0')

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 18:07:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 11:37:48 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int
 	camera = game->camera;
 	update = 1;
 	if (keycode == KEY_W)
-		update = move_camera(game, camera->angle);
-	else if (keycode == KEY_S)
 		update = move_camera(game, -camera->angle);
+	else if (keycode == KEY_S)
+		update = move_camera(game, camera->angle);
 	else if (keycode == KEY_A)
 		camera->angle = fmod(camera->angle + M_PI_6, M_2_M_PI);
 	else if (keycode == KEY_D)

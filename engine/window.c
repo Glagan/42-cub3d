@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 18:08:22 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:49:30 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,17 @@ static void
 	t_pos	map_pos;
 	t_pos	distance;
 
+	if (angle < 0)
+		angle += M_2_M_PI;
+
 	/**
 	 * Horizontal
 	 **/
 
 	set_pos(&distance, 9999, 9999);
-	if (angle != M_PI && angle != 0)
+	if (angle != M_PI && angle != 0.)
 	{
-		if (angle < M_PI) // ray going up
+		if (angle > 0 && angle < M_PI) // ray going up
 		{
 			ray_pos.y = floor(pos->y - 1.);
 			direction.y = -1;
@@ -110,17 +113,19 @@ static void
 			ray_pos.y = floor(pos->y + 1.);
 			direction.y = 1;
 		}
-		ray_pos.x = pos->x + (pos->y - ray_pos.y) / tan(angle);
-		direction.x = 1. / tan(angle);
+		ray_pos.x = pos->x + ((ray_pos.y - pos->y) * tan(angle + 0.000001));
+		direction.x = 1. / tan(angle + 0.000001);
 		hit = 0;
+		printf("{h: d: %lfx %lfy | angle %lf}\n", direction.x, direction.y, angle);
 		copy_pos(&map_pos, &ray_pos);
 		while (!hit)
 		{
-			if (map_pos.x < 0 || map_pos.x > game->config->columns
-				|| map_pos.y < 0 || map_pos.y > game->config->columns)
+			if (map_pos.x < 0. || map_pos.x >= game->config->columns
+				|| map_pos.y < 0. || map_pos.y >= game->config->rows)
 				hit = 1;
+			printf("{h: %lfx %lfy}\n", map_pos.x, map_pos.y);
 			if (MAP(map_pos, game->config) == '1' && (hit =1))
-				distance.x = fabs(map_pos.x - pos->x) / cos(angle);
+				distance.x = fabs(map_pos.x - pos->x) / cos(angle + 0.000001);
 			set_pos(&map_pos, map_pos.x + direction.x, map_pos.y + direction.y);
 		}
 	}
@@ -131,7 +136,7 @@ static void
 
 	if (angle != M_PI_2 && angle != M_3_PI_2)
 	{
-		if (angle > M_PI_2 || angle < M_3_PI_2) // ray going left
+		if (angle > M_PI_2 && angle < M_3_PI_2) // ray going left
 		{
 			ray_pos.x = floor(pos->x - 1.);
 			direction.x = -1;
@@ -141,17 +146,19 @@ static void
 			ray_pos.x = floor(pos->x + 1.);
 			direction.x = 1;
 		}
-		ray_pos.y = pos->y + (pos->x - ray_pos.x) * tan(angle);
-		direction.y = tan(angle);
+		ray_pos.y = pos->y + ((ray_pos.x - pos->x) * tan(angle + 0.000001));
+		direction.y = tan(angle + 0.000001);
+		printf("{v: d: %lfx %lfy | angle %lf}\n", direction.x, direction.y, angle);
 		hit = 0;
 		copy_pos(&map_pos, &ray_pos);
 		while (!hit)
 		{
-			if (map_pos.x < 0 || map_pos.x > game->config->columns
-				|| map_pos.y < 0 || map_pos.y > game->config->columns)
+			if (map_pos.x < 0. || map_pos.x >= game->config->columns
+				|| map_pos.y < 0. || map_pos.y >= game->config->rows)
 				hit = 1;
+			printf("{v: %lfx %lfy}\n", map_pos.x, map_pos.y);
 			if (MAP(map_pos, game->config) == '1' && (hit = 1))
-				distance.y = fabs(map_pos.x - pos->x) / cos(angle);
+				distance.y = fabs(map_pos.y - pos->y) * sin(angle + 0.000001);
 			set_pos(&map_pos, map_pos.x + direction.x, map_pos.y + direction.y);
 		}
 	}
@@ -161,7 +168,6 @@ static void
 /**
  * TODO: wrong displayed height
  * FIX: crash when looking around
- * FIX: wrong side when moving left and right -- swaping formulas work but the actual one SHOULD work
  **/
 void
 	update_window(t_game *game)
@@ -181,7 +187,7 @@ void
 	i = 0;
 	while (i < w->width)
 	{
-		ray_cast(game, &ray, &game->camera->pos, game->camera->angle + (i * w->angle_step) - half_fov);
+		ray_cast(game, &ray, &game->camera->pos, game->camera->angle - (i * w->angle_step) + half_fov);
 		ray.distance = fabs(ray.distance * cos(i * w->angle_step));
 		height = 1. / ray.distance * (double)w->projection_distance;
 		//printf("{height: %d}\n", height);
