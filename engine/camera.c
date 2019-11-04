@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 17:29:42 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:55:29 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_camera
 	*new_camera(t_config *config)
 {
 	t_camera	*camera;
-	int			i;
 
 	if (!(camera = (t_camera*)malloc(sizeof(*camera))))
 		return (NULL);
@@ -108,7 +107,7 @@ int
 	double		rotation;
 
 	c = game->camera;
-	rotation = (!direction) ? -.2 : .2;
+	rotation = (!direction) ? .2 : -.2;
 	copy_pos(&old, &c->dir);
 	c->dir.x = (c->dir.x * cos(-rotation)) - (c->dir.y * sin(-rotation));
 	c->dir.y = (old.x * sin(-rotation)) + (c->dir.y * cos(-rotation));
@@ -116,6 +115,21 @@ int
 	c->plane.x = (c->plane.x * cos(-rotation)) - (c->plane.y * sin(-rotation));
 	c->plane.y = (old.x * sin(-rotation)) + (c->plane.y * cos(-rotation));
 	return (1);
+}
+
+/*
+** TODO: Set an array of camera_x to avoid calculating it before ray_cast
+*/
+void
+	set_camera_x(int width)
+{
+	int	i;
+
+	i = 0;
+	while (i < width)
+	{
+		i++;
+	}
 }
 
 void

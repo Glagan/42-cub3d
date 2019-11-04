@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 17:26:18 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:56:39 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int
 	return (new);
 }*/
 
-
+/*
+** TODO: Window is rendered on the wrong side, the left is on the right
+*/
 void
 	update_window(t_game *game)
 {
@@ -75,17 +77,17 @@ void
 	while (i < w->width)
 	{
 		// test
-			clock_t begin = clock();
+			//clock_t begin = clock();
 		// test
-		camera_x = ((2. * (double)i) / (double)game->window->width) - 1.;
+		camera_x = ((2. * (double)i) / (double)game->window->width) - 1.; // TODO: set_camera_x
 		ray_cast(game, &ray, camera_x);
 		height = fabs((double)w->height / ray.distance);
 		// test
-			clock_t end = clock();
+			/*clock_t end = clock();
 			double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 			if (time_spent > 0.0001)
 				printf("{calculate:%lf}\n", time_spent);
-			begin = clock();
+			begin = clock();*/
 		// test
 		set_pos(&line, i, 0);
 		draw_vertical_line(w, &line, w->half.y - height / 2, game->config->sky_color);
@@ -94,10 +96,10 @@ void
 		set_pos(&line, i, w->half.y + (height / 2));
 		draw_vertical_line(w, &line, w->half.y - height / 2, game->config->floor_color);
 		// test
-			end = clock();
+			/*end = clock();
 			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 			if (time_spent > 0.0001)
-				printf("{draw:%lf}\n", time_spent);
+				printf("{draw:%lf}\n", time_spent);*/
 		// test
 		i++;
 	}
