@@ -18,7 +18,7 @@ SRCS			=	main.c cub3d.c game.c \
 					utils/pos.c utils/ft_itoa.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c \
 					engine/window.c engine/camera.c engine/draw.c engine/shortcuts.c \
-					engine/raycast.c
+					engine/raycast.c engine/image.c engine/draw_image.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc

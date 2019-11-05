@@ -47,10 +47,20 @@ typedef struct	s_raysult
 	t_pos	step;
 }				t_raysult;
 
+typedef struct	s_image
+{
+	void	*img;
+	void	*ptr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}				t_image;
+
 typedef	struct	s_window
 {
 	void		*ptr;
 	void		*win;
+    t_image		image;
 	int			width;
 	int			height;
 	t_pos		size;
@@ -79,6 +89,12 @@ int				rotate_camera(t_game *game, int direction);
 
 t_window		*new_window(t_config *config);
 
+int				clear_window(t_window *window);
+
+void            *destroy_window(t_window *win);
+
+void			update_window(t_game *game);
+
 int				draw_line(t_window *window, t_pos *p1, t_pos *p2, int color);
 
 int				draw_vertical_line(t_window *window, t_pos *start,
@@ -90,14 +106,17 @@ int				draw_rectangle(t_window *window, t_pos *p1, t_pos *wh,
 int				draw_string(t_window *window, t_pos *s_pos, char *str,
 					int color);
 
-int				clear_window(t_window *window);
-
 double			ray_cast(t_game *game, t_raysult *ray, double camera_x);
 
-void			update_window(t_game *game);
+void			init_image(t_window *window, t_image *img);
 
-//
+void			destroy_image(t_window *window, t_image *img);
 
-void			debug_print_camera(t_game *game);
+int				draw_vertical_line_img(t_window *window, t_pos *start,
+					int length, int color);
+
+	//
+
+	void debug_print_camera(t_game *game);
 
 #endif

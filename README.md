@@ -16,5 +16,8 @@
 * https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique#/media/Fichier:Unit_circle_angles_color.svg
 * https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/
 * http://tigcc.ticalc.org/tut/raycasting.html
+* http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/affichage/3d/raycasting
+* https://github.com/GlThibault/Wolf3D/blob/master/srcs/draw.c
+* https://en.wikipedia.org/wiki/X_PixMap
 
 * https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C
