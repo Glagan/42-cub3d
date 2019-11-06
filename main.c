@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:50:02 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:26:51 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void
 
 	window = &game->window;
 	printf("#WINDOW" \
-		"\nwidth:\t%d" \
-		"\nheight:\t%d" \
+		"\nwidth:\t%lf" \
+		"\nheight:\t%lf" \
 		"\nptr:\t%p" \
 		"\nimage:\t%p" \
 		"\nimage_ptr:\t%p" \
 		"\nwindow:\t%p\n",
-		window->width, window->height,
+		window->size.x, window->size.y,
 		window->ptr, window->screen.img,
 		window->screen.ptr, window->win);
 
@@ -67,8 +67,10 @@ void
 }
 
 int
-	exit_error(char const *str)
+	exit_error(t_game *game, char const *str)
 {
+	clear_config(&game->config);
+	destroy_window(&game->window);
 	if (str)
 		write(STDOUT_FILENO, str, ft_strlen(str));
 	return (EXIT_FAILURE);
@@ -80,15 +82,15 @@ int
 	t_game	game;
 
 	if (argc != 2) // TODO: look for -save
-		return (exit_error("Error:\nno map specified.\n"));
+		return (exit_error(&game, "Error:\nno map specified.\n"));
 	init_game(&game);
 	if (!parse_config(&game.config, argv[1]))
-		return (exit_error("Error:\ninvalid map.\n"));
+		return (exit_error(&game, "Error:\ninvalid map.\n"));
 	init_camera(&game.config, &game.camera);
 	if (!init_window(&game.window, &game.config))
-		return (exit_error("Error:\nmlx failed to create window.\n"));
+		return (exit_error(&game, "Error:\nmlx failed to create window.\n"));
 	if (!load_textures(&game))
-		return (exit_error("Error:\nfailed to load texture(s).\n"));
+		return (exit_error(&game, "Error:\nfailed to load texture(s).\n"));
 	//printf_infos(&game);
 	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);

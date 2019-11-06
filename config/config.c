@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:38:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:27:24 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void
 	config->requested_width = 720;
 	config->requested_height = 480;
 	config->north_texture_path = NULL;
-	config->north_color = 0xFFFFFF;
 	config->south_texture_path = NULL;
-	config->south_color = 0xFF0000;
 	config->west_texture_path = NULL;
-	config->west_color = 0x00FF00;
 	config->east_texture_path = NULL;
-	config->east_color = 0x0000FF;
 	config->sprite_texture_path = NULL;
+	config->c[0]= 0xFFFFFF;
+	config->c[1]= 0xFF0000;
+	config->c[2]= 0x00FF00;
+	config->c[3]= 0x0000FF;
 	config->floor_color = 0xa0764c;
 	config->sky_color = 0x33c6e3;
 	config->map = NULL;
@@ -74,8 +74,6 @@ int
 		return (parse_color(config, line));
 	return (!!str_add_back(map_buffer, line));
 }
-
-// TODO: Fix possible leaks everywhere
 
 int
 	parse_config(t_config *config, char const *conf_path)

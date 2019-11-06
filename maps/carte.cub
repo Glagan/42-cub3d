@@ -1,8 +1,8 @@
 R 720 480
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO textures/wall_1.xpm
+SO textures/wall_2.xpm
+WE textures/wall_3.xpm
+EA textures/wall_4.xpm
 S ./path_to_the_sprite_texture
 F 184,113,39
 C 51,198,227

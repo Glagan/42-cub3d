@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:46:02 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:20:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@ int
 int
 	init_window(t_window *window, t_config *config)
 {
-	window->width = config->requested_width;
-	window->height = config->requested_height;
+    set_pos(&window->size, config->requested_width, config->requested_height);
     window->ptr = NULL;
     window->win = NULL;
     window->show_ui = 1;
 	if (!(window->ptr = mlx_init())
 		|| !(window->win = mlx_new_window(
 			window->ptr,
-			window->width,
-			window->height,
+			window->size.x,
+			window->size.y,
 			"cub3d"))
 		)
         return (destroy_window(window));
-    set_pos(&window->size, window->width, window->height);
-    set_pos(&window->half, window->width / 2, window->height / 2);
+    set_pos(&window->half, window->size.x / 2, window->size.y / 2);
+	window->screen.img = NULL;
     init_image(window, &window->screen);
+	window->ui.img = NULL;
     init_image(window, &window->ui);
     return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:46:31 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:28:27 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <math.h>
 # include "mlx/mlx.h"
 # include "config/config.h"
+
+# define DIR_NORTH	0
+# define DIR_SOUTH	1
+# define DIR_WEST	2
+# define DIR_EAST	3
+# define DIR_SPRITE	4
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
@@ -41,7 +47,7 @@ typedef struct	s_raysult
 	double	distance;
 	int		direction;
 	int		side;
-	double	height;
+	int		height;
 	t_pos	ray_pos;
 	t_pos	ray_dir;
 	t_pos	map_pos;
@@ -78,6 +84,7 @@ typedef struct	s_textures
 	t_tex	west;
 	t_tex	east;
 	t_tex	sprite;
+	t_tex	*t[5];
 }				t_textures;
 
 typedef	struct	s_window
@@ -87,8 +94,6 @@ typedef	struct	s_window
     t_image		screen;
     t_image		ui;
 	t_image		*active_img;
-	int			width;
-	int			height;
 	t_pos		size;
 	t_pos		half;
 	int			show_ui;

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 15:24:13 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 13:08:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:27:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int
 		|| copy_map(config, map_buffer, map) != 1)
 		return (0);
 	config->map = map;
+	str_clear(&map_buffer);
 	return (1);
 }
