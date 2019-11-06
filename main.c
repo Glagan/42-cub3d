@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 11:25:36 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:37:23 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void
 		"\nimage_ptr:\t%p" \
 		"\nwindow:\t%p\n",
 		window->width, window->height,
-		window->ptr, window->image.img,
-		window->image.ptr, window->win);
+		window->ptr, window->screen.img,
+		window->screen.ptr, window->win);
 }
 
 int
@@ -80,7 +80,6 @@ int
 	printf_infos(game);
 	mlx_hook(game->window->win, X_EVENT_KEY_PRESS, 0, &key_press, game);
 	mlx_hook(game->window->win, X_EVENT_KEY_RELEASE, 0, &key_release, game);
-	//mlx_key_hook(game->window->win, &key_event, game);
 	mlx_hook(game->window->win, X_EVENT_EXIT, 0, &exit_hook, game);
 	mlx_loop_hook(game->window->ptr, &main_loop, game);
 	mlx_loop(game->window->ptr);

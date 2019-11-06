@@ -1,5 +1,11 @@
 # cub3d
 
+## TODO
+
+* Display sprites
+* Textured walls
+* UI
+
 ## Ressources
 
 * http://users.atw.hu/wolf3d/
@@ -19,5 +25,6 @@
 * http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/affichage/3d/raycasting
 * https://github.com/GlThibault/Wolf3D/blob/master/srcs/draw.c
 * https://en.wikipedia.org/wiki/X_PixMap
+* https://github.com/keuhdall/images_example
 
 * https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C

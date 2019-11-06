@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 14:24:51 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:10:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,14 @@ typedef	struct	s_window
 {
 	void		*ptr;
 	void		*win;
-    t_image		image;
+    t_image		screen;
+    t_image		ui;
+	t_image		*active_img;
 	int			width;
 	int			height;
 	t_pos		size;
 	t_pos		half;
+	int			show_ui;
 }				t_window;
 
 typedef struct	s_camera
@@ -95,15 +98,13 @@ int				clear_window(t_window *window);
 
 void            *destroy_window(t_window *win);
 
+void			update_screen(t_game *game);
+
+void			update_ui(t_game *game);
+
+void			write_ui_text(t_game *game);
+
 void			update_window(t_game *game);
-
-int				draw_line(t_window *window, t_pos *p1, t_pos *p2, int color);
-
-int				draw_vertical_line(t_window *window, t_pos *start,
-					int length, int color);
-
-int				draw_rectangle(t_window *window, t_pos *p1, t_pos *wh,
-					int color);
 
 int				draw_string(t_window *window, t_pos *s_pos, char *str,
 					int color);
@@ -116,6 +117,9 @@ void			destroy_image(t_window *window, t_image *img);
 
 int				draw_vertical_line_img(t_window *window, t_pos *start,
 					int length, int color);
+
+int				draw_rectangle_img(t_window *window, t_pos *p1,
+					t_pos *p2, int color);
 
 int				shade_color(int color, double divide);
 
