@@ -36,6 +36,10 @@ int
 	init_window(t_window *window, t_config *config)
 {
     set_pos(&window->size, config->requested_width, config->requested_height);
+    if (window->size.x > 1080)
+        window->size.x = 1080;
+    if (window->size.y > 1920)
+        window->size.y = 1920;
     window->ptr = NULL;
     window->win = NULL;
     window->show_ui = 1;

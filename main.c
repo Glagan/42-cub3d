@@ -91,6 +91,7 @@ int
 		return (exit_error(&game, "Error:\nmlx failed to create window.\n"));
 	if (!load_textures(&game))
 		return (exit_error(&game, "Error:\nfailed to load texture(s).\n"));
+	calculate_camera_x(&game.camera_x);
 	//printf_infos(&game);
 	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);

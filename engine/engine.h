@@ -30,18 +30,6 @@
 # define X_EVENT_MOUSE_MOVE		6
 # define X_EVENT_EXIT			17
 
-# define M_2_M_PI	(M_PI * 2.)
-# define M_PI_3		(M_PI / 3.)
-# define M_PI_6		(M_PI / 6.)
-# define M_PI_12	(M_PI / 12.)
-# define M_3_PI_2	((3. * M_PI) / 2.)
-# define M_3_PI_4	((3. * M_PI) / 4.)
-# define M_5_PI_4	((5. * M_PI) / 4.)
-# define M_7_PI_4	((7. * M_PI) / 4.)
-
-# define WALL_HEIGHT	64
-# define SPEED			.2
-
 typedef struct	s_raysult
 {
 	double	distance;
@@ -114,6 +102,7 @@ typedef	struct	s_game
 	t_textures	textures;
 	t_pos		move;
 	t_pos		rotate;
+    double      camera_x[1080];
 }				t_game;
 
 void			init_camera(t_config *config, t_camera *camera);
@@ -162,6 +151,8 @@ int				draw_rectangle_img(t_window *window, t_pos *p1,
 int				shade_color(int color, double divide);
 
 int				get_tex_color(t_tex *tex, t_pos *pos);
+
+void			calculate_camera_x(double width, double r[1080]);
 
 //
 

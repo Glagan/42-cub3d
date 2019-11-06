@@ -92,15 +92,13 @@ void
 	int			i;
 	t_pos		line;
 	t_raysult	ray;
-	double		camera_x;
 
 	w = &game->window;
 	w->active_img = &w->screen;
 	i = 0;
 	while (i < w->size.x)
 	{
-		camera_x = ((2. * (double)i) / (double)game->window.size.x) - 1.;
-		ray_cast(game, &ray, camera_x);
+		ray_cast(game, &ray, game->camera_x[i]);
 		ray.height = (int)fabs(w->size.y / ray.distance);
 		if (ray.height > 0)
 		{
