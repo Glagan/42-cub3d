@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 16:09:36 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:25:36 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ void
 		"\nwidth:\t%d" \
 		"\nheight:\t%d" \
 		"\nptr:\t%p" \
+		"\nimage:\t%p" \
+		"\nimage_ptr:\t%p" \
 		"\nwindow:\t%p\n",
 		window->width, window->height,
-		window->ptr, window->win);
+		window->ptr, window->image.img,
+		window->image.ptr, window->win);
 }
 
 int
@@ -75,8 +78,9 @@ int
 	if (!(game->window = new_window(game->config)))
 		return (exit_error("Error:\nmlx failed to create window.\n"));
 	printf_infos(game);
-	mlx_key_hook(game->window->win, &key_event, game);
-	//mlx_mouse_hook(game->window->win, &mouse_event, game);
+	mlx_hook(game->window->win, X_EVENT_KEY_PRESS, 0, &key_press, game);
+	mlx_hook(game->window->win, X_EVENT_KEY_RELEASE, 0, &key_release, game);
+	//mlx_key_hook(game->window->win, &key_event, game);
 	mlx_hook(game->window->win, X_EVENT_EXIT, 0, &exit_hook, game);
 	mlx_loop_hook(game->window->ptr, &main_loop, game);
 	mlx_loop(game->window->ptr);

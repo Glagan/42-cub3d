@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 17:56:39 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:26:38 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 void
     *destroy_window(t_window *win)
 {
-    if (win->image)
-        mlx_destroy_image(win->ptr, win->image);
+    if (win->image.img)
+        mlx_destroy_image(win->ptr, win->image.img);
     if (win->ptr && win->win)
         mlx_destroy_window(win->ptr, win->win);
     free(win);
@@ -52,7 +52,7 @@ t_window
         return (destroy_window(window));
     set_pos(&window->size, window->width, window->height);
     set_pos(&window->half, window->width / 2, window->height / 2);
-    init_image(window, &w->image);
+    init_image(window, &window->image);
     return (window);
 }
 
@@ -108,8 +108,8 @@ void
 		//draw_vertical_line(w, &line, height, (ray.side) ? 0xFFFFFF : 0xCCCCCC);
 		draw_vertical_line_img(w, &line, height, (ray.side) ? 0xFFFFFF : 0xCCCCCC);
 		set_pos(&line, i, w->half.y + (height / 2));
-		//draw_vertical_line(w, &line, w->half.y - height / 2, game->config->floor_color);*/
-		draw_vertical_line_img(w, &line, w->half.y - height / 2, game->config->floor_color);*/
+		//draw_vertical_line(w, &line, w->half.y - height / 2, game->config->floor_color);
+		draw_vertical_line_img(w, &line, w->half.y - height / 2, game->config->floor_color);
 		// test
 			/*end = clock();
 			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
@@ -118,6 +118,6 @@ void
 		// test
 		i++;
 	}
-    mlx_put_image_to_window(w->ptr, w->win, w->image->img, 0, 0);
-	printf("{done}\n");
+    mlx_put_image_to_window(w->ptr, w->win, w->image.img, 0, 0);
+	//printf("{done}\n");
 }

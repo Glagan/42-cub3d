@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/03 16:42:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:12:51 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int				ft_atoi(char const *str);
 t_str			*ft_split(char const *org, char sep);
 
 char			*ft_itoa(int n);
+
+void			*ft_memcpy(void *dst, const void *src, size_t n);
 
 int				str_length(t_str *str);
 

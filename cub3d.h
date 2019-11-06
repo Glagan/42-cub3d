@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/01 13:15:11 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:21:01 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ t_game			*new_game(void);
 
 int				clear_game(t_game *game);
 
-int				key_event(int keycode, t_game *game);
+int				key_press(int keycode, t_game *game);
 
-//int				mouse_event(int button, int x, int y, t_game *game);
+int				key_release(int keycode, t_game *game);
 
 int				exit_hook(t_game *game);
 

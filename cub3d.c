@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 15:23:15 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 11:31:56 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,58 +20,48 @@ int
 }
 
 int
-	key_event(int keycode, t_game *game)
+	key_press(int keycode, t_game *game)
 {
-	t_camera	*camera;
-	int			update;
-
-	printf("{key press code:%d}\n", keycode);
-	if (keycode == KEY_ESC)
-		return (clear_game(game));
-	camera = game->camera;
-	update = 1;
+	printf("{key: %d}\n", keycode);
 	if (keycode == KEY_W)
-		update = move_camera(game, 0);
+		game->move.x = 1;
 	else if (keycode == KEY_S)
-		update = move_camera(game, 1);
+		game->move.y = 1;
 	else if (keycode == KEY_A)
-		update = rotate_camera(game, 0);
+		game->rotate.x = 1;
 	else if (keycode == KEY_D)
-		update = rotate_camera(game, 1);
-	if (update)
-		update_window(game);
-	debug_print_camera(game);
+		game->rotate.y = 1;
 	return (0);
 }
 
-/*int
-	mouse_event(int button, int x, int y, t_game *game)
+int
+	key_release(int keycode, t_game *game)
 {
-	int		color;
-	t_pos	pos;
-	t_pos	dest;
-
-	printf("{click button:%d x:%3d y:%3d}\n", button, x, y);
-	set_pos(&pos, x, y);
-	set_pos(&dest, game->window->width / 2, game->window->height / 2);
-	if (button == LEFT_CLICK)
-		color = 0xFFFF00;
-	else if (button == RIGHT_CLICK)
-		color = 0x00FFFF;
-	else
-		color = 0xFF00FF;
-	clear_window(game->window);
-	draw_line(game->window, &dest, &pos, 0xFFFFFF);
+	printf("{key: %d}\n", keycode);
+	if (keycode == KEY_W)
+		game->move.x = 0;
+	else if (keycode == KEY_S)
+		game->move.y = 0;
+	else if (keycode == KEY_A)
+		game->rotate.x = 0;
+	else if (keycode == KEY_D)
+		game->rotate.y = 0;
+	else if (keycode == KEY_ESC)
+		return (clear_game(game));
 	return (0);
-}*/
+}
 
 int
 	main_loop(t_game *game)
 {
-	static int	updated = 0;
-
-	if (!updated)
-		update_window(game);
-	updated = 1;
+	if (game->move.x)
+		move_camera(game, 0);
+	else if (game->move.y)
+		move_camera(game, 1);
+	if (game->rotate.x)
+		rotate_camera(game, 0);
+	else if (game->rotate.y)
+		rotate_camera(game, 1);
+	update_window(game);
 	return (0);
 }
