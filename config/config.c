@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 16:01:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:41:40 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ static t_config
 	config->requested_width = 720;
 	config->requested_height = 480;
 	config->north_texture_path = NULL;
+	config->north_color = 0xFFFFFF;
 	config->south_texture_path = NULL;
+	config->south_color = 0xFF0000;
 	config->west_texture_path = NULL;
+	config->west_color = 0x00FF00;
 	config->east_texture_path = NULL;
+	config->east_color = 0x0000FF;
 	config->sprite_texture_path = NULL;
 	config->floor_color = 0xa0764c;
 	config->sky_color = 0x33c6e3;

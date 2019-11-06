@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:40:14 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:15:43 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:24:13 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 #include "engine.h"
 
 void
-	update_ui(t_game *game)
+	clear_ui(t_window *w)
 {
-	t_window	*w;
 	t_pos		start;
 
 	set_pos(&start, 0, 0);
-	w = game->window;
 	w->active_img = &w->ui;
 	draw_rectangle_img(w, &start, &w->size, 0xFF000000);
+}
+
+void
+	update_ui(t_game *game)
+{
+	clear_ui(game->window);
 }
 
 void

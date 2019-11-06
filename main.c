@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 14:37:23 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:54:05 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void
 {
 	t_config	*config;
 	t_window	*window;
+	t_textures	*tex;
 
 	config = game->config;
 	printf("#CONFIG" \
@@ -52,6 +53,17 @@ void
 		window->width, window->height,
 		window->ptr, window->screen.img,
 		window->screen.ptr, window->win);
+
+	tex = &game->textures;
+	printf("#TEXTURES" \
+		"\nnorth:\t%p (%dx%d)" \
+		"\nsouth:\t%p (%dx%d)" \
+		"\nwest:\t%p (%dx%d)" \
+		"\neast:\t%p (%dx%d)\n",
+		tex->no_tex, tex->no_width, tex->no_height,
+		tex->so_tex, tex->so_width, tex->so_height,
+		tex->we_tex, tex->we_width, tex->we_height,
+		tex->ea_tex, tex->ea_width, tex->ea_height);
 }
 
 int
@@ -77,6 +89,8 @@ int
 		return (exit_error("Error:\nmalloc error.\n"));
 	if (!(game->window = new_window(game->config)))
 		return (exit_error("Error:\nmlx failed to create window.\n"));
+	if (!load_textures(game))
+		return (exit_error("Error:\nfailed to load texture(s).\n"));
 	printf_infos(game);
 	mlx_hook(game->window->win, X_EVENT_KEY_PRESS, 0, &key_press, game);
 	mlx_hook(game->window->win, X_EVENT_KEY_RELEASE, 0, &key_release, game);

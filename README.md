@@ -2,9 +2,9 @@
 
 ## TODO
 
-* Display sprites
 * Textured walls
-* UI
+* Display sprites
+* Better UI
 
 ## Ressources
 

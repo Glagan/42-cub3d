@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:10:31 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:38:40 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,26 @@ typedef struct	s_image
 	int		endian;
 }				t_image;
 
+typedef struct	s_textures
+{
+
+	void	*no_tex;
+	int		no_width;
+	int		no_height;
+	void	*so_tex;
+	int		so_width;
+	int		so_height;
+	void	*we_tex;
+	int		we_width;
+	int		we_height;
+	void	*ea_tex;
+	int		ea_width;
+	int		ea_height;
+	void	*sprite_tex;
+	int		sprite_width;
+	int		sprite_height;
+}				t_textures;
+
 typedef	struct	s_window
 {
 	void		*ptr;
@@ -82,6 +102,7 @@ typedef	struct	s_game
 	t_config	*config;
 	t_window	*window;
 	t_camera	*camera;
+	t_textures	textures;
 	t_pos		move;
 	t_pos		rotate;
 }				t_game;
@@ -100,11 +121,15 @@ void            *destroy_window(t_window *win);
 
 void			update_screen(t_game *game);
 
+void			clear_ui(t_window *window);
+
 void			update_ui(t_game *game);
 
 void			write_ui_text(t_game *game);
 
 void			update_window(t_game *game);
+
+int				load_textures(t_game *game);
 
 int				draw_string(t_window *window, t_pos *s_pos, char *str,
 					int color);

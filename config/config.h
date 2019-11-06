@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 13:59:59 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:41:37 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ typedef struct	s_config
 	int			requested_height;
 	int			requested_width;
 	char		*north_texture_path;
+	int			north_color;
 	char		*south_texture_path;
+	int			south_color;
 	char		*west_texture_path;
+	int			west_color;
 	char		*east_texture_path;
+	int			east_color;
 	char		*sprite_texture_path;
 	unsigned	floor_color;
 	unsigned	sky_color;
