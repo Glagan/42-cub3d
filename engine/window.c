@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 13:05:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 13:37:46 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,19 @@ void
 	{
 		camera_x = ((2. * (double)i) / (double)game->window->width) - 1.;
 		ray_cast(game, &ray, camera_x);
-		//printf("{ray_distance: %lf}\n", ray.distance);
 		height = fabs((double)w->height / ray.distance);
-		if (height > 0 && height < (w->height * 4.))
+		if (height > 0)
 		{
 			set_pos(&line, i, height);
 			draw_sky_floor(game->config, w, &line);
 			set_pos(&line, i, w->half.y - (height / 2));
 			draw_vertical_line_img(w, &line, height,
-				shade_color((ray.side) ? 0xFFFFFF : 0xCCCCCC, ray.distance / 2.));
+				shade_color((ray.side) ? 0xFFFFFF : 0xEEEEEE, ray.distance / 3.));
+		}
+		else
+		{
+			set_pos(&line, i, 0);
+			draw_sky_floor(game->config, w, &line);
 		}
 		i++;
 	}

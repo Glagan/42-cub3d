@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:50:30 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 12:19:19 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 13:38:54 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,23 @@ double
 			map_pos.y += ray->step.y;
 			ray->side = 1;
 		}
-		/*if (map_pos.x < 0 || map_pos.x >= game->config->columns
+		if (map_pos.x < 0 || map_pos.x >= game->config->columns
 			|| map_pos.y < 0 || map_pos.y >= game->config->rows)
+		{
+			if (ray->side)
+				map_pos.y -= ray->step.y;
+			else
+				map_pos.x -= ray->step.x;
 			hit = 1;
-		else */
-		if (MAP(map_pos, game->config) == '1')
+		}
+		else if (MAP(map_pos, game->config) == '1')
 			hit = 1;
 	}
-	if (!ray->side)
+	if (ray->side)
 		return (ray->distance = fabs(
-			(map_pos.x - game->camera->pos.x
-			+ (1. - ray->step.x) / 2.) / ray->ray_dir.x));
+			(map_pos.y - game->camera->pos.y
+			+ (1. - ray->step.y) / 2.) / ray->ray_dir.y));
 	return (ray->distance = fabs(
-		(map_pos.y - game->camera->pos.y
-		+ (1. - ray->step.y) / 2.) / ray->ray_dir.y));
+		(map_pos.x - game->camera->pos.x
+		+ (1. - ray->step.x) / 2.) / ray->ray_dir.x));
 }
