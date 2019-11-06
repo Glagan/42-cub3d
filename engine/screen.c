@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 20:28:40 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:58:52 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,6 @@ static void
 	draw_vertical_line_img(w, &l_pos, w->half.y - half, config->floor_color);
 }
 
-static int
-	wall_direction(t_game *game, t_raysult *ray)
-{
-	(void)game;
-
-	if (ray->side)
-	{
-		if (ray->ray_dir.y < 0)
-			return (DIR_NORTH);
-		else
-			return (DIR_SOUTH);
-	}
-	else if (ray->ray_dir.x < 0)
-		return (DIR_WEST);
-	return (DIR_EAST);
-}
-
 /**
  * TODO: Slow when really near walls
  **/
@@ -57,8 +40,9 @@ void
 	t_tex	*tex;
 	t_pos	pixel;
 	int		direction;
+	int		limit;
 
-	direction = wall_direction(game, ray);
+	direction = wall_direction(ray);
 	tex = game->textures.t[direction];
 	set_pos(&pixel, column, game->window.half.y - (ray->height / 2.));
 	if (tex)
@@ -78,11 +62,15 @@ void
 		if (ray->side == 1 && ray->ray_dir.y < 0)
 			p_tex.x = tex->width - p_tex.x - 1.;
 		start = game->window.half.y - (ray->height / 2.);
+		limit = (ray->height > game->window.size.y)
+				? game->window.size.y : ray->height;
 		i = 0;
 		while (i < ray->height)
 		{
 			pixel.y = start + i;
-			if (pixel.y >= 0 && pixel.y < game->window.size.y)
+			if (pixel.y > game->window.size.y)
+				break ;
+			if (pixel.y >= 0)
 			{
 				p_tex.y = ((start + i) * 2 - game->window.size.y + ray->height)
 						* ((tex->height / 2.) / ray->height);
@@ -116,9 +104,11 @@ void
 		ray.height = (int)fabs(w->size.y / ray.distance);
 		if (ray.height > 0)
 		{
-			set_pos(&line, i, ray.height);
 			if (ray.height < game->window.size.y)
+			{
+				set_pos(&line, i, ray.height);
 				draw_sky_floor(&game->config, w, &line);
+			}
 			draw_column(i, game, &ray);
 		}
 		else

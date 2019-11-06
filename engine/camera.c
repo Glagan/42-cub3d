@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:41:10 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:03:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,12 @@ void
 			printf("\n");
 		i++;
 	}
-	printf("#CAMERA" \
+	/*printf("#CAMERA" \
 		"\nx:\t%lf" \
 		"\ny:\t%lf" \
 		"\nplane:\t%lfx %lfy" \
 		"\ndir:\t%lfx %lfy\n",
 		game->camera.pos.x, game->camera.pos.y,
 		game->camera.plane.x, game->camera.plane.y,
-		game->camera.dir.x, game->camera.dir.y);
+		game->camera.dir.x, game->camera.dir.y);*/
 }

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 00:05:58 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 17:22:23 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:57:13 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,11 @@
 void
 	draw_pixel_img(t_window *w, t_pos *pos, int color)
 {
-	if (pos->x >= 0 && pos->x < w->size.x
-		&& pos->y >= 0 && pos->y < w->size.y)
-		ft_memcpy(
-			w->active_img->ptr
-			+ (4 * (int)w->size.x * (int)pos->y) + ((int)pos->x * 4),
-			&color,
-			sizeof(int)
-		);
+	/*if (pos->x >= 0 && pos->x < w->size.x
+		&& pos->y >= 0 && pos->y < w->size.y)*/
+	*(int*)(w->active_img->ptr
+		+ (4 * (int)w->size.x * (int)pos->y)
+		+ ((int)pos->x * 4)) = color;
 }
 
 int
@@ -34,10 +31,11 @@ int
 	int		j;
 	t_pos	pos;
 
+	if (start->x < 0 || start->x > window->size.x)
+		return (1);
 	i = 0;
-	while (i < length)
+	while (i < length && (j = start->y + i) < window->size.y)
 	{
-		j = start->y + i;
 		set_pos(&pos, start->x, j);
 		draw_pixel_img(window, &pos, color);
 		i++;

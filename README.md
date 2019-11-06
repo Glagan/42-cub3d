@@ -2,9 +2,13 @@
 
 ## TODO
 
-* Textured walls
+* Textured sky/floor
 * Display sprites
 * Better UI
+* Optimize when near wall
+* crosshair
+* change fov ?
+* NORMINETTE
 
 ## Ressources
 

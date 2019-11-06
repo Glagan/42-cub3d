@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 20:28:27 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:45:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ int				load_textures(t_game *game);
 
 int				draw_string(t_window *window, t_pos *s_pos, char *str,
 					int color);
+
+int				wall_direction(t_raysult *ray);
 
 double			ray_cast(t_game *game, t_raysult *ray, double camera_x);
 

@@ -6,11 +6,26 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:50:30 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:41:30 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 20:45:00 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
+
+int
+	wall_direction(t_raysult *ray)
+{
+	if (ray->side)
+	{
+		if (ray->ray_dir.y < 0)
+			return (DIR_NORTH);
+		else
+			return (DIR_SOUTH);
+	}
+	else if (ray->ray_dir.x < 0)
+		return (DIR_WEST);
+	return (DIR_EAST);
+}
 
 static void
 	init_ray(t_raysult *ray, t_camera *camera, t_pos *mpos, double camera_x)
