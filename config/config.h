@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 16:06:58 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:07:37 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@
 # define DIRECTIONS "NSEW"
 # define VALID_MAP_CHARACTERS " 012NSEW"
 
-/*# define _P_POS(p)			(int)pos->p
+/*# define _P_POS(p)		(int)pos->p
 # define MAP_P(pos, conf) 	conf->map[(_P_POS(y) * conf->columns) + _P_POS(x)]*/
+# define CHECK_TOP(p)		((int)p.x >= 0 && (int)p.y >= 0)
+# define CHECK_BOT(p, c)	((int)p.x < c->columns && (int)p.y < c->rows)
+# define IN_MAP(p, c)		(CHECK_TOP(p) && CHECK_BOT(p, c))
 # define MAP(p, c) 			c->map[((int)p.y * c->columns) + (int)p.x]
 # define MAP_XY(x, y, c) 	c->map[((int)(y) * c->columns) + (int)(x)]
 

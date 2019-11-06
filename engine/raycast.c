@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:50:30 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/04 17:24:51 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:19:19 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ double
 			map_pos.y += ray->step.y;
 			ray->side = 1;
 		}
+		/*if (map_pos.x < 0 || map_pos.x >= game->config->columns
+			|| map_pos.y < 0 || map_pos.y >= game->config->rows)
+			hit = 1;
+		else */
 		if (MAP(map_pos, game->config) == '1')
 			hit = 1;
 	}

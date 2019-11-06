@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 00:05:58 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 12:50:09 by ncolomer         ###   ########.fr       */
+/*   Created: 2019/11/06 12:33:48 by ncolomer          #+#    #+#             */
+/*   Updated: 2019/11/06 12:34:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
 int
-	draw_vertical_line_img(t_window *window, t_pos *start,
-							int length, int color)
+	shade_color(int color, double divide)
 {
-	int	i;
+	int	new;
 
-	i = 0;
-	while (i < length)
-	{
-		if (start->x < window->size.x && start->y < window->size.y)
-			ft_memcpy(window->image.ptr +
-				(4 * (int)window->size.x * ((int)start->y + i))
-				+ ((int)start->x * 4), &color, sizeof(int));
-		i++;
-	}
-	return (1);
+	if (divide <= 1.)
+		return (color);
+	new = ((int)(((0xFF0000 & color) >> 16) / divide) << 16)
+		+ ((int)(((0x00FF00 & color) >> 8) / divide) << 8)
+		+ ((int)((0x0000FF & color) / divide));
+	return (new);
 }

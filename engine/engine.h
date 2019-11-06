@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 11:22:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:34:17 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef	struct	s_game
 
 t_camera		*new_camera(t_config *config);
 
-int				move_camera(t_game *game, int f_b);
+int				move_camera(t_game *game, int direction);
 
 int				rotate_camera(t_game *game, int direction);
 
@@ -117,8 +117,10 @@ void			destroy_image(t_window *window, t_image *img);
 int				draw_vertical_line_img(t_window *window, t_pos *start,
 					int length, int color);
 
-	//
+int				shade_color(int color, double divide);
 
-	void debug_print_camera(t_game *game);
+//
+
+void debug_print_camera(t_game *game);
 
 #endif

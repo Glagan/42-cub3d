@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 11:26:38 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 13:05:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,20 @@ t_window
     return (window);
 }
 
-/*int
-	shade_color(int color, double divide)
+static void
+	draw_sky_floor(t_config *config, t_window *w, t_pos *pos)
 {
-	int	new;
+	int		half;
+	t_pos	l_pos;
 
-	if (divide <= 1.)
-		return (color);
-	new = ((int)(((0xFF0000 & color) >> 16) / divide) << 16)
-		+ ((int)(((0x00FF00 & color) >> 8) / divide) << 8)
-		+ ((int)((0x0000FF & color) / divide));
-	return (new);
-}*/
+	l_pos.x = pos->x;
+	half = (int)pos->y / 2;
+	l_pos.y = 0;
+	draw_vertical_line_img(w, &l_pos, w->half.y - half, config->sky_color);
+	l_pos.y = w->half.y + half;
+	draw_vertical_line_img(w, &l_pos, w->half.y - half, config->floor_color);
+}
 
-/*
-** TODO: Window is rendered on the wrong side, the left is on the right
-** TODO: Can't draw in mlx_image ? XPM array -> xpm to image -> render image
-*/
 void
 	update_window(t_game *game)
 {
@@ -88,36 +85,21 @@ void
 	i = 0;
 	while (i < w->width)
 	{
-		// test
-			//clock_t begin = clock();
-		// test
-		camera_x = ((2. * (double)i) / (double)game->window->width) - 1.; // TODO: set_camera_x
+		camera_x = ((2. * (double)i) / (double)game->window->width) - 1.;
 		ray_cast(game, &ray, camera_x);
+		//printf("{ray_distance: %lf}\n", ray.distance);
 		height = fabs((double)w->height / ray.distance);
-		// test
-			/*clock_t end = clock();
-			double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-			if (time_spent > 0.0001)
-				printf("{calculate:%lf}\n", time_spent);
-			begin = clock();*/
-		// test
-		set_pos(&line, i, 0);
-		//draw_vertical_line(w, &line, w->half.y - height / 2, game->config->sky_color);
-		draw_vertical_line_img(w, &line, w->half.y - height / 2, game->config->sky_color);
-		set_pos(&line, i, w->half.y - (height / 2));
-		//draw_vertical_line(w, &line, height, (ray.side) ? 0xFFFFFF : 0xCCCCCC);
-		draw_vertical_line_img(w, &line, height, (ray.side) ? 0xFFFFFF : 0xCCCCCC);
-		set_pos(&line, i, w->half.y + (height / 2));
-		//draw_vertical_line(w, &line, w->half.y - height / 2, game->config->floor_color);
-		draw_vertical_line_img(w, &line, w->half.y - height / 2, game->config->floor_color);
-		// test
-			/*end = clock();
-			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-			if (time_spent > 0.0001)
-				printf("{draw:%lf}\n", time_spent);*/
-		// test
+		if (height > 0 && height < (w->height * 4.))
+		{
+			set_pos(&line, i, height);
+			draw_sky_floor(game->config, w, &line);
+			set_pos(&line, i, w->half.y - (height / 2));
+			draw_vertical_line_img(w, &line, height,
+				shade_color((ray.side) ? 0xFFFFFF : 0xCCCCCC, ray.distance / 2.));
+		}
 		i++;
 	}
     mlx_put_image_to_window(w->ptr, w->win, w->image.img, 0, 0);
 	//printf("{done}\n");
+	debug_print_camera(game);
 }

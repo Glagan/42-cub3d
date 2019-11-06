@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 11:31:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:19:45 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int
 int
 	key_press(int keycode, t_game *game)
 {
-	printf("{key: %d}\n", keycode);
+	//printf("{key: %d}\n", keycode);
 	if (keycode == KEY_W)
 		game->move.x = 1;
 	else if (keycode == KEY_S)
@@ -37,7 +37,7 @@ int
 int
 	key_release(int keycode, t_game *game)
 {
-	printf("{key: %d}\n", keycode);
+	//printf("{key: %d}\n", keycode);
 	if (keycode == KEY_W)
 		game->move.x = 0;
 	else if (keycode == KEY_S)
@@ -54,14 +54,18 @@ int
 int
 	main_loop(t_game *game)
 {
+	static int	update = 1;
+
 	if (game->move.x)
-		move_camera(game, 0);
+		update = move_camera(game, 0);
 	else if (game->move.y)
-		move_camera(game, 1);
+		update = move_camera(game, 1);
 	if (game->rotate.x)
-		rotate_camera(game, 0);
+		update = rotate_camera(game, 0);
 	else if (game->rotate.y)
-		rotate_camera(game, 1);
-	update_window(game);
+		update = rotate_camera(game, 1);
+	if (update)
+		update_window(game);
+	update = 0;
 	return (0);
 }
