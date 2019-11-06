@@ -6,20 +6,16 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:41:40 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:38:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "config.h"
 
-static t_config
-	*new_config(void)
+void
+	init_config(t_config *config)
 {
-	t_config	*config;
-
-	if (!(config = (t_config*)malloc(sizeof(*config))))
-		return (NULL);
 	config->requested_width = 720;
 	config->requested_height = 480;
 	config->north_texture_path = NULL;
@@ -37,26 +33,23 @@ static t_config
 	config->rows = 0;
 	config->columns = 0;
 	config->save_arg = 0;
-	return (config);
 }
 
 int
-	clear_config(t_config **config)
+	clear_config(t_config *config)
 {
-	if ((*config)->north_texture_path)
-		free((*config)->north_texture_path);
-	if ((*config)->south_texture_path)
-		free((*config)->south_texture_path);
-	if ((*config)->west_texture_path)
-		free((*config)->west_texture_path);
-	if ((*config)->east_texture_path)
-		free((*config)->east_texture_path);
-	if ((*config)->sprite_texture_path)
-		free((*config)->sprite_texture_path);
-	if ((*config)->map)
-		free((*config)->map);
-	free(*config);
-	*config = NULL;
+	if (config->north_texture_path)
+		free(config->north_texture_path);
+	if (config->south_texture_path)
+		free(config->south_texture_path);
+	if (config->west_texture_path)
+		free(config->west_texture_path);
+	if (config->east_texture_path)
+		free(config->east_texture_path);
+	if (config->sprite_texture_path)
+		free(config->sprite_texture_path);
+	if (config->map)
+		free(config->map);
 	return (0);
 }
 
@@ -84,18 +77,17 @@ int
 
 // TODO: Fix possible leaks everywhere
 
-t_config
-	*parse_config(char const *conf_path)
+int
+	parse_config(t_config *config, char const *conf_path)
 {
-	t_config	*config;
 	int			c_fd;
 	char		*line;
 	int			r;
 	t_str		*map_buffer;
 
-	if ((c_fd = open(conf_path, O_RDONLY)) < 0
-		|| !(config = new_config()))
-		return (NULL);
+	init_config(config);
+	if ((c_fd = open(conf_path, O_RDONLY)) < 0)
+		return (0);
 	map_buffer = NULL;
 	r = 1;
 	while (get_next_line(c_fd, &line))
@@ -107,7 +99,7 @@ t_config
 		r = !!str_add_back(&map_buffer, line);
 	free(line);
 	close(c_fd);
-	if ((!r || !parse_map(config, map_buffer)) && !clear_config(&config))
-		return (PTR_CAST(str_clear(&map_buffer)));
-	return (config);
+	if ((!r || !parse_map(config, map_buffer)) && !clear_config(config))
+		return (str_clear(&map_buffer));
+	return (1);
 }

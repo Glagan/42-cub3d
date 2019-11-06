@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:38:40 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:46:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@
 typedef struct	s_raysult
 {
 	double	distance;
+	int		direction;
 	int		side;
+	double	height;
 	t_pos	ray_pos;
 	t_pos	ray_dir;
+	t_pos	map_pos;
 	t_pos	side_dist;
 	t_pos	delta_dist;
 	t_pos	step;
@@ -56,24 +59,25 @@ typedef struct	s_image
 	int		endian;
 }				t_image;
 
+typedef struct	s_tex
+{
+	char	*path;
+	void	*tex;
+	void	*ptr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}				t_tex;
+
 typedef struct	s_textures
 {
-
-	void	*no_tex;
-	int		no_width;
-	int		no_height;
-	void	*so_tex;
-	int		so_width;
-	int		so_height;
-	void	*we_tex;
-	int		we_width;
-	int		we_height;
-	void	*ea_tex;
-	int		ea_width;
-	int		ea_height;
-	void	*sprite_tex;
-	int		sprite_width;
-	int		sprite_height;
+	t_tex	north;
+	t_tex	south;
+	t_tex	west;
+	t_tex	east;
+	t_tex	sprite;
 }				t_textures;
 
 typedef	struct	s_window
@@ -99,25 +103,25 @@ typedef struct	s_camera
 
 typedef	struct	s_game
 {
-	t_config	*config;
-	t_window	*window;
-	t_camera	*camera;
+	t_config	config;
+	t_window	window;
+	t_camera	camera;
 	t_textures	textures;
 	t_pos		move;
 	t_pos		rotate;
 }				t_game;
 
-t_camera		*new_camera(t_config *config);
+void			init_camera(t_config *config, t_camera *camera);
 
 int				move_camera(t_game *game, int direction);
 
 int				rotate_camera(t_game *game, int direction);
 
-t_window		*new_window(t_config *config);
+int				init_window(t_window *window, t_config *config);
 
 int				clear_window(t_window *window);
 
-void            *destroy_window(t_window *win);
+int				destroy_window(t_window *win);
 
 void			update_screen(t_game *game);
 
@@ -140,6 +144,8 @@ void			init_image(t_window *window, t_image *img);
 
 void			destroy_image(t_window *window, t_image *img);
 
+void			draw_pixel_img(t_window *w, t_pos *pos, int color);
+
 int				draw_vertical_line_img(t_window *window, t_pos *start,
 					int length, int color);
 
@@ -147,6 +153,8 @@ int				draw_rectangle_img(t_window *window, t_pos *p1,
 					t_pos *p2, int color);
 
 int				shade_color(int color, double divide);
+
+int				get_tex_color(t_tex *tex, t_pos *pos);
 
 //
 

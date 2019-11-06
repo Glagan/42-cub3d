@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:10:48 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:46:02 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <time.h>
 #include "engine.h"
 
-void
-    *destroy_window(t_window *win)
+int
+	destroy_window(t_window *win)
 {
     if (win->screen.img)
         mlx_destroy_image(win->ptr, win->screen.img);
@@ -23,8 +23,7 @@ void
         mlx_destroy_image(win->ptr, win->ui.img);
     if (win->ptr && win->win)
         mlx_destroy_window(win->ptr, win->win);
-    free(win);
-    return (NULL);
+    return (0);
 }
 
 int
@@ -33,20 +32,16 @@ int
 	return (mlx_clear_window(window->ptr, window->win));
 }
 
-t_window
-	*new_window(t_config *config)
+int
+	init_window(t_window *window, t_config *config)
 {
-	t_window	*window;
-
-	if (!(window = (t_window*)malloc(sizeof(*window))))
-		return (NULL);
 	window->width = config->requested_width;
 	window->height = config->requested_height;
     window->ptr = NULL;
     window->win = NULL;
     window->show_ui = 1;
 	if (!(window->ptr = mlx_init())
-		|| !(window->win =	mlx_new_window(
+		|| !(window->win = mlx_new_window(
 			window->ptr,
 			window->width,
 			window->height,
@@ -57,7 +52,7 @@ t_window
     set_pos(&window->half, window->width / 2, window->height / 2);
     init_image(window, &window->screen);
     init_image(window, &window->ui);
-    return (window);
+    return (1);
 }
 
 void
@@ -65,7 +60,7 @@ void
 {
 	t_window	*w;
 
-	w = game->window;
+	w = &game->window;
     mlx_put_image_to_window(w->ptr, w->win, w->screen.img, 0, 0);
 	if (w->show_ui)
 	{

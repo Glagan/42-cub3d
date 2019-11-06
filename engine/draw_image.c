@@ -6,32 +6,40 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 00:05:58 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:11:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:22:23 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "engine.h"
+
+void
+	draw_pixel_img(t_window *w, t_pos *pos, int color)
+{
+	if (pos->x >= 0 && pos->x < w->size.x
+		&& pos->y >= 0 && pos->y < w->size.y)
+		ft_memcpy(
+			w->active_img->ptr
+			+ (4 * (int)w->size.x * (int)pos->y) + ((int)pos->x * 4),
+			&color,
+			sizeof(int)
+		);
+}
 
 int
 	draw_vertical_line_img(t_window *window, t_pos *start,
 							int length, int color)
 {
-	int	i;
+	int		i;
+	int		j;
+	t_pos	pos;
 
-	if (start->x < 0)
-		start->x = 0;
-	if (start->y < 0)
-		start->y = 0;
-	if (start->x > window->size.x)
-		start->x = window->size.x;
-	if (start->y + length > window->size.y)
-		length = window->size.y - start->y;
 	i = 0;
 	while (i < length)
 	{
-		ft_memcpy(window->active_img->ptr +
-			(4 * (int)window->size.x * ((int)start->y + i))
-			+ ((int)start->x * 4), &color, sizeof(int));
+		j = start->y + i;
+		set_pos(&pos, start->x, j);
+		draw_pixel_img(window, &pos, color);
 		i++;
 	}
 	return (1);
@@ -53,21 +61,21 @@ static void
 int
 	draw_rectangle_img(t_window *window, t_pos *p1, t_pos *p2, int color)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_pos	pos;
 
 	restrain_pos(p1, &window->size);
 	restrain_pos(p2, &window->size);
 	i = p1->y;
 	while (i < p2->y)
 	{
+		pos.y = i;
 		j = p1->x;
 		while (j < p2->x)
 		{
-			ft_memcpy(window->active_img->ptr +
-				(4 * (int)window->size.x * i)
-				+ ((int)j * 4), &color, sizeof(int));
-			j++;
+			pos.x = j++;
+			draw_pixel_img(window, &pos, color);
 		}
 		i++;
 	}

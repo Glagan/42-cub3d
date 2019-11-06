@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:41:37 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:40:30 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define MAP_P(pos, conf) 	conf->map[(_P_POS(y) * conf->columns) + _P_POS(x)]*/
 # define FINT(x)			((int)floor(x))
 # define CHECK_TOP(p)		(FINT(p.x) >= 0 && FINT(p.y) >= 0)
-# define CHECK_BOT(p, c)	(FINT(p.x) < c->columns && FINT(p.y) < c->rows)
+# define CHECK_BOT(p, c)	(FINT(p.x) < (c).columns && FINT(p.y) < (c).rows)
 # define IN_MAP(p, c)		(CHECK_TOP(p) && CHECK_BOT(p, c))
-# define MAP(p, c) 			c->map[(FINT(p.y) * c->columns) + FINT(p.x)]
-# define MAP_XY(x, y, c) 	c->map[(FINT(y) * c->columns) + FINT(x)]
+# define MAP(p, c) 			(c).map[(FINT(p.y) * (c).columns) + FINT(p.x)]
+# define MAP_XY(x, y, c) 	(c).map[(FINT(y) * (c).columns) + FINT(x)]
 
 typedef struct	s_config
 {
@@ -51,6 +51,8 @@ typedef struct	s_config
 	int			save_arg;
 }				t_config;
 
+void			init_config(t_config *config);
+
 int				parse_dimensions(t_config *config, char const *line);
 
 int				parse_texture_path(t_config *config, char const *line);
@@ -59,7 +61,7 @@ int				parse_sprite_texture(t_config *config, char const *line);
 
 int				parse_color(t_config *config, char const *line);
 
-t_config		*parse_config(char const *conf_path);
+int				parse_config(t_config *config, char const *conf_path);
 
 int				count_check_columns(char const *line);
 

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:17:28 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:47:38 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int
 		return (clear_game(game));
 	else if (keycode == KEY_I)
 	{
-		game->window->show_ui = !game->window->show_ui;
-		if (game->window->show_ui)
+		game->window.show_ui = !game->window.show_ui;
+		if (game->window.show_ui)
 			printf("UI: ON\n");
 		else
 			printf("UI: OFF\n");
@@ -79,10 +79,10 @@ int
 		update = rotate_camera(game, 0);
 	else if (game->rotate.y)
 		update = rotate_camera(game, 1);
-	if (last_ui != game->window->show_ui)
+	if (last_ui != game->window.show_ui)
 	{
 		update = 1;
-		last_ui = game->window->show_ui;
+		last_ui = game->window.show_ui;
 	}
 	if (update)
 	{

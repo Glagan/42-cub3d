@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 14:33:45 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:30:47 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,13 @@
 # define KEY_RIGHT	124
 # define KEY_TOP	126
 # define KEY_BOTTOM	125
+
 # define KEY_TAB	48
 # define KEY_MAJ	257
-
-# define KEY_LEFT_ARROW		123
-# define KEY_RIGHT_ARROW	124
-# define KEY_DOWN_ARROW		125
-# define KEY_UP_ARROW		126
-
 # define KEY_ESC	53
 # define KEY_TAB	48
 
-t_game			*new_game(void);
+void			init_game(t_game *game);
 
 int				clear_game(t_game *game);
 

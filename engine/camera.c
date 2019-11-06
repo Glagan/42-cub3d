@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 14:27:06 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:41:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void
 		camera->pos.x = 0;
 		while (!stop && camera->pos.x < config->columns)
 		{
-			if (ft_in_set(MAP(camera->pos, config), DIRECTIONS))
+			if (ft_in_set(MAP(camera->pos, *config), DIRECTIONS))
 			{
 				stop = 1;
 				break ;
@@ -42,39 +42,34 @@ static void
 static void
 	find_start_angle(t_config *config, t_camera *camera)
 {
-	if (MAP(camera->pos, config) == 'N')
+	if (MAP(camera->pos, *config) == 'N')
 	{
 		set_pos(&camera->dir, 0, -1);
 		set_pos(&camera->plane, .66, 0);
 	}
-	else if (MAP(camera->pos, config) == 'E')
+	else if (MAP(camera->pos, *config) == 'E')
 	{
 		set_pos(&camera->dir, 1, 0);
 		set_pos(&camera->plane, 0, .66);
 	}
-	else if (MAP(camera->pos, config) == 'S')
+	else if (MAP(camera->pos, *config) == 'S')
 	{
 		set_pos(&camera->dir, 0, 1);
 		set_pos(&camera->plane, -.66, 0);
 	}
-	else if (MAP(camera->pos, config) == 'W')
+	else if (MAP(camera->pos, *config) == 'W')
 	{
 		set_pos(&camera->dir, -1, 0);
 		set_pos(&camera->plane, 0, -.66);
 	}
-	MAP(camera->pos, config) = '0';
+	MAP(camera->pos, *config) = '0';
 }
 
-t_camera
-	*new_camera(t_config *config)
+void
+	init_camera(t_config *config, t_camera *camera)
 {
-	t_camera	*camera;
-
-	if (!(camera = (t_camera*)malloc(sizeof(*camera))))
-		return (NULL);
 	find_start_pos(config, camera);
 	find_start_angle(config, camera);
-	return (camera);
 }
 
 int
@@ -82,26 +77,19 @@ int
 {
 	t_camera	*c;
 	t_pos		n_pos;
-	int			ret;
 
-	ret = 0;
-	c = game->camera;
+	c = &game->camera;
 	copy_pos(&n_pos, &c->pos);
 	n_pos.x += (((direction) ? -1 : 1) * (c->dir.x * .11));
-	if (IN_MAP(n_pos, game->config) && MAP(n_pos, game->config) == '0')
-	{
+	if (IN_MAP(n_pos, game->config)
+		&& MAP(n_pos, game->config) == '0')
 		copy_pos(&c->pos, &n_pos);
-		ret = 1;
-	}
-	if (!ret)
-		copy_pos(&n_pos, &c->pos);
+	copy_pos(&n_pos, &c->pos);
 	n_pos.y += (((direction) ? -1 : 1) * (c->dir.y * .11));
-	if (IN_MAP(n_pos, game->config) && MAP(n_pos, game->config) == '0')
-	{
+	if (IN_MAP(n_pos, game->config)
+		&& MAP(n_pos, game->config) == '0')
 		copy_pos(&c->pos, &n_pos);
-		ret = 1;
-	}
-	return (ret);
+	return (1);
 }
 
 int
@@ -111,7 +99,7 @@ int
 	t_pos		old;
 	double		rotation;
 
-	c = game->camera;
+	c = &game->camera;
 	rotation = (!direction) ? .1 : -.1;
 	copy_pos(&old, &c->dir);
 	c->dir.x = (c->dir.x * cos(-rotation)) - (c->dir.y * sin(-rotation));
@@ -129,23 +117,23 @@ void
 	int	j;
 
 	i = 0;
-	while (i < game->config->rows)
+	while (i < game->config.rows)
 	{
 		if (i == 0)
 			printf("   0 1 2 3 4 5 6 7 8 9101112131415161718192021222324252627282930\n 0 ");
 		else
 			printf("%2d ", i);
 		j = 0;
-		while (j < game->config->columns)
+		while (j < game->config.columns)
 		{
-			if (i == (int)game->camera->pos.y
-				&& j == (int)game->camera->pos.x)
+			if (i == (int)game->camera.pos.y
+				&& j == (int)game->camera.pos.x)
 				printf("  ");
 			else
 				printf("%c ", MAP_XY(j, i, game->config));
 			j++;
 		}
-		if (i == game->config->rows - 1)
+		if (i == game->config.rows - 1)
 			printf("\n");
 		else
 			printf("\n");
@@ -156,7 +144,7 @@ void
 		"\ny:\t%lf" \
 		"\nplane:\t%lfx %lfy" \
 		"\ndir:\t%lfx %lfy\n",
-		game->camera->pos.x, game->camera->pos.y,
-		game->camera->plane.x, game->camera->plane.y,
-		game->camera->dir.x, game->camera->dir.y);
+		game->camera.pos.x, game->camera.pos.y,
+		game->camera.plane.x, game->camera.plane.y,
+		game->camera.dir.x, game->camera.dir.y);
 }

@@ -6,11 +6,21 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:30:14 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:50:18 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:47:23 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
+
+static void
+	load_tex(t_window *window, t_tex *tex, char *path)
+{
+	tex->path = path;
+	tex->tex = mlx_xpm_file_to_image(window->ptr,
+		path, &tex->width, &tex->height);
+	tex->ptr = mlx_get_data_addr(tex->tex,
+		&tex->bpp, &tex->size_line, &tex->endian);
+}
 
 /**
  * TODO: Check if texture really loaded
@@ -21,28 +31,24 @@ int
 	t_config	*c;
 	t_textures	*t;
 
-	c = game->config;
+	c = &game->config;
 	t = &game->textures;
 	if (c->north_texture_path)
-		t->no_tex = mlx_xpm_file_to_image(game->window->ptr,
-			c->north_texture_path, &t->no_width, &t->no_height);
+		load_tex(&game->window, &t->north, c->north_texture_path);
 	else
-		t->no_tex = NULL;
+		t->north.tex = NULL;
 	if (c->south_texture_path)
-		t->so_tex = mlx_xpm_file_to_image(game->window->ptr,
-			c->south_texture_path, &t->so_width, &t->so_height);
+		load_tex(&game->window, &t->south, c->south_texture_path);
 	else
-		t->so_tex = NULL;
+		t->south.tex = NULL;
 	if (c->west_texture_path)
-		t->we_tex = mlx_xpm_file_to_image(game->window->ptr,
-			c->west_texture_path, &t->we_width, &t->we_height);
+		load_tex(&game->window, &t->west, c->west_texture_path);
 	else
-		t->we_tex = NULL;
+		t->west.tex = NULL;
 	if (c->east_texture_path)
-		t->ea_tex = mlx_xpm_file_to_image(game->window->ptr,
-			c->east_texture_path, &t->ea_width, &t->ea_height);
+		load_tex(&game->window, &t->east, c->east_texture_path);
 	else
-		t->ea_tex = NULL;
-	t->sprite_tex = NULL;
+		t->east.tex = NULL;
+	t->sprite.tex = NULL;
 	return (1);
 }

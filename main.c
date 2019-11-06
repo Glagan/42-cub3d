@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 15:54:05 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:50:02 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void
 	t_window	*window;
 	t_textures	*tex;
 
-	config = game->config;
+	config = &game->config;
 	printf("#CONFIG" \
 		"\nwidth\t\t%d" \
 		"\nheight\t\t%d" \
@@ -42,7 +42,7 @@ void
 
 	debug_print_camera(game);
 
-	window = game->window;
+	window = &game->window;
 	printf("#WINDOW" \
 		"\nwidth:\t%d" \
 		"\nheight:\t%d" \
@@ -60,10 +60,10 @@ void
 		"\nsouth:\t%p (%dx%d)" \
 		"\nwest:\t%p (%dx%d)" \
 		"\neast:\t%p (%dx%d)\n",
-		tex->no_tex, tex->no_width, tex->no_height,
-		tex->so_tex, tex->so_width, tex->so_height,
-		tex->we_tex, tex->we_width, tex->we_height,
-		tex->ea_tex, tex->ea_width, tex->ea_height);
+		tex->north.tex, tex->north.width, tex->north.height,
+		tex->south.tex, tex->south.width, tex->south.height,
+		tex->west.tex, tex->west.width, tex->west.height,
+		tex->east.tex, tex->east.width, tex->east.height);
 }
 
 int
@@ -77,25 +77,23 @@ int
 int
 	main(int argc, char **argv)
 {
-	t_game	*game;
+	t_game	game;
 
 	if (argc != 2) // TODO: look for -save
-		return (exit_error("Error:\nNo map specified.\n"));
-	if (!(game = new_game()))
-		return (exit_error("Error:\nmalloc error.\n"));
-	if (!(game->config = parse_config(argv[1])))
-		return (exit_error("Error:\nInvalid map.\n"));
-	if (!(game->camera = new_camera(game->config)))
-		return (exit_error("Error:\nmalloc error.\n"));
-	if (!(game->window = new_window(game->config)))
+		return (exit_error("Error:\nno map specified.\n"));
+	init_game(&game);
+	if (!parse_config(&game.config, argv[1]))
+		return (exit_error("Error:\ninvalid map.\n"));
+	init_camera(&game.config, &game.camera);
+	if (!init_window(&game.window, &game.config))
 		return (exit_error("Error:\nmlx failed to create window.\n"));
-	if (!load_textures(game))
+	if (!load_textures(&game))
 		return (exit_error("Error:\nfailed to load texture(s).\n"));
-	printf_infos(game);
-	mlx_hook(game->window->win, X_EVENT_KEY_PRESS, 0, &key_press, game);
-	mlx_hook(game->window->win, X_EVENT_KEY_RELEASE, 0, &key_release, game);
-	mlx_hook(game->window->win, X_EVENT_EXIT, 0, &exit_hook, game);
-	mlx_loop_hook(game->window->ptr, &main_loop, game);
-	mlx_loop(game->window->ptr);
+	//printf_infos(&game);
+	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
+	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
+	mlx_hook(game.window.win, X_EVENT_EXIT, 0, &exit_hook, &game);
+	mlx_loop_hook(game.window.ptr, &main_loop, &game);
+	mlx_loop(game.window.ptr);
 	return (EXIT_SUCCESS);
 }
