@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 13:09:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:26:17 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ int
 		game->move.x = 1;
 	else if (keycode == KEY_S)
 		game->move.y = 1;
-	else if (keycode == KEY_A)
+	if (keycode == KEY_A)
 		game->rotate.x = 1;
 	else if (keycode == KEY_D)
 		game->rotate.y = 1;
+	/*else if (keycode == KEY_Q)
+		game->rotate.x = 1;
+	else if (keycode == KEY_E)
+		game->rotate.y = 1;*/
 	return (0);
 }
 
@@ -40,10 +44,14 @@ int
 		game->move.x = 0;
 	else if (keycode == KEY_S)
 		game->move.y = 0;
-	else if (keycode == KEY_A)
+	if (keycode == KEY_A)
 		game->rotate.x = 0;
 	else if (keycode == KEY_D)
 		game->rotate.y = 0;
+	/*else if (keycode == KEY_Q)
+		game->rotate.x = 0;
+	else if (keycode == KEY_E)
+		game->rotate.y = 0;*/
 	else if (keycode == KEY_ESC)
 		return (clear_game(game));
 	return (0);

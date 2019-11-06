@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 13:33:07 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/06 14:27:06 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int
 	ret = 0;
 	c = game->camera;
 	copy_pos(&n_pos, &c->pos);
-	n_pos.x += (((direction) ? -1 : 1) * (c->dir.x * .1));
+	n_pos.x += (((direction) ? -1 : 1) * (c->dir.x * .11));
 	if (IN_MAP(n_pos, game->config) && MAP(n_pos, game->config) == '0')
 	{
 		copy_pos(&c->pos, &n_pos);
@@ -95,7 +95,7 @@ int
 	}
 	if (!ret)
 		copy_pos(&n_pos, &c->pos);
-	n_pos.y += (((direction) ? -1 : 1) * (c->dir.y * .1));
+	n_pos.y += (((direction) ? -1 : 1) * (c->dir.y * .11));
 	if (IN_MAP(n_pos, game->config) && MAP(n_pos, game->config) == '0')
 	{
 		copy_pos(&c->pos, &n_pos);
