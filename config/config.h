@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 11:56:16 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:03:28 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_config
 	double		move_speed;
 	char		*tex_path[7];
 	unsigned	c[7];
+	double		fov;
 }				t_config;
 
 void			init_config(t_config *config);

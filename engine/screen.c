@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 17:01:13 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:43:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ static void
 			sky_tex.y = j % game->tex[TEX_SKY].height;
 		pixel.y = j++;
 		draw_pixel_img(&game->window, &pixel,
-			(game->tex[TEX_SKY].tex)
+			shade_color((game->tex[TEX_SKY].tex)
 			? get_tex_color(&game->tex[TEX_SKY], &sky_tex)
-			: game->config.c[TEX_SKY]);
+			: game->config.c[TEX_SKY], 0));
 		pixel.y = i--;
-		draw_pixel_img(&game->window, &pixel, game->config.c[TEX_FLOOR]);
+		draw_pixel_img(&game->window, &pixel,
+			shade_color(game->config.c[TEX_FLOOR], 1.5));
 	}
 }
 
@@ -66,7 +67,7 @@ void
 		p_tex.x = (int)(ray->wall_x * tex->width);
 		if (ray->side == 0 && ray->ray_dir.x > 0.)
 			p_tex.x = tex->width - p_tex.x - 1.;
-		if (ray->side == 1 && ray->ray_dir.y < 0.)
+		else if (ray->side == 1 && ray->ray_dir.y < 0.)
 			p_tex.x = tex->width - p_tex.x - 1.;
 		start = max(0, game->window.half.y - (ray->height / 2.));
 		limit = (ray->height > game->window.size.y)
@@ -82,14 +83,18 @@ void
 				p_tex.y = ((start + i) * 2 - game->window.size.y + ray->height)
 						* ((tex->height / 2.) / ray->height);
 				draw_pixel_img(&game->window, &pixel,
-					tex ? get_tex_color(tex, &p_tex) : game->config.c[ray->direction]);
+					shade_color(tex
+						? get_tex_color(tex, &p_tex)
+						: game->config.c[ray->direction],
+						ray->distance / 1.5));
 			}
 			i++;
 		}
 	}
 	else
 		draw_vertical_line_img(&game->window, &pixel,
-			ray->height, game->config.c[ray->direction]);
+			ray->height,
+			shade_color(game->config.c[ray->direction], ray->distance / 1.5));
 }
 
 void
@@ -98,9 +103,13 @@ void
 	t_window	*w;
 	int			i;
 	t_raysult	ray;
+	t_pos		start;
+
 
 	w = &game->window;
 	w->active_img = &w->screen;
+	set_pos(&start, 0, 0);
+	draw_rectangle_img(w, &start, &w->size, 0x0);
 	i = 0;
 	while (i < w->size.x)
 	{

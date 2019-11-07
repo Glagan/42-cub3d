@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 15:41:25 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:40:50 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define KEY_S			1
 # define KEY_D			2
 # define KEY_I			34
+# define KEY_L			8
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
 # define KEY_FORWARD 	126

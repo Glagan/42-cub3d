@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 15:56:54 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:41:15 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,9 @@ int
 	else if (keycode == KEY_ESC)
 		return (clear_game(game));
 	else if (keycode == KEY_I)
-	{
 		game->window.show_ui = !game->window.show_ui;
-		if (game->window.show_ui)
-			printf("UI: ON\n");
-		else
-			printf("UI: OFF\n");
-	}
+	else if (keycode == KEY_L)
+		game->window.shadows = !game->window.shadows;
 	return (0);
 }
 

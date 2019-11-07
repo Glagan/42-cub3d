@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 11:55:34 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:11:08 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void
 	config->save_arg = 0;
 	config->rotate_speed = .11;
 	config->move_speed = .11;
+	config->fov = .66;
 }
 
 int

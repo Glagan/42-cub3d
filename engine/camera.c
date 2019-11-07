@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 12:08:26 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:11:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ static void
 {
 	if (MAP(camera->pos, *config) == 'N')
 	{
-		set_pos(&camera->dir, 0, -1);
-		set_pos(&camera->plane, .66, 0);
+		set_pos(&camera->dir, 0., -1.);
+		set_pos(&camera->plane, config->fov, 0.);
 	}
 	else if (MAP(camera->pos, *config) == 'E')
 	{
-		set_pos(&camera->dir, 1, 0);
-		set_pos(&camera->plane, 0, .66);
+		set_pos(&camera->dir, 1., 0.);
+		set_pos(&camera->plane, 0., config->fov);
 	}
 	else if (MAP(camera->pos, *config) == 'S')
 	{
-		set_pos(&camera->dir, 0, 1);
-		set_pos(&camera->plane, -.66, 0);
+		set_pos(&camera->dir, 0., 1.);
+		set_pos(&camera->plane, -config->fov, 0.);
 	}
 	else if (MAP(camera->pos, *config) == 'W')
 	{
-		set_pos(&camera->dir, -1, 0);
-		set_pos(&camera->plane, 0, -.66);
+		set_pos(&camera->dir, -1., 0.);
+		set_pos(&camera->plane, 0., -config->fov);
 	}
 	MAP(camera->pos, *config) = '0';
 }

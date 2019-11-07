@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 17:01:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:41:29 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct	s_window
 	t_pos		size;
 	t_pos		half;
 	int			show_ui;
+	int			shadows;
 }				t_window;
 
 typedef struct	s_camera

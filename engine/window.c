@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:53:02 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 16:41:12 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:41:46 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int
     window->ptr = NULL;
     window->win = NULL;
     window->show_ui = 1;
+    window->shadows = 1;
 	if (!(window->ptr = mlx_init())
 		|| !(window->win = mlx_new_window(
 			window->ptr,
