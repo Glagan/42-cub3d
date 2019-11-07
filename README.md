@@ -2,7 +2,6 @@
 
 ## TODO
 
-* Textured sky/floor
 * Display sprites
 * Better UI
 * Optimize when near wall

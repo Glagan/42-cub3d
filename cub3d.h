@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:30:47 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:41:25 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@
 # define SCROLL_UP		4
 # define SCROLL_DOWN	5
 
-# define KEY_1		18
-# define KEY_2		19
-# define KEY_3		20
-# define KEY_4		21
-# define KEY_Q		12
-# define KEY_W		13
-# define KEY_E		14
-# define KEY_R		15
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
-# define KEY_I		34
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
-# define KEY_TOP	126
-# define KEY_BOTTOM	125
+# define KEY_1			18
+# define KEY_2			19
+# define KEY_3			20
+# define KEY_4			21
+# define KEY_Q			12
+# define KEY_W			13
+# define KEY_E			14
+# define KEY_R			15
+# define KEY_A			0
+# define KEY_S			1
+# define KEY_D			2
+# define KEY_I			34
+# define KEY_LEFT		123
+# define KEY_RIGHT		124
+# define KEY_FORWARD 	126
+# define KEY_BACKWARD	125
 
 # define KEY_TAB	48
 # define KEY_MAJ	257

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 13:03:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:42:20 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef	struct	s_game
 	t_tex		tex[7];
 	t_pos		move;
 	t_pos		rotate;
-    double      camera_x[1080];
+    double      camera_x[1920];
     double      cos[2];
     double      sin[2];
 }				t_game;

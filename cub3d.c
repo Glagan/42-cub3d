@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 12:25:23 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 15:56:54 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int
 int
 	key_press(int keycode, t_game *game)
 {
-	if (keycode == KEY_W)
+	if (keycode == KEY_W || keycode == KEY_FORWARD)
 		game->move.x = 1;
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_S || keycode == KEY_BACKWARD)
 		game->move.y = 1;
-	if (keycode == KEY_A)
+	if (keycode == KEY_A || keycode == KEY_LEFT)
 		game->rotate.x = 1;
-	else if (keycode == KEY_D)
+	else if (keycode == KEY_D || keycode == KEY_RIGHT)
 		game->rotate.y = 1;
 	/*else if (keycode == KEY_Q)
 		game->rotate.x = 1;
@@ -40,13 +40,13 @@ int
 int
 	key_release(int keycode, t_game *game)
 {
-	if (keycode == KEY_W)
+	if (keycode == KEY_W || keycode == KEY_FORWARD)
 		game->move.x = 0;
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_S || keycode == KEY_BACKWARD)
 		game->move.y = 0;
-	if (keycode == KEY_A)
+	if (keycode == KEY_A || keycode == KEY_LEFT)
 		game->rotate.x = 0;
-	else if (keycode == KEY_D)
+	else if (keycode == KEY_D || keycode == KEY_RIGHT)
 		game->rotate.y = 0;
 	/*else if (keycode == KEY_Q)
 		game->rotate.x = 0;

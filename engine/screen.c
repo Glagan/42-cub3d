@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 13:31:15 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:38:41 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,26 @@ static void
 	draw_sky_floor(t_game *game, int column, t_raysult *ray)
 {
 	t_pos	sky_tex;
-	t_pos	floor_tex;
 	int		i;
 	int		j;
 	t_pos	pixel;
 
-	set_pos(&sky_tex, column % game->tex[TEX_SKY].width, 0);
-	set_pos(&floor_tex, column % game->tex[TEX_SKY].width, 0);
+	if (game->tex[TEX_SKY].tex)
+		sky_tex.x = column % game->tex[TEX_SKY].width;
 	j = 0;
 	pixel.x = column;
 	i = game->window.size.y;
 	while (i > game->window.half.y + (ray->height / 2.))
 	{
-		sky_tex.y = j % game->tex[TEX_SKY].height;
+		if (game->tex[TEX_SKY].tex)
+			sky_tex.y = j % game->tex[TEX_SKY].height;
 		pixel.y = j++;
-		draw_pixel_img(&game->window, &pixel, get_tex_color(&game->tex[TEX_SKY], &sky_tex));
-		floor_tex.y = i % game->tex[TEX_FLOOR].height;
+		draw_pixel_img(&game->window, &pixel,
+			(game->tex[TEX_SKY].tex)
+			? get_tex_color(&game->tex[TEX_SKY], &sky_tex)
+			: game->config.c[TEX_SKY]);
 		pixel.y = i--;
-		draw_pixel_img(&game->window, &pixel, get_tex_color(&game->tex[TEX_FLOOR], &floor_tex));
+		draw_pixel_img(&game->window, &pixel, game->config.c[TEX_FLOOR]);
 	}
 }
 
