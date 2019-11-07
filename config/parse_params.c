@@ -6,11 +6,10 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:00:15 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 12:38:56 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 12:18:34 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "config.h"
 
 int
@@ -42,58 +41,58 @@ int
 	return (str_clear(&str) | 1);
 }
 
-int
-	parse_texture_path(t_config *config, char const *line)
+static char
+	*path_from_line(int start, char const *line)
 {
-	int		start;
+	int		start_def;
 	int		end;
 	char	*path;
 
-	if (line[0] == 'N' && line[1] == 'O' && config->north_texture_path)
-		free(config->north_texture_path);
-	else if (line[0] == 'S' && line[1] == 'O' && config->south_texture_path)
-		free(config->south_texture_path);
-	else if (line[0] == 'W' && line[1] == 'E' && config->west_texture_path)
-		free(config->west_texture_path);
-	else if (line[0] == 'E' && line[1] == 'A' && config->east_texture_path)
-		free(config->east_texture_path);
-	start = 2;
+	start_def = start;
+	if (!line)
+		return (NULL);
 	while (line[start] && line[start] == ' ')
 		start++;
 	end = ft_strlen(line);
 	while (line[end] == ' ')
 		end--;
-	if (start == 2 || end - start <= 0
+	if (start == start_def || end - start <= 0
 		|| !(path = ft_substr(line, start, end - start)))
-		return (0);
-	if (line[0] == 'N' && line[1] == 'O')
-		config->north_texture_path = path;
-	else if (line[0] == 'S' && line[1] == 'O')
-		config->south_texture_path = path;
-	else if (line[0] == 'W' && line[1] == 'E')
-		config->west_texture_path = path;
-	else if (line[0] == 'E' && line[1] == 'A')
-		config->east_texture_path = path;
-	return (1);
+		return (NULL);
+	return (path);
 }
 
 int
-	parse_sprite_texture(t_config *config, char const *line)
+	parse_texture(t_config *config, char const *line)
 {
-	int		start;
-	int		end;
 	char	*path;
+	int		index;
+	char	c1;
+	char	c2;
 
-	start = 1;
-	while (line[start] && line[start] == ' ')
-		start++;
-	end = ft_strlen(line);
-	while (line[end] == ' ')
-		end--;
-	if (start == 1 || end - start <= 0
-		|| !(path = ft_substr(line, start, end - start)))
+	c1 = line[0];
+	c2 = line[1];
+	index = TEX_SPRITE;
+	if (c1 == 'N' && c2 == 'O')
+		index = TEX_NORTH;
+	else if (c1 == 'S' && c2 == 'O')
+		index = TEX_SOUTH;
+	else if (c1 == 'W' && c2 == 'E')
+		index = TEX_WEST;
+	else if (c1 == 'E' && c2 == 'A')
+		index = TEX_EAST;
+	else if (c1 == 'S' && c2 == 'T')
+		index = TEX_SKY;
+	else if (c1 == 'F' && c2 == 'T')
+		index = TEX_FLOOR;
+	if (config->tex_path[index])
+	{
+		free(config->tex_path[index]);
+		config->tex_path[index] = NULL;
+	}
+	if (!(path = path_from_line((index == TEX_SPRITE) ? 1 : 2, line)))
 		return (0);
-	config->sprite_texture_path = path;
+	config->tex_path[index] = path;
 	return (1);
 }
 
@@ -137,8 +136,6 @@ int
 	str[2] = str[1];
 	if ((int)((color = str_to_color(str[2]))) < 0)
 		return (str_clear(&str[0]) && str_clear(&str[1]));
-	i = (line[0] == 'F')
-		? (config->floor_color = color)
-		: (config->sky_color = color);
+	config->c[(line[0] == 'F') ? TEX_FLOOR : TEX_SKY] = color;
 	return ((str_clear(&str[0]) && str_clear(&str[1])) | 1);
 }

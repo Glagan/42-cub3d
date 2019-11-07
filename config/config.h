@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 19:57:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 11:56:16 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,26 @@
 # define MAP(p, c) 			(c).map[(FINT(p.y) * (c).columns) + FINT(p.x)]
 # define MAP_XY(x, y, c) 	(c).map[(FINT(y) * (c).columns) + FINT(x)]
 
+# define TEX_NORTH			0
+# define TEX_SOUTH			1
+# define TEX_WEST			2
+# define TEX_EAST			3
+# define TEX_SKY			4
+# define TEX_FLOOR			5
+# define TEX_SPRITE			6
+
 typedef struct	s_config
 {
 	int			requested_height;
 	int			requested_width;
-	char		*north_texture_path;
-	char		*south_texture_path;
-	char		*west_texture_path;
-	char		*east_texture_path;
-	char		*sprite_texture_path;
-	unsigned	floor_color;
-	unsigned	sky_color;
 	int			*map;
 	int			rows;
 	int			columns;
 	int			save_arg;
-	int			c[4];
+	double		rotate_speed;
+	double		move_speed;
+	char		*tex_path[7];
+	unsigned	c[7];
 }				t_config;
 
 void			init_config(t_config *config);
@@ -54,9 +58,7 @@ int				clear_config(t_config *config);
 
 int				parse_dimensions(t_config *config, char const *line);
 
-int				parse_texture_path(t_config *config, char const *line);
-
-int				parse_sprite_texture(t_config *config, char const *line);
+int				parse_texture(t_config *config, char const *line);
 
 int				parse_color(t_config *config, char const *line);
 

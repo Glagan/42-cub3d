@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:50:30 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 20:45:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 12:08:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int
 	wall_direction(t_raysult *ray)
 {
 	if (ray->side)
-		return ((ray->ray_dir.y < 0) ? (DIR_NORTH) : (DIR_SOUTH));
-	return ((ray->ray_dir.x < 0) ? (DIR_WEST) : (DIR_EAST));
+		return ((ray->ray_dir.y < 0) ? (TEX_NORTH) : (TEX_SOUTH));
+	return ((ray->ray_dir.x < 0) ? (TEX_WEST) : (TEX_EAST));
 }
 
 static void
@@ -44,7 +44,7 @@ static void
 }
 
 double
-	ray_distance(t_raysult *ray)
+	ray_distance(t_game *game, t_raysult *ray)
 {
 	if (ray->side)
 		return (fabs((ray->map_pos.y - game->camera.pos.y
@@ -53,7 +53,7 @@ double
 				+ (1. - ray->step.x) / 2.) / ray->ray_dir.x));
 }
 
-double
+void
 	ray_cast(t_game *game, t_raysult *ray, double camera_x)
 {
 	int		hit;
@@ -83,5 +83,5 @@ double
 		else if (MAP(ray->map_pos, game->config) == '1')
 			hit = 1;
 	}
-	ray->distance = ray_distance(ray);
+	ray->distance = ray_distance(game, ray);
 }

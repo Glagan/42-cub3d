@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 20:27:24 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 11:55:34 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,44 @@
 void
 	init_config(t_config *config)
 {
+	int	i;
+
 	config->requested_width = 720;
 	config->requested_height = 480;
-	config->north_texture_path = NULL;
-	config->south_texture_path = NULL;
-	config->west_texture_path = NULL;
-	config->east_texture_path = NULL;
-	config->sprite_texture_path = NULL;
+	i = 0;
+	while (i < 7)
+		config->tex_path[i++] = NULL;
 	config->c[0]= 0xFFFFFF;
-	config->c[1]= 0xFF0000;
-	config->c[2]= 0x00FF00;
-	config->c[3]= 0x0000FF;
-	config->floor_color = 0xa0764c;
-	config->sky_color = 0x33c6e3;
+	config->c[1]= 0xFF1010;
+	config->c[2]= 0x10FF10;
+	config->c[3]= 0x1010FF;
+	config->c[4]= 0x33C6E3;
+	config->c[5]= 0xA0764C;
+	config->c[6]= 0x000000;
 	config->map = NULL;
 	config->rows = 0;
 	config->columns = 0;
 	config->save_arg = 0;
+	config->rotate_speed = .11;
+	config->move_speed = .11;
 }
 
 int
 	clear_config(t_config *config)
 {
-	if (config->north_texture_path)
-		free(config->north_texture_path);
-	if (config->south_texture_path)
-		free(config->south_texture_path);
-	if (config->west_texture_path)
-		free(config->west_texture_path);
-	if (config->east_texture_path)
-		free(config->east_texture_path);
-	if (config->sprite_texture_path)
-		free(config->sprite_texture_path);
+	int	i;
+
+	i = 0;
+	while (i < 7)
+	{
+		if (config->tex_path[i])
+			free(config->tex_path[i]);
+		config->tex_path[i] = NULL;
+		i++;
+	}
 	if (config->map)
 		free(config->map);
+	config->map = NULL;
 	return (0);
 }
 
@@ -66,10 +70,11 @@ int
 	else if ((line[0] == 'N' && line[1] == 'O')
 			|| (line[0] == 'S' && line[1] == 'O')
 			|| (line[0] == 'W' && line[1] == 'E')
-			|| (line[0] == 'E' && line[1] == 'A'))
-		return (parse_texture_path(config, line));
-	else if (line[0] == 'S')
-		return (parse_sprite_texture(config, line));
+			|| (line[0] == 'E' && line[1] == 'A')
+			|| (line[0] == 'S' && line[1] == 'T')
+			|| (line[0] == 'F' && line[1] == 'T')
+			|| (line[0] == 'S' && line[1] == ' '))
+		return (parse_texture(config, line));
 	else if (line[0] == 'F' || line[0] == 'C')
 		return (parse_color(config, line));
 	return (!!str_add_back(map_buffer, line));

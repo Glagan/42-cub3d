@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 21:03:09 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 12:08:26 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,18 @@ int
 }
 
 int
-	rotate_camera(t_game *game, int direction)
+	rotate_camera(t_game *game, int dir)
 {
 	t_camera	*c;
 	t_pos		old;
-	double		rotation;
 
 	c = &game->camera;
-	rotation = (!direction) ? .1 : -.1;
 	copy_pos(&old, &c->dir);
-	c->dir.x = (c->dir.x * cos(-rotation)) - (c->dir.y * sin(-rotation));
-	c->dir.y = (old.x * sin(-rotation)) + (c->dir.y * cos(-rotation));
+	c->dir.x = (c->dir.x * game->cos[dir]) - (c->dir.y * game->sin[dir]);
+	c->dir.y = (old.x * game->sin[dir]) + (c->dir.y * game->cos[dir]);
 	copy_pos(&old, &c->plane);
-	c->plane.x = (c->plane.x * cos(-rotation)) - (c->plane.y * sin(-rotation));
-	c->plane.y = (old.x * sin(-rotation)) + (c->plane.y * cos(-rotation));
+	c->plane.x = (c->plane.x * game->cos[dir]) - (c->plane.y * game->sin[dir]);
+	c->plane.y = (old.x * game->sin[dir]) + (c->plane.y * game->cos[dir]);
 	return (1);
 }
 

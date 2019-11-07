@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 20:58:52 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 12:24:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 #include "engine.h"
 
 static void
-	draw_sky_floor(t_config *config, t_window *w, t_pos *pos)
+	draw_sky_floor(t_game *game, t_raysult *ray)
 {
-	int		half;
-	t_pos	l_pos;
-
-	l_pos.x = pos->x;
-	half = (int)pos->y / 2;
-	l_pos.y = 0;
-	draw_vertical_line_img(w, &l_pos, w->half.y - half, config->sky_color);
-	l_pos.y = w->half.y + half;
-	draw_vertical_line_img(w, &l_pos, w->half.y - half, config->floor_color);
+	(void) game;
+	(void) ray;
 }
 
 /**
@@ -43,7 +36,7 @@ void
 	int		limit;
 
 	direction = wall_direction(ray);
-	tex = game->textures.t[direction];
+	tex = &game->tex[direction];
 	set_pos(&pixel, column, game->window.half.y - (ray->height / 2.));
 	if (tex)
 	{
@@ -90,7 +83,6 @@ void
 {
 	t_window	*w;
 	int			i;
-	t_pos		line;
 	t_raysult	ray;
 
 	w = &game->window;
@@ -103,17 +95,11 @@ void
 		if (ray.height > 0)
 		{
 			if (ray.height < game->window.size.y)
-			{
-				set_pos(&line, i, ray.height);
-				draw_sky_floor(&game->config, w, &line);
-			}
+				draw_sky_floor(game, &ray);
 			draw_column(i, game, &ray);
 		}
 		else
-		{
-			set_pos(&line, i, 0);
-			draw_sky_floor(&game->config, w, &line);
-		}
+			draw_sky_floor(game, &ray);
 		i++;
 	}
 }

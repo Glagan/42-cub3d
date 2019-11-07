@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 20:26:51 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 12:36:43 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void
 {
 	t_config	*config;
 	t_window	*window;
-	t_textures	*tex;
 
 	config = &game->config;
 	printf("#CONFIG" \
@@ -29,18 +28,28 @@ void
 		"\nso_texture\t\"%s\"" \
 		"\nwe_texture\t\"%s\"" \
 		"\nea_texture\t\"%s\"" \
+		"\nsky_texture\t\"%s\"" \
+		"\nfloor_texture\t\"%s\"" \
 		"\nsprite_texture\t\"%s\"" \
-		"\nsky_color\t#%x" \
-		"\nfloor_color\t#%x" \
+		"\nnorth_color\t#%08x" \
+		"\nsouth_color\t#%08x" \
+		"\nwest_color\t#%08x" \
+		"\neast_color\t#%08x" \
+		"\nsky_color\t#%08x" \
+		"\nfloor_color\t#%08x" \
+		"\nsprite_color\t#%08x" \
 		"\nmap\t\t%dx%d\n",
 		config->requested_width, config->requested_height,
-		config->north_texture_path, config->south_texture_path,
-		config->west_texture_path, config->east_texture_path,
-		config->sprite_texture_path, config->sky_color, config->floor_color,
+		config->tex_path[0], config->tex_path[1],
+		config->tex_path[2], config->tex_path[3],
+		config->tex_path[4], config->tex_path[5],
+		config->tex_path[6],
+		config->c[0], config->c[1],
+		config->c[2], config->c[3],
+		config->c[4], config->c[5],
+		config->c[6],
 		config->columns, config->rows
 	);
-
-	debug_print_camera(game);
 
 	window = &game->window;
 	printf("#WINDOW" \
@@ -54,16 +63,21 @@ void
 		window->ptr, window->screen.img,
 		window->screen.ptr, window->win);
 
-	tex = &game->textures;
 	printf("#TEXTURES" \
 		"\nnorth:\t%p (%dx%d)" \
 		"\nsouth:\t%p (%dx%d)" \
 		"\nwest:\t%p (%dx%d)" \
-		"\neast:\t%p (%dx%d)\n",
-		tex->north.tex, tex->north.width, tex->north.height,
-		tex->south.tex, tex->south.width, tex->south.height,
-		tex->west.tex, tex->west.width, tex->west.height,
-		tex->east.tex, tex->east.width, tex->east.height);
+		"\neast:\t%p (%dx%d)" \
+		"\nsky:\t%p (%dx%d)" \
+		"\nfloor:\t%p (%dx%d)" \
+		"\nsprite:\t%p (%dx%d)\n",
+		game->tex[0].tex, game->tex[0].width, game->tex[0].height,
+		game->tex[1].tex, game->tex[1].width, game->tex[1].height,
+		game->tex[2].tex, game->tex[2].width, game->tex[2].height,
+		game->tex[3].tex, game->tex[3].width, game->tex[3].height,
+		game->tex[4].tex, game->tex[4].width, game->tex[4].height,
+		game->tex[5].tex, game->tex[5].width, game->tex[5].height,
+		game->tex[6].tex, game->tex[6].width, game->tex[6].height);
 }
 
 int
@@ -91,8 +105,10 @@ int
 		return (exit_error(&game, "Error:\nmlx failed to create window.\n"));
 	if (!load_textures(&game))
 		return (exit_error(&game, "Error:\nfailed to load texture(s).\n"));
-	calculate_camera_x(&game.camera_x);
-	//printf_infos(&game);
+	printf("{loaded textures}\n");
+	calculate_camera_x(game.window.size.x, game.camera_x);
+	calculate_cos_sin(game.config.rotate_speed, game.cos, game.sin);
+	printf_infos(&game);
 	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
 	mlx_hook(game.window.win, X_EVENT_EXIT, 0, &exit_hook, &game);
