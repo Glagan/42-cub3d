@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 16:38:41 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 17:01:13 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static void
 	}
 }
 
-/**
- * TODO: Slow when really near walls
- **/
 void
 	draw_column(int column, t_game *game, t_raysult *ray)
 {
@@ -54,24 +51,24 @@ void
 	int		limit;
 
 	tex = &game->tex[ray->direction];
-	set_pos(&pixel, column, game->window.half.y - (ray->height / 2.));
+	set_pos(&pixel, column, max(0., game->window.half.y - (ray->height / 2.)));
 	if (tex)
 	{
 		if (ray->side)
 			ray->wall_x = ray->ray_pos.x
-					+ ((ray->map_pos.y - ray->ray_pos.y + (1 - ray->step.y) / 2)
+					+ ((ray->map_pos.y - ray->ray_pos.y + (1. - ray->step.y) / 2.)
 					/ ray->ray_dir.y) * ray->ray_dir.x;
 		else
 			ray->wall_x = ray->ray_pos.y
-					+ ((ray->map_pos.x - ray->ray_pos.x + (1 - ray->step.x) / 2)
+					+ ((ray->map_pos.x - ray->ray_pos.x + (1. - ray->step.x) / 2.)
 					/ ray->ray_dir.x) * ray->ray_dir.y;
 		ray->wall_x -= floor(ray->wall_x);
 		p_tex.x = (int)(ray->wall_x * tex->width);
-		if (ray->side == 0 && ray->ray_dir.x > 0)
+		if (ray->side == 0 && ray->ray_dir.x > 0.)
 			p_tex.x = tex->width - p_tex.x - 1.;
-		if (ray->side == 1 && ray->ray_dir.y < 0)
+		if (ray->side == 1 && ray->ray_dir.y < 0.)
 			p_tex.x = tex->width - p_tex.x - 1.;
-		start = game->window.half.y - (ray->height / 2.);
+		start = max(0, game->window.half.y - (ray->height / 2.));
 		limit = (ray->height > game->window.size.y)
 				? game->window.size.y : ray->height;
 		i = 0;
@@ -80,7 +77,7 @@ void
 			pixel.y = start + i;
 			if (pixel.y > game->window.size.y)
 				break ;
-			if (pixel.y >= 0)
+			if (pixel.y >= 0.)
 			{
 				p_tex.y = ((start + i) * 2 - game->window.size.y + ray->height)
 						* ((tex->height / 2.) / ray->height);
@@ -108,7 +105,7 @@ void
 	while (i < w->size.x)
 	{
 		ray_cast(game, &ray, game->camera_x[i]);
-		ray.height = (int)fabs(w->size.y / ray.distance);
+		ray.height = fabs(w->size.y / ray.distance);
 		if (ray.height > 0)
 		{
 			if (ray.height < game->window.size.y)

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 21:00:12 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:47:48 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <stdlib.h>
 
-# define PTR_CAST(a) (void*)((uintptr_t)(a))
+# define PTR_CAST(a)	(void*)((uintptr_t)(a))
+# define max(a, b)		((a > b) ? a : b)
 
 typedef struct	s_pos
 {

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 00:05:58 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 12:08:11 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:51:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@ int
 	int		i;
 	int		j;
 	t_pos	pos;
+	int		limit;
 
 	if (start->x < 0 || start->x > window->size.x)
 		return (1);
+	pos.x = start->x;
+	limit = (int)window->size.y;
 	i = 0;
-	while (i < length && (j = start->y + i) < window->size.y)
+	while (i < length && (j = start->y + i) < limit)
 	{
-		set_pos(&pos, start->x, j);
+		pos.y = j;
 		draw_pixel_img(window, &pos, color);
 		i++;
 	}
