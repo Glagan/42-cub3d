@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 11:59:27 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 13:03:56 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_raysult
 	t_pos	side_dist;
 	t_pos	delta_dist;
 	t_pos	step;
+	double	wall_x;
 }				t_raysult;
 
 typedef struct	s_image

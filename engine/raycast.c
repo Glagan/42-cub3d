@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:50:30 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 12:08:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/07 13:30:35 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ void
 			hit = 1;
 	}
 	ray->distance = ray_distance(game, ray);
+	ray->direction = wall_direction(ray);
 }
