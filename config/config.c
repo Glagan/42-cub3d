@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 17:11:08 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:54:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void
 	i = 0;
 	while (i < 7)
 		config->tex_path[i++] = NULL;
-	config->c[0]= 0xFFFFFF;
-	config->c[1]= 0xFF1010;
-	config->c[2]= 0x10FF10;
-	config->c[3]= 0x1010FF;
-	config->c[4]= 0x33C6E3;
-	config->c[5]= 0xA0764C;
-	config->c[6]= 0x000000;
+	config->c[0] = 0xFFFFFF;
+	config->c[1] = 0xFF1010;
+	config->c[2] = 0x10FF10;
+	config->c[3] = 0x1010FF;
+	config->c[4] = 0x33C6E3;
+	config->c[5] = 0xA0764C;
+	config->c[6] = 0x000000;
 	config->map = NULL;
 	config->rows = 0;
 	config->columns = 0;

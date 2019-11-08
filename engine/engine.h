@@ -6,14 +6,14 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 13:54:37 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:57:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENGINE_H
 # define ENGINE_H
 
-#include <stdio.h>
+# include <stdio.h>
 # include <math.h>
 # include "mlx/mlx.h"
 # include "config/config.h"
@@ -74,8 +74,8 @@ typedef	struct	s_window
 {
 	void		*ptr;
 	void		*win;
-    t_image		screen;
-    t_image		ui;
+	t_image		screen;
+	t_image		ui;
 	t_image		*active_img;
 	t_pos		size;
 	t_pos		half;
@@ -99,10 +99,10 @@ typedef	struct	s_game
 	t_tex		tex[7];
 	t_pos		move;
 	t_pos		rotate;
-    double      camera_x[1920];
-    double      depth[1920];
-    double      cos[2];
-    double      sin[2];
+	double		camera_x[1920];
+	double		depth[1920];
+	double		cos[2];
+	double		sin[2];
 }				t_game;
 
 void			init_camera(t_config *config, t_camera *camera);
@@ -173,10 +173,8 @@ t_sprite		*sort_sprites(t_game *game, t_sprite *sprites);
 void			calculate_camera_x(double width, double r[1080]);
 
 void			calculate_cos_sin(double rotate_speed,
-					double _cos[2], double _sin[2]);
+					double cos_r[2], double sin_r[2]);
 
-//
-
-void debug_print_camera(t_game *game);
+void 			debug_print_camera(t_game *game);
 
 #endif

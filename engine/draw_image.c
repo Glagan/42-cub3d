@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 00:05:58 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 16:51:10 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:00:23 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 void
 	draw_pixel_img(t_window *w, t_pos *pos, int color)
 {
-	/*if (pos->x >= 0 && pos->x < w->size.x
-		&& pos->y >= 0 && pos->y < w->size.y)*/
 	*(int*)(w->active_img->ptr
 		+ (4 * (int)w->size.x * (int)pos->y)
 		+ ((int)pos->x * 4)) = color;

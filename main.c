@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 12:31:34 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:58:28 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void
 		config->c[2], config->c[3],
 		config->c[4], config->c[5],
 		config->c[6],
-		config->columns, config->rows
-	);
-
+		config->columns, config->rows);
 	window = &game->window;
 	printf("#WINDOW" \
 		"\nwidth:\t%lf" \
@@ -62,7 +60,6 @@ void
 		window->size.x, window->size.y,
 		window->ptr, window->screen.img,
 		window->screen.ptr, window->win);
-
 	printf("#TEXTURES" \
 		"\nnorth:\t%p (%dx%d)" \
 		"\nsouth:\t%p (%dx%d)" \
@@ -78,7 +75,6 @@ void
 		game->tex[4].tex, game->tex[4].width, game->tex[4].height,
 		game->tex[5].tex, game->tex[5].width, game->tex[5].height,
 		game->tex[6].tex, game->tex[6].width, game->tex[6].height);
-
 	printf("#SPRITES\nfirst: %p\n", game->sprites);
 }
 

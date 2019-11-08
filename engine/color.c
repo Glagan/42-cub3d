@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:33:48 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 17:17:13 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:58:04 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int
 		return (*(int*)(
 			tex->ptr
 			+ (4 * tex->width * (int)pos->y)
-			+ (4 * (int)pos->x)
-		));
+			+ (4 * (int)pos->x)	));
 	return (0);
 }
