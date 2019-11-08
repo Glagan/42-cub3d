@@ -2,8 +2,6 @@
 
 ## TODO
 
-* Display sprites
-* left and right movement
 * Better UI
 * crosshair
 * ``-save`` option

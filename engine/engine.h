@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 14:57:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:21:07 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct	s_camera
 {
 	t_pos	pos;
 	t_pos	dir;
+	t_pos	x_dir;
 	t_pos	plane;
 }				t_camera;
 
@@ -98,6 +99,7 @@ typedef	struct	s_game
 	t_sprite	*sprites;
 	t_tex		tex[7];
 	t_pos		move;
+	t_pos		x_move;
 	t_pos		rotate;
 	double		camera_x[1920];
 	double		depth[1920];
@@ -108,6 +110,8 @@ typedef	struct	s_game
 void			init_camera(t_config *config, t_camera *camera);
 
 int				move_camera(t_game *game, int direction);
+
+int				move_perp_camera(t_game *game, int direction);
 
 int				rotate_camera(t_game *game, int direction);
 

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 13:37:30 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:21:19 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int
 		game->move.x = 1;
 	else if (keycode == KEY_S || keycode == KEY_BACKWARD)
 		game->move.y = 1;
-	if (keycode == KEY_A || keycode == KEY_LEFT)
+	if (keycode == KEY_A)
+		game->x_move.x = 1;
+	else if (keycode == KEY_D)
+		game->x_move.y = 1;
+	if (keycode == KEY_Q || keycode == KEY_LEFT)
 		game->rotate.x = 1;
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+	else if (keycode == KEY_E || keycode == KEY_RIGHT)
 		game->rotate.y = 1;
-	/*else if (keycode == KEY_Q)
-		game->rotate.x = 1;
-	else if (keycode == KEY_E)
-		game->rotate.y = 1;*/
 	return (0);
 }
 
@@ -44,14 +44,14 @@ int
 		game->move.x = 0;
 	else if (keycode == KEY_S || keycode == KEY_BACKWARD)
 		game->move.y = 0;
-	if (keycode == KEY_A || keycode == KEY_LEFT)
+	if (keycode == KEY_A)
+		game->x_move.x = 0;
+	else if (keycode == KEY_D)
+		game->x_move.y = 0;
+	if (keycode == KEY_Q || keycode == KEY_LEFT)
 		game->rotate.x = 0;
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+	else if (keycode == KEY_E || keycode == KEY_RIGHT)
 		game->rotate.y = 0;
-	/*else if (keycode == KEY_Q)
-		game->rotate.x = 0;
-	else if (keycode == KEY_E)
-		game->rotate.y = 0;*/
 	else if (keycode == KEY_ESC)
 		return (clear_game(game));
 	else if (keycode == KEY_I)
@@ -71,6 +71,10 @@ int
 		update = move_camera(game, 0);
 	else if (game->move.y)
 		update = move_camera(game, 1);
+	if (game->x_move.x)
+		update = move_perp_camera(game, 0);
+	else if (game->x_move.y)
+		update = move_perp_camera(game, 1);
 	if (game->rotate.x)
 		update = rotate_camera(game, 0);
 	else if (game->rotate.y)

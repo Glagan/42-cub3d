@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 14:32:31 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:31:34 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void
 		set_pos(&camera->dir, -1., 0.);
 		set_pos(&camera->plane, 0., -config->fov);
 	}
+	set_pos(&camera->x_dir, camera->dir.y, camera->dir.x);
 	MAP(camera->pos, *config) = '0';
 }
 
@@ -93,6 +94,26 @@ int
 }
 
 int
+	move_perp_camera(t_game *game, int direction)
+{
+	t_camera	*c;
+	t_pos		n_pos;
+
+	c = &game->camera;
+	copy_pos(&n_pos, &c->pos);
+	n_pos.x += (((direction) ? -1 : 1) * (c->x_dir.x * .11));
+	if (IN_MAP(n_pos, game->config)
+		&& MAP(n_pos, game->config) != '1')
+		copy_pos(&c->pos, &n_pos);
+	copy_pos(&n_pos, &c->pos);
+	n_pos.y += (((direction) ? -1 : 1) * (c->x_dir.y * .11));
+	if (IN_MAP(n_pos, game->config)
+		&& MAP(n_pos, game->config) != '1')
+		copy_pos(&c->pos, &n_pos);
+	return (1);
+}
+
+int
 	rotate_camera(t_game *game, int dir)
 {
 	t_camera	*c;
@@ -105,6 +126,9 @@ int
 	copy_pos(&old, &c->plane);
 	c->plane.x = (c->plane.x * game->cos[dir]) - (c->plane.y * game->sin[dir]);
 	c->plane.y = (old.x * game->sin[dir]) + (c->plane.y * game->cos[dir]);
+	copy_pos(&old, &c->x_dir);
+	c->x_dir.x = (c->x_dir.x * game->cos[dir]) - (c->x_dir.y * game->sin[dir]);
+	c->x_dir.y = (old.x * game->sin[dir]) + (c->x_dir.y * game->cos[dir]);
 	return (1);
 }
 
@@ -137,12 +161,14 @@ void
 			printf("\n");
 		i++;
 	}
-	/*printf("#CAMERA" \
+	printf("#CAMERA" \
 		"\nx:\t%lf" \
 		"\ny:\t%lf" \
 		"\nplane:\t%lfx %lfy" \
-		"\ndir:\t%lfx %lfy\n",
+		"\ndir:\t%lfx %lfy" \
+		"\nx_dir:\t%lfx %lfy\n",
 		game->camera.pos.x, game->camera.pos.y,
 		game->camera.plane.x, game->camera.plane.y,
-		game->camera.dir.x, game->camera.dir.y);*/
+		game->camera.dir.x, game->camera.dir.y,
+		game->camera.x_dir.x, game->camera.x_dir.y);
 }
