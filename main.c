@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 15:46:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:25:04 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int
 		return (exit_error(&game, "Error:\nfailed to malloc sprites.\n"));
 	calculate_camera_x(game.window.size.x, game.camera_x);
 	calculate_cos_sin(game.config.rotate_speed, game.cos, game.sin);
+	calculate_sf_dist(game.window.size.y, game.sf_dist);
 	printf_infos(&game);
 	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);

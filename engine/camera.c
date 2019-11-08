@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 15:46:11 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:00:50 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,5 @@ void
 		game->camera.plane.x, game->camera.plane.y,
 		game->camera.dir.x, game->camera.dir.y,
 		game->camera.x_dir.x, game->camera.x_dir.y);
-	printf("#OPTIONS\nall: %8x\n", game->options);
+	printf("#OPTIONS\t%8x\n", game->options);
 }

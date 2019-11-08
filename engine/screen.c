@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 14:13:55 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:08:32 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,40 @@
 static void
 	draw_sky_floor(t_game *game, int column, t_raysult *ray)
 {
-	t_pos	sky_tex;
+	t_pos	floor_wall;
 	int		i;
-	int		j;
 	t_pos	pixel;
+	double	weight;
+	t_pos	p_tex;
+	t_pos	c_floor;
+	t_tex	*tex;
 
-	if (game->tex[TEX_SKY].tex)
-		sky_tex.x = column % game->tex[TEX_SKY].width;
-	j = 0;
+	tex = &game->tex[TEX_SKY];
+	if (ray->side == 0 && ray->ray_dir.x > 0)
+		set_pos(&floor_wall, ray->map_pos.x, ray->map_pos.y + ray->wall_x);
+	else if (ray->side == 0 && ray->ray_dir.x < 0)
+		set_pos(&floor_wall, ray->map_pos.x + 1., ray->map_pos.y + ray->wall_x);
+	else if (ray->side && ray->ray_dir.y > 0)
+		set_pos(&floor_wall, ray->map_pos.x + ray->wall_x, ray->map_pos.y);
+	else if (ray->side && ray->ray_dir.y < 0)
+		set_pos(&floor_wall, ray->map_pos.x + ray->wall_x, ray->map_pos.y + 1.);
 	pixel.x = column;
-	i = game->window.size.y;
-	while (i > game->window.half.y + (ray->height / 2.))
+	i = game->window.half.y + (ray->height / 2.);
+	while (i < game->window.size.y)
 	{
-		if (game->tex[TEX_SKY].tex)
-			sky_tex.y = j % game->tex[TEX_SKY].height;
-		pixel.y = j++;
+		weight = game->sf_dist[i] / ray->distance;
+		set_pos(&c_floor, weight * floor_wall.x + (1. - weight) * game->camera.pos.x,
+					weight * floor_wall.y + (1. - weight) * game->camera.pos.y);
+		set_pos(&p_tex, (int)(c_floor.x * tex->width) % tex->width,
+						(int)(c_floor.y * tex->height) % tex->height);
+		pixel.y = i;
 		draw_pixel_img(&game->window, &pixel,
-			shade_color((game->tex[TEX_SKY].tex)
-			? get_tex_color(&game->tex[TEX_SKY], &sky_tex)
-			: game->config.c[TEX_SKY], 0));
-		pixel.y = i--;
+			shade_color(get_tex_color(&game->tex[TEX_FLOOR], &p_tex),
+				(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
+		pixel.y = game->window.size.y - i++;
 		draw_pixel_img(&game->window, &pixel,
-			shade_color(game->config.c[TEX_FLOOR], 1.5));
+			shade_color(get_tex_color(&game->tex[TEX_SKY], &p_tex),
+				(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
 	}
 }
 
@@ -72,8 +84,10 @@ static int
 
 	tex = &game->tex[ray->direction];
 	set_pos(&pixel, column, max(0, game->window.half.y - (ray->height / 2.)));
-	if (!tex)
-		return (draw_vertical_line_img(&game->window, &pixel, ray->height, shade_color(game->config.c[ray->direction], ray->distance / 1.5)));
+	if (!tex->tex)
+		return (draw_vertical_line_img(&game->window, &pixel, ray->height,
+			shade_color(game->config.c[ray->direction],
+			(game->options & FLAG_SHADOWS) ? ray->distance / 1.5 : 1)));
 	init_draw_wall(tex, ray, &p_tex);
 	start = max(0, game->window.half.y - (ray->height / 2.));
 	i = 0;
@@ -87,8 +101,8 @@ static int
 			p_tex.y = ((start + i) * 2 - game->window.size.y + ray->height)
 					* ((tex->height / 2.) / ray->height);
 			draw_pixel_img(&game->window, &pixel,
-				shade_color(tex ? get_tex_color(tex, &p_tex)
-					: game->config.c[ray->direction], ray->distance / 1.5));
+				shade_color(get_tex_color(tex, &p_tex),
+				(game->options & FLAG_SHADOWS) ? ray->distance / 1.5 : 1));
 		}
 		i++;
 	}
@@ -115,13 +129,8 @@ int
 			return (0);
 		game->depth[i] = ray.distance;
 		ray.height = fabs(w->size.y / ray.distance);
-		if (ray.height > 0)
-		{
-			if (ray.height < game->window.size.y)
-				draw_sky_floor(game, i, &ray);
-			draw_column(i, game, &ray);
-		}
-		else
+		draw_column(i, game, &ray);
+		if (ray.height < game->window.size.y)
 			draw_sky_floor(game, i, &ray);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 15:44:24 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:24:27 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef	struct	s_game
 	int			options;
 	double		camera_x[1920];
 	double		depth[1920];
+	double		sf_dist[1080];
 	double		cos[2];
 	double		sin[2];
 }				t_game;
@@ -181,6 +182,8 @@ void			calculate_camera_x(double width, double r[1080]);
 
 void			calculate_cos_sin(double rotate_speed,
 					double cos_r[2], double sin_r[2]);
+
+void			calculate_sf_dist(double height, double r[1080]);
 
 void 			debug_print_camera(t_game *game);
 
