@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/06 21:00:02 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/08 12:54:56 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS			=	main.c cub3d.c game.c \
 					engine/window.c engine/camera.c engine/shortcuts.c \
 					engine/raycast.c engine/image.c engine/draw_image.c \
 					engine/color.c engine/screen.c engine/ui.c \
-					engine/texture.c engine/tables.c engine/sprite.c
+					engine/texture.c engine/tables.c engine/sprite.c \
+					engine/sprite_utils.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc

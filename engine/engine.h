@@ -6,13 +6,14 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 17:41:29 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:55:54 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENGINE_H
 # define ENGINE_H
 
+#include <stdio.h>
 # include <math.h>
 # include "mlx/mlx.h"
 # include "config/config.h"
@@ -26,12 +27,10 @@
 
 typedef struct	s_sprite
 {
-	double		distance;
-	int			side;
-	int			height;
-	t_pos		map_pos;
-	t_pos		ray_pos;
-	t_pos		ray_dir;
+	t_pos			pos;
+	double			distance;
+	struct s_sprite	*next;
+	struct s_sprite	*sorted;
 }				t_sprite;
 
 typedef struct	s_raysult
@@ -96,6 +95,7 @@ typedef	struct	s_game
 	t_config	config;
 	t_window	window;
 	t_camera	camera;
+	t_sprite	*sprites;
 	t_tex		tex[7];
 	t_pos		move;
 	t_pos		rotate;
@@ -153,7 +153,21 @@ int				shade_color(int color, double divide);
 
 int				get_tex_color(t_tex *tex, t_pos *pos);
 
-t_sprite		*add_sprite(t_game *game, t_sprite **sprites, t_raysult *ray);
+int				find_sprites(t_game *game);
+
+t_sprite		*add_front_sprite(t_sprite **sprites,
+					double distance, t_pos *pos);
+
+t_sprite		*add_sorted_sprite(t_sprite **sprites, t_sprite *sprite);
+
+int				draw_sprites(t_game *game);
+
+t_sprite		*add_front_sprite(t_sprite **sprites,
+					double distance, t_pos *pos);
+
+t_sprite		*add_sorted_sprite(t_sprite **sorted, t_sprite *sprite);
+
+t_sprite		*sort_sprites(t_game *game, t_sprite *sprites);
 
 void			calculate_camera_x(double width, double r[1080]);
 

@@ -6,79 +6,104 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 23:18:31 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 13:44:28 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-t_sprite
-	*add_sprite(t_game *game, t_sprite **sprites, t_raysult *ray)
-{
-	t_sprite 	*new;
-
-	if (!(new = (t_sprite*)malloc(sizeof(*new))))
-		return (NULL);
-	new->side = ray->side;
-	new->distance = ray_distance(game, ray);
-	new->height = fabs(game->window.size.y / new->distance);
-	copy_pos(&new->ray_pos, &ray->ray_pos);
-	copy_pos(&new->map_pos, &ray->map_pos);
-	new->next = *sprites;
-	*sprites = new;
-	return (new);
-}
-
 static void
-	init_sprite_draw(t_tex *tex, t_sprite *sprite, t_pos *p_tex)
+	draw_sprite(t_game *game, t_sprite *sprite)
 {
-	double		sprite_x;
-
-	if (sprite->side)
-		sprite_x = sprite->ray_pos.x
-			+ ((sprite->map_pos.y - sprite->ray_pos.y
-				+ (1. - sprite->step.y) / 2.) / sprite->ray_dir.y)
-			* sprite->ray_dir.x;
-	else
-		sprite_x = sprite->ray_pos.y
-			+ ((sprite->map_pos.x - sprite->ray_pos.x
-				+ (1. - sprite->step.x) / 2.) / sprite->ray_dir.x)
-			* sprite->ray_dir.y;
-	sprite_x -= floor(sprite_x);
-	p_tex->x = (int)(sprite_x * tex->width);
-	if (sprite->side == 0 && sprite->ray_dir.x > 0.)
-		p_tex->x = tex->width - p_tex->x - 1.;
-	else if (sprite->side == 1 && sprite->ray_dir.y < 0.)
-		p_tex->x = tex->width - p_tex->x - 1.;
-}
-
-void
-	draw_sprite_column(int column, t_game *game, t_sprite *sprite)
-{
-	int			i;
-	int			start
-	t_tex		*tex;
-	t_pos		p_tex;
-	t_pos		pixel;
+	t_pos	pos;
+	double	inv_det;
+	t_pos	transform;
+	int		sprite_screen;
+	t_pos	spr_s;
+	int		i;
+	int		j;
+	t_pos	draw_x;
+	t_pos	draw_y;
+	t_pos	tex_pos;
+	t_tex	*tex;
+	int		d;
+	int		color;
+	t_pos	pixel;
 
 	tex = &game->tex[TEX_SPRITE];
-	set_pos(&pixel, column, max(0., game->window.half.y - (sprite->height / 2.)));
-	init_sprite_draw(tex, sprite, &p_tex);
-	start = max(0, game->window.half.y - (sprite->height / 2.));
-	i = 0;
-	while (i < sprite->height)
+	set_pos(&pos, sprite->pos.x - game->camera.pos.x,
+				sprite->pos.y - game->camera.pos.y);
+	inv_det = 1. / ((game->camera.plane.x * game->camera.dir.y)
+				- (game->camera.plane.y * game->camera.dir.x));
+	set_pos(&transform, inv_det * (game->camera.dir.y * pos.x - game->camera.dir.x * pos.y),
+					inv_det * (-game->camera.plane.y * pos.x + game->camera.plane.x * pos.y));
+	sprite_screen = (int)((game->window.size.x / 2.) * (1. + transform.x / transform.y));
+	spr_s.x = fabs(game->window.size.y / transform.y);
+	spr_s.y = fabs(game->window.size.y / transform.y);
+	set_pos(&draw_x, (int)(max(0, -spr_s.x / 2. + sprite_screen)),
+					(int)(spr_s.x / 2. + sprite_screen));
+	set_pos(&draw_y, (int)(max(0, -spr_s.y / 2. + game->window.size.y / 2.)),
+					(int)(spr_s.y / 2. + game->window.size.y / 2.));
+	i = draw_x.x;
+	//printf("{draw %lfx %lfy to %lfx %lfy}\n", draw_x.x, draw_x.y, draw_y.x, draw_y.y);
+	while (i < game->window.size.x && i < draw_x.y)
 	{
-		pixel.y = start + i;
-		if (pixel.y > game->window.size.y)
-			break ;
-		if (pixel.y >= 0.)
+		pixel.x = i;
+		tex_pos.x = (int)(256 * ((i - (-spr_s.x / 2. + sprite_screen))) * tex->width / spr_s.x) / 256;
+		if (transform.y > 0 && i > 0)
 		{
-			p_tex.y = ((start + i) * 2 - game->window.size.y + sprite->height)
-					* ((tex->height / 2.) / sprite->height);
-			draw_pixel_img(&game->window, &pixel,
-				tex ? get_tex_color(tex, &p_tex)
-					: game->config.c[TEX_SPRITE]);
+			j = draw_y.x;
+			while (j < game->window.size.y && j < draw_y.y)
+			{
+				pixel.y = j;
+				d = j * 256 - game->window.size.y * 128 + spr_s.y * 128;
+				tex_pos.y = ((d * tex->height) / spr_s.y) / 256;
+				color = get_tex_color(tex, &tex_pos);
+				if (color != 0x00000000)
+					draw_pixel_img(&game->window, &pixel, color);
+				j++;
+			}
 		}
 		i++;
 	}
+}
+
+int
+	draw_sprites(t_game *game)
+{
+	t_sprite	*sorted;
+
+	sorted = sort_sprites(game, game->sprites);
+	while (sorted)
+	{
+		draw_sprite(game, sorted);
+		sorted = sorted->sorted;
+	}
+	return (1);
+}
+
+int
+	find_sprites(t_game *game)
+{
+	int		i;
+	int		j;
+	t_pos	pos;
+
+	game->sprites = NULL;
+	i = 0;
+	while (i < game->config.rows)
+	{
+		pos.y = i;
+		j = 0;
+		while (j < game->config.columns)
+		{
+			pos.x = j;
+			if (MAP(pos, game->config) == '2'
+				&& !add_front_sprite(&game->sprites, 0., &pos))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }

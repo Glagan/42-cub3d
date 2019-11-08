@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:50:30 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 16:57:19 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:06:42 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ int
 			ray->map_pos.y -= ((ray->side) ? ray->step.y : 0.);
 			hit = 1;
 		}
-		else if (MAP(ray->map_pos, game->config) == '2')
-			if (!add_sprite(game, &ray->sprites, ray))
-				return (0);
 		else if (MAP(ray->map_pos, game->config) == '1')
 			hit = 1;
 	}

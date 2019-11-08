@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 16:44:48 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:31:34 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void
 		game->tex[4].tex, game->tex[4].width, game->tex[4].height,
 		game->tex[5].tex, game->tex[5].width, game->tex[5].height,
 		game->tex[6].tex, game->tex[6].width, game->tex[6].height);
+
+	printf("#SPRITES\nfirst: %p\n", game->sprites);
 }
 
 int
@@ -105,6 +107,8 @@ int
 		return (exit_error(&game, "Error:\nmlx failed to create window.\n"));
 	if (!load_textures(&game))
 		return (exit_error(&game, "Error:\nfailed to load texture(s).\n"));
+	if (!find_sprites(&game))
+		return (exit_error(&game, "Error:\nfailed to malloc sprites.\n"));
 	calculate_camera_x(game.window.size.x, game.camera_x);
 	calculate_cos_sin(game.config.rotate_speed, game.cos, game.sin);
 	printf_infos(&game);

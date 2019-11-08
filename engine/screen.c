@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 17:43:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 13:24:54 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ static void
 }
 
 static void
-	draw_sprites(int column, t_game *game, t_raysult *ray)
-{
-	t_sprite	*tmp;
-
-	while (ray->sprites)
-	{
-		draw_sprite_column(column, game, ray->sprites);
-		tmp = ray->sprites->next;
-		free(ray->sprites);
-		ray->sprites = tmp;
-	}
-}
-
-static void
 	init_draw_wall(t_tex *tex, t_raysult *ray, t_pos *p_tex)
 {
 	if (ray->side)
@@ -84,8 +70,6 @@ static int
 	t_tex	*tex;
 	t_pos	pixel;
 
-	if (ray->sprites)
-		draw_sprites(column, game, ray);
 	tex = &game->tex[ray->direction];
 	set_pos(&pixel, column, max(0, game->window.half.y - (ray->height / 2.)));
 	if (!tex)
@@ -138,6 +122,8 @@ int
 		}
 		else
 			draw_sky_floor(game, i, &ray);
+		if (game->sprites)
+			draw_sprites(game);
 		i++;
 	}
 	return (1);
