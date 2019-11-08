@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 14:32:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:53:08 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int
 	sorted = sort_sprites(game, game->sprites);
 	while (sorted)
 	{
-		draw_sprite(game, sorted, inv_det);
+		if (sorted->distance > .1)
+			draw_sprite(game, sorted, inv_det);
 		sorted = sorted->sorted;
 	}
 	return (1);
@@ -93,11 +94,11 @@ int
 	i = 0;
 	while (i < game->config.rows)
 	{
-		pos.y = i;
+		pos.y = i + .5;
 		j = 0;
 		while (j < game->config.columns)
 		{
-			pos.x = j;
+			pos.x = j + .5;
 			if (MAP(pos, game->config) == '2'
 				&& !add_front_sprite(&game->sprites, 0., &pos))
 				return (0);
