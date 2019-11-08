@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:39:45 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:55:06 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,13 @@ int
 	main(int argc, char **argv)
 {
 	t_game	game;
+	int		save_opt;
 
-	if (argc != 2)
+	save_opt = (argc >= 2 && !ft_strcmp(argv[1], "-save"));
+	if (argc < (2 + save_opt))
 		return (exit_error(&game, "Error:\nno map specified.\n"));
-	init_game(&game);
-	if (!parse_config(&game.config, argv[1]))
+	init_game(&game, save_opt);
+	if (!parse_config(&game.config, argv[1 + save_opt]))
 		return (exit_error(&game, "Error:\ninvalid map.\n"));
 	init_camera(&game.config, &game.camera);
 	if (!init_window(&game.window, &game.config))

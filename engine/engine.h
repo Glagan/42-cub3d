@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:38:02 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:47:57 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 # define X_EVENT_MOUSE_MOVE		6
 # define X_EVENT_EXIT			17
 
-# define FLAG_UI				0x00000001
-# define FLAG_SHADOWS			0x00000010
-# define FLAG_CROSSHAIR			0x00000100
+# define FLAG_UI			0x00000010
+# define FLAG_SHADOWS		0x00000100
+# define FLAG_CROSSHAIR		0x00001000
+# define FLAG_SAVE			0x00000001
 
 typedef struct	s_sprite
 {

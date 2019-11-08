@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:54:37 by ncolomer         ###   ########.fr       */
+/*   Created: 2019/11/08 18:42:21 by ncolomer          #+#    #+#             */
+/*   Updated: 2019/11/08 18:45:44 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void
-	init_game(t_game *game, int save_opt)
-{
-	set_pos(&game->move, 0, 0);
-	set_pos(&game->x_move, 0, 0);
-	set_pos(&game->rotate, 0, 0);
-	game->options = 0x11111110;
-	if (save_opt)
-		game->options = game->options | FLAG_SAVE;
-}
+#include "utils.h"
 
 int
-	clear_game(t_game *game)
+	ft_strcmp(const char *s1, const char *s2)
 {
-	destroy_window(&game->window);
-	// TODO: Free evertyhing
-	exit(0);
-	return (0);
+	int		i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

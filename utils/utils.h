@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:24:53 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:45:48 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void			set_pos(t_pos *pos, double x, double y);
 void			copy_pos(t_pos *pos, t_pos *org);
 
 void			*ft_memmove(void *dst, const void *src, unsigned long len);
+
+int				ft_strcmp(const char *s1, const char *s2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:40:15 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:54:44 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define KEY_ESC	53
 # define KEY_TAB	48
 
-void			init_game(t_game *game);
+void			init_game(t_game *game, int save_opt);
 
 int				clear_game(t_game *game);
 
