@@ -2,9 +2,13 @@
 
 ## TODO
 
-* Better UI
-* minimap
-* NORMINETTE
+1. Check leaks
+2. Minimap
+3. Better UI:
+	* Position
+	* Number of Items
+4. Items to collect -> change level
+5. NORMINETTE
 
 ## Ressources
 
