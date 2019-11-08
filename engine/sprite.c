@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 16:42:35 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:30:02 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void
 				d = (j * 256.) - (game->window.size.y * 128.) + (spr_s.y * 128.);
 				tex_pos.y = ((d * tex->height) / spr_s.y) / 256.;
 				color = shade_color(get_tex_color(tex, &tex_pos),
-					(game->options & FLAG_SHADOWS) ? sprite->distance / 1.5 : 1);
+					(game->options & FLAG_SHADOWS) ? sprite->distance / 3 : 1);
 				if (color != 0x0)
 					draw_pixel_img(&game->window, &pixel, color);
 				j++;

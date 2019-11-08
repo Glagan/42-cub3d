@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 17:08:32 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:33:29 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void
 	t_pos	c_floor;
 	t_tex	*tex;
 
-	tex = &game->tex[TEX_SKY];
 	if (ray->side == 0 && ray->ray_dir.x > 0)
 		set_pos(&floor_wall, ray->map_pos.x, ray->map_pos.y + ray->wall_x);
 	else if (ray->side == 0 && ray->ray_dir.x < 0)
@@ -33,22 +32,39 @@ static void
 	else if (ray->side && ray->ray_dir.y < 0)
 		set_pos(&floor_wall, ray->map_pos.x + ray->wall_x, ray->map_pos.y + 1.);
 	pixel.x = column;
+	tex = &game->tex[TEX_SKY];
 	i = game->window.half.y + (ray->height / 2.);
 	while (i < game->window.size.y)
 	{
 		weight = game->sf_dist[i] / ray->distance;
 		set_pos(&c_floor, weight * floor_wall.x + (1. - weight) * game->camera.pos.x,
 					weight * floor_wall.y + (1. - weight) * game->camera.pos.y);
-		set_pos(&p_tex, (int)(c_floor.x * tex->width) % tex->width,
-						(int)(c_floor.y * tex->height) % tex->height);
 		pixel.y = i;
-		draw_pixel_img(&game->window, &pixel,
-			shade_color(get_tex_color(&game->tex[TEX_FLOOR], &p_tex),
-				(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
+		if (!game->tex[TEX_FLOOR].tex)
+			draw_pixel_img(&game->window, &pixel,
+				shade_color(game->config.c[TEX_FLOOR],
+					(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
+		else
+		{
+			set_pos(&p_tex, (int)(c_floor.x * tex->width) % tex->width,
+						(int)(c_floor.y * tex->height) % tex->height);
+			draw_pixel_img(&game->window, &pixel,
+				shade_color(get_tex_color(&game->tex[TEX_FLOOR], &p_tex),
+					(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
+		}
 		pixel.y = game->window.size.y - i++;
-		draw_pixel_img(&game->window, &pixel,
-			shade_color(get_tex_color(&game->tex[TEX_SKY], &p_tex),
-				(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
+		if (!game->tex[TEX_SKY].tex)
+			draw_pixel_img(&game->window, &pixel,
+				shade_color(game->config.c[TEX_SKY],
+					(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
+		else
+		{
+			set_pos(&p_tex, (int)(c_floor.x * tex->width) % tex->width,
+						(int)(c_floor.y * tex->height) % tex->height);
+			draw_pixel_img(&game->window, &pixel,
+				shade_color(get_tex_color(&game->tex[TEX_SKY], &p_tex),
+					(game->options & FLAG_SHADOWS) ? game->sf_dist[i] / 1.5 : 1));
+		}
 	}
 }
 
