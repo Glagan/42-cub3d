@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:54:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 13:44:38 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:25:04 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,28 @@ t_sprite
 	*add_sorted_sprite(t_sprite **sorted, t_sprite *sprite)
 {
 	t_sprite	*first;
+	t_sprite	*previous;
 
 	if (!*sorted)
 		return ((*sorted = sprite));
 	first = *sorted;
-	while ((*sorted)->sorted && (*sorted)->distance < sprite->distance)
+	previous = NULL;
+	while ((*sorted)->sorted && sprite->distance > (*sorted)->distance)
+	{
+		previous = *sorted;
 		*sorted = (*sorted)->sorted;
-	sprite->sorted = (*sorted)->sorted;
-	(*sorted)->sorted = sprite;
-	if (first != sprite->sorted)
+	}
+	if (!previous)
+	{
+		sprite->sorted = *sorted;
+		*sorted = sprite;
+	}
+	else
+	{
+		sprite->sorted = previous->sorted;
+		previous->sorted = sprite;
 		*sorted = first;
+	}
 	return (sprite);
 }
 
@@ -53,8 +65,9 @@ t_sprite
 	copy_pos(&p, &game->camera.pos);
 	while (sprites)
 	{
-		sprites->distance = ((p.x - sprites->pos.x) * (p.x - sprites->pos.x)
-						+ (p.y - sprites->pos.y) * (p.y - sprites->pos.y));
+		sprites->distance =
+			fabs(((p.x - sprites->pos.x) * (p.x - sprites->pos.x)
+				+ (p.y - sprites->pos.y) * (p.y - sprites->pos.y)));
 		sprites->sorted = NULL;
 		add_sorted_sprite(&sorted, sprites);
 		sprites = sprites->next;

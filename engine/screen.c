@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 13:24:54 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:13:55 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int
 	{
 		if (!ray_cast(game, &ray, game->camera_x[i]))
 			return (0);
+		game->depth[i] = ray.distance;
 		ray.height = fabs(w->size.y / ray.distance);
 		if (ray.height > 0)
 		{
@@ -122,9 +123,9 @@ int
 		}
 		else
 			draw_sky_floor(game, i, &ray);
-		if (game->sprites)
-			draw_sprites(game);
 		i++;
 	}
+	if (game->sprites)
+		draw_sprites(game);
 	return (1);
 }
