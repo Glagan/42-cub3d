@@ -24,19 +24,30 @@
 # define X_EVENT_MOUSE_MOVE		6
 # define X_EVENT_EXIT			17
 
+typedef struct	s_sprite
+{
+	double		distance;
+	int			side;
+	int			height;
+	t_pos		map_pos;
+	t_pos		ray_pos;
+	t_pos		ray_dir;
+}				t_sprite;
+
 typedef struct	s_raysult
 {
-	double	distance;
-	int		direction;
-	int		side;
-	int		height;
-	t_pos	ray_pos;
-	t_pos	ray_dir;
-	t_pos	map_pos;
-	t_pos	side_dist;
-	t_pos	delta_dist;
-	t_pos	step;
-	double	wall_x;
+	double		distance;
+	int			direction;
+	int			side;
+	int			height;
+	t_pos		ray_pos;
+	t_pos		ray_dir;
+	t_pos		map_pos;
+	t_pos		side_dist;
+	t_pos		delta_dist;
+	t_pos		step;
+	double		wall_x;
+	t_sprite	*sprites;
 }				t_raysult;
 
 typedef struct	s_image
@@ -105,7 +116,7 @@ int				clear_window(t_window *window);
 
 int				destroy_window(t_window *win);
 
-void			update_screen(t_game *game);
+int				update_screen(t_game *game);
 
 void			clear_ui(t_window *window);
 
@@ -122,7 +133,9 @@ int				draw_string(t_window *window, t_pos *s_pos, char *str,
 
 int				wall_direction(t_raysult *ray);
 
-void			ray_cast(t_game *game, t_raysult *ray, double camera_x);
+int				ray_cast(t_game *game, t_raysult *ray, double camera_x);
+
+double			ray_distance(t_game *game, t_raysult *ray);
 
 void			init_image(t_window *window, t_image *img);
 
@@ -139,6 +152,8 @@ int				draw_rectangle_img(t_window *window, t_pos *p1,
 int				shade_color(int color, double divide);
 
 int				get_tex_color(t_tex *tex, t_pos *pos);
+
+t_sprite		*add_sprite(t_game *game, t_sprite **sprites, t_raysult *ray);
 
 void			calculate_camera_x(double width, double r[1080]);
 

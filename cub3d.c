@@ -83,7 +83,8 @@ int
 	if (update)
 	{
 		debug_print_camera(game);
-		update_screen(game);
+		if (!update_screen(game))
+			return (clear_game(game));
 		update_ui(game);
 		update_window(game);
 	}

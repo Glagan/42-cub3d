@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "engine.h"
 
 static void
@@ -41,7 +40,42 @@ static void
 	}
 }
 
-void
+static void
+	draw_sprites(int column, t_game *game, t_raysult *ray)
+{
+	t_sprite	*tmp;
+
+	while (ray->sprites)
+	{
+		draw_sprite_column(column, game, ray->sprites);
+		tmp = ray->sprites->next;
+		free(ray->sprites);
+		ray->sprites = tmp;
+	}
+}
+
+static void
+	init_draw_wall(t_tex *tex, t_raysult *ray, t_pos *p_tex)
+{
+	if (ray->side)
+		ray->wall_x = ray->ray_pos.x
+			+ ((ray->map_pos.y - ray->ray_pos.y
+				+ (1. - ray->step.y) / 2.) / ray->ray_dir.y)
+			* ray->ray_dir.x;
+	else
+		ray->wall_x = ray->ray_pos.y
+			+ ((ray->map_pos.x - ray->ray_pos.x
+				+ (1. - ray->step.x) / 2.) / ray->ray_dir.x)
+			* ray->ray_dir.y;
+	ray->wall_x -= floor(ray->wall_x);
+	p_tex->x = (int)(ray->wall_x * tex->width);
+	if (ray->side == 0 && ray->ray_dir.x > 0.)
+		p_tex->x = tex->width - p_tex->x - 1.;
+	else if (ray->side == 1 && ray->ray_dir.y < 0.)
+		p_tex->x = tex->width - p_tex->x - 1.;
+}
+
+static int
 	draw_column(int column, t_game *game, t_raysult *ray)
 {
 	int		i;
@@ -49,55 +83,35 @@ void
 	t_pos	p_tex;
 	t_tex	*tex;
 	t_pos	pixel;
-	int		limit;
 
+	if (ray->sprites)
+		draw_sprites(column, game, ray);
 	tex = &game->tex[ray->direction];
-	set_pos(&pixel, column, max(0., game->window.half.y - (ray->height / 2.)));
-	if (tex)
+	set_pos(&pixel, column, max(0, game->window.half.y - (ray->height / 2.)));
+	if (!tex)
+		return (draw_vertical_line_img(&game->window, &pixel, ray->height, shade_color(game->config.c[ray->direction], ray->distance / 1.5)));
+	init_draw_wall(tex, ray, &p_tex);
+	start = max(0, game->window.half.y - (ray->height / 2.));
+	i = 0;
+	while (i < ray->height)
 	{
-		if (ray->side)
-			ray->wall_x = ray->ray_pos.x
-					+ ((ray->map_pos.y - ray->ray_pos.y + (1. - ray->step.y) / 2.)
-					/ ray->ray_dir.y) * ray->ray_dir.x;
-		else
-			ray->wall_x = ray->ray_pos.y
-					+ ((ray->map_pos.x - ray->ray_pos.x + (1. - ray->step.x) / 2.)
-					/ ray->ray_dir.x) * ray->ray_dir.y;
-		ray->wall_x -= floor(ray->wall_x);
-		p_tex.x = (int)(ray->wall_x * tex->width);
-		if (ray->side == 0 && ray->ray_dir.x > 0.)
-			p_tex.x = tex->width - p_tex.x - 1.;
-		else if (ray->side == 1 && ray->ray_dir.y < 0.)
-			p_tex.x = tex->width - p_tex.x - 1.;
-		start = max(0, game->window.half.y - (ray->height / 2.));
-		limit = (ray->height > game->window.size.y)
-				? game->window.size.y : ray->height;
-		i = 0;
-		while (i < ray->height)
+		pixel.y = start + i;
+		if (pixel.y > game->window.size.y)
+			break ;
+		if (pixel.y >= 0.)
 		{
-			pixel.y = start + i;
-			if (pixel.y > game->window.size.y)
-				break ;
-			if (pixel.y >= 0.)
-			{
-				p_tex.y = ((start + i) * 2 - game->window.size.y + ray->height)
-						* ((tex->height / 2.) / ray->height);
-				draw_pixel_img(&game->window, &pixel,
-					shade_color(tex
-						? get_tex_color(tex, &p_tex)
-						: game->config.c[ray->direction],
-						ray->distance / 1.5));
-			}
-			i++;
+			p_tex.y = ((start + i) * 2 - game->window.size.y + ray->height)
+					* ((tex->height / 2.) / ray->height);
+			draw_pixel_img(&game->window, &pixel,
+				shade_color(tex ? get_tex_color(tex, &p_tex)
+					: game->config.c[ray->direction], ray->distance / 1.5));
 		}
+		i++;
 	}
-	else
-		draw_vertical_line_img(&game->window, &pixel,
-			ray->height,
-			shade_color(game->config.c[ray->direction], ray->distance / 1.5));
+	return (1);
 }
 
-void
+int
 	update_screen(t_game *game)
 {
 	t_window	*w;
@@ -113,7 +127,8 @@ void
 	i = 0;
 	while (i < w->size.x)
 	{
-		ray_cast(game, &ray, game->camera_x[i]);
+		if (!ray_cast(game, &ray, game->camera_x[i]))
+			return (0);
 		ray.height = fabs(w->size.y / ray.distance);
 		if (ray.height > 0)
 		{
@@ -125,4 +140,5 @@ void
 			draw_sky_floor(game, i, &ray);
 		i++;
 	}
+	return (1);
 }

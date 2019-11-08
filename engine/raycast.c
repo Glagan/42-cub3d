@@ -23,6 +23,7 @@ int
 static void
 	init_ray(t_raysult *ray, t_camera *camera, double camera_x)
 {
+	ray->sprites = NULL;
 	set_pos(&ray->map_pos, (int)camera->pos.x, (int)camera->pos.y);
 	set_pos(&ray->ray_dir, camera->dir.x + camera->plane.x * camera_x,
 		                    camera->dir.y + camera->plane.y * camera_x);
@@ -53,7 +54,7 @@ double
 				+ (1. - ray->step.x) / 2.) / ray->ray_dir.x));
 }
 
-void
+int
 	ray_cast(t_game *game, t_raysult *ray, double camera_x)
 {
 	int		hit;
@@ -76,13 +77,13 @@ void
 			ray->map_pos.y -= ((ray->side) ? ray->step.y : 0.);
 			hit = 1;
 		}
-		/*else if (MAP(ray->map_pos, game->config) == '2')
-		{
-			add sprite to a sprite queue or something
-		}*/
+		else if (MAP(ray->map_pos, game->config) == '2')
+			if (!add_sprite(game, &ray->sprites, ray))
+				return (0);
 		else if (MAP(ray->map_pos, game->config) == '1')
 			hit = 1;
 	}
 	ray->distance = ray_distance(game, ray);
 	ray->direction = wall_direction(ray);
+	return (1);
 }

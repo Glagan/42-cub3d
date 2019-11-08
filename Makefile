@@ -20,7 +20,7 @@ SRCS			=	main.c cub3d.c game.c \
 					engine/window.c engine/camera.c engine/shortcuts.c \
 					engine/raycast.c engine/image.c engine/draw_image.c \
 					engine/color.c engine/screen.c engine/ui.c \
-					engine/texture.c engine/tables.c
+					engine/texture.c engine/tables.c engine/sprite.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
