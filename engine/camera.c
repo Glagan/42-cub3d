@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/07 17:11:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:32:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ int
 	copy_pos(&n_pos, &c->pos);
 	n_pos.x += (((direction) ? -1 : 1) * (c->dir.x * .11));
 	if (IN_MAP(n_pos, game->config)
-		&& MAP(n_pos, game->config) == '0')
+		&& MAP(n_pos, game->config) != '1')
 		copy_pos(&c->pos, &n_pos);
 	copy_pos(&n_pos, &c->pos);
 	n_pos.y += (((direction) ? -1 : 1) * (c->dir.y * .11));
 	if (IN_MAP(n_pos, game->config)
-		&& MAP(n_pos, game->config) == '0')
+		&& MAP(n_pos, game->config) != '1')
 		copy_pos(&c->pos, &n_pos);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:54:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 14:25:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:30:52 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_sprite
 		return ((*sorted = sprite));
 	first = *sorted;
 	previous = NULL;
-	while ((*sorted)->sorted && sprite->distance > (*sorted)->distance)
+	while ((*sorted)->sorted && sprite->distance < (*sorted)->distance)
 	{
 		previous = *sorted;
 		*sorted = (*sorted)->sorted;
