@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 15:21:19 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:46:40 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,22 @@ int
 		game->move.x = 0;
 	else if (keycode == KEY_S || keycode == KEY_BACKWARD)
 		game->move.y = 0;
-	if (keycode == KEY_A)
+	else if (keycode == KEY_A)
 		game->x_move.x = 0;
 	else if (keycode == KEY_D)
 		game->x_move.y = 0;
-	if (keycode == KEY_Q || keycode == KEY_LEFT)
+	else if (keycode == KEY_Q || keycode == KEY_LEFT)
 		game->rotate.x = 0;
 	else if (keycode == KEY_E || keycode == KEY_RIGHT)
 		game->rotate.y = 0;
 	else if (keycode == KEY_ESC)
 		return (clear_game(game));
 	else if (keycode == KEY_I)
-		game->window.show_ui = !game->window.show_ui;
+		game->options = game->options ^ FLAG_UI;
 	else if (keycode == KEY_L)
-		game->window.shadows = !game->window.shadows;
+		game->options = game->options ^ FLAG_SHADOWS;
+	else if (keycode == KEY_O)
+		game->options = game->options ^ FLAG_CROSSHAIR;
 	return (0);
 }
 
@@ -65,7 +67,7 @@ int
 	main_loop(t_game *game)
 {
 	static int	update = 1;
-	static int	last_ui = 1;
+	static int	last_opt = 0x00000111;
 
 	if (game->move.x)
 		update = move_camera(game, 0);
@@ -79,10 +81,10 @@ int
 		update = rotate_camera(game, 0);
 	else if (game->rotate.y)
 		update = rotate_camera(game, 1);
-	if (last_ui != game->window.show_ui)
+	if (last_opt != game->options)
 	{
 		update = 1;
-		last_ui = game->window.show_ui;
+		last_opt = game->options;
 	}
 	if (update)
 	{

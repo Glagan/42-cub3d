@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 15:21:07 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:44:24 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # define X_EVENT_MOUSE_RELEASE	5
 # define X_EVENT_MOUSE_MOVE		6
 # define X_EVENT_EXIT			17
+
+# define FLAG_UI				0x00000001
+# define FLAG_SHADOWS			0x00000010
+# define FLAG_CROSSHAIR			0x00000100
 
 typedef struct	s_sprite
 {
@@ -79,8 +83,6 @@ typedef	struct	s_window
 	t_image		*active_img;
 	t_pos		size;
 	t_pos		half;
-	int			show_ui;
-	int			shadows;
 }				t_window;
 
 typedef struct	s_camera
@@ -101,6 +103,7 @@ typedef	struct	s_game
 	t_pos		move;
 	t_pos		x_move;
 	t_pos		rotate;
+	int			options;
 	double		camera_x[1920];
 	double		depth[1920];
 	double		cos[2];

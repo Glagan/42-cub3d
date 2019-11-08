@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 15:03:06 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:43:02 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void
 	set_pos(&game->move, 0, 0);
 	set_pos(&game->x_move, 0, 0);
 	set_pos(&game->rotate, 0, 0);
+	game->options = 0x11111111;
 }
 
 int
