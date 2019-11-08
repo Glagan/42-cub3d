@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:55:06 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:00:57 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "cub3d.h"
 
-void
+/*void
 	printf_infos(t_game *game)
 {
 	t_config	*config;
@@ -77,7 +77,7 @@ void
 		game->tex[6].tex, game->tex[6].width, game->tex[6].height);
 	printf("#SPRITES\nfirst: %p\n", game->sprites);
 	printf("#OPTIONS\nall: %8x\n", game->options);
-}
+}*/
 
 int
 	exit_error(t_game *game, char const *str)
@@ -101,19 +101,15 @@ int
 	init_game(&game, save_opt);
 	if (!parse_config(&game.config, argv[1 + save_opt]))
 		return (exit_error(&game, "Error:\ninvalid map.\n"));
-	init_camera(&game.config, &game.camera);
-	if (!init_window(&game.window, &game.config))
-		return (exit_error(&game, "Error:\nmlx failed to create window.\n"));
-	if (!load_textures(&game))
-		return (exit_error(&game, "Error:\nfailed to load texture(s).\n"));
-	if (!find_sprites(&game))
-		return (exit_error(&game, "Error:\nfailed to malloc sprites.\n"));
-	make_tables(&game);
+	if (finish_init(&game))
+		return (EXIT_FAILURE);
+	if (game.options & FLAG_SAVE)
+		return (screenshot(&game));
 	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
 	mlx_hook(game.window.win, X_EVENT_EXIT, 0, &exit_hook, &game);
 	mlx_loop_hook(game.window.ptr, &main_loop, &game);
-	printf_infos(&game);
+	//printf_infos(&game);
 	mlx_loop(game.window.ptr);
 	return (EXIT_SUCCESS);
 }

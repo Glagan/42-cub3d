@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:08:54 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:20:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:08:31 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,5 +179,7 @@ char			*libattopng_get_data(t_libattopng *png, size_t *len);
 int				libattopng_save(t_libattopng *png, const char *filename);
 
 void			libattopng_destroy(t_libattopng *png);
+
+int				save_png(t_game *game);
 
 #endif
