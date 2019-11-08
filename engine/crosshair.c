@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:37:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 17:51:17 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:35:56 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void
 		if (i < -4 || i > 4 || i == 0)
 		{
 			set_pos(&pixel, game->window.half.x + i, game->window.half.y);
-			draw_pixel_img(&game->window, &pixel, 0x99000000);
+			draw_pixel_img(&game->window, &pixel, 0x9922FF44);
 			set_pos(&pixel, game->window.half.x, game->window.half.y + i);
-			draw_pixel_img(&game->window, &pixel, 0x99000000);
+			draw_pixel_img(&game->window, &pixel, 0x9922FF44);
 		}
 		i++;
 	}

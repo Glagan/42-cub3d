@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 16:25:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:39:45 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int
 {
 	t_game	game;
 
-	if (argc != 2) // TODO: look for -save
+	if (argc != 2)
 		return (exit_error(&game, "Error:\nno map specified.\n"));
 	init_game(&game);
 	if (!parse_config(&game.config, argv[1]))
@@ -106,14 +106,12 @@ int
 		return (exit_error(&game, "Error:\nfailed to load texture(s).\n"));
 	if (!find_sprites(&game))
 		return (exit_error(&game, "Error:\nfailed to malloc sprites.\n"));
-	calculate_camera_x(game.window.size.x, game.camera_x);
-	calculate_cos_sin(game.config.rotate_speed, game.cos, game.sin);
-	calculate_sf_dist(game.window.size.y, game.sf_dist);
-	printf_infos(&game);
+	make_tables(&game);
 	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
 	mlx_hook(game.window.win, X_EVENT_EXIT, 0, &exit_hook, &game);
 	mlx_loop_hook(game.window.ptr, &main_loop, &game);
+	printf_infos(&game);
 	mlx_loop(game.window.ptr);
 	return (EXIT_SUCCESS);
 }

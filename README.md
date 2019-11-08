@@ -3,7 +3,6 @@
 ## TODO
 
 * Better UI
-* ``-save`` option
 * minimap
 * NORMINETTE
 
