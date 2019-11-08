@@ -3,7 +3,6 @@
 ## TODO
 
 * Better UI
-* crosshair
 * ``-save`` option
 * minimap
 * NORMINETTE

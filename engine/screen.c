@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 17:33:29 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:43:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,7 @@ int
 	}
 	if (game->sprites)
 		draw_sprites(game);
+	if (game->options & FLAG_CROSSHAIR)
+		display_crosshair(game);
 	return (1);
 }

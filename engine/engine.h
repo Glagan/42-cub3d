@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 16:24:27 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:37:59 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,8 @@ void			calculate_cos_sin(double rotate_speed,
 					double cos_r[2], double sin_r[2]);
 
 void			calculate_sf_dist(double height, double r[1080]);
+
+void			display_crosshair(t_game *game);
 
 void 			debug_print_camera(t_game *game);
 

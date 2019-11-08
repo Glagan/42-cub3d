@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:59:23 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 15:43:42 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:43:35 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void
 
 	w = &game->window;
 	mlx_put_image_to_window(w->ptr, w->win, w->screen.img, 0, 0);
-	if (game->options & 0x00000001)
+	if (game->options & FLAG_UI)
 	{
 		mlx_put_image_to_window(w->ptr, w->win, w->ui.img, 0, 0);
 		write_ui_text(game);
