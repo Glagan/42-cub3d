@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 00:05:58 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:14:57 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:47:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "engine.h"
 
 void
-	draw_pixel_img(t_window *w, t_pos *pos, int color)
+	draw_pixel(t_window *w, t_pos *pos, int color)
 {
 	if (pos->x >= 0 && pos->x < w->size.x
 		&& pos->y >= 0 && pos->y < w->size.y)
@@ -24,7 +24,7 @@ void
 }
 
 int
-	draw_vertical_line_img(t_window *window, t_pos *start,
+	draw_vertical_line(t_window *window, t_pos *start,
 							int length, int color)
 {
 	int		i;
@@ -40,7 +40,7 @@ int
 	while (i < length && (j = start->y + i) < limit)
 	{
 		pos.y = j;
-		draw_pixel_img(window, &pos, color);
+		draw_pixel(window, &pos, color);
 		i++;
 	}
 	return (1);
@@ -60,7 +60,7 @@ static void
 }
 
 int
-	draw_rectangle_img(t_window *window, t_pos *p1, t_pos *p2, int color)
+	draw_rectangle(t_window *window, t_pos *p1, t_pos *p2, int color)
 {
 	int		i;
 	int		j;
@@ -76,7 +76,7 @@ int
 		while (j < p2->x)
 		{
 			pos.x = j++;
-			draw_pixel_img(window, &pos, color);
+			draw_pixel(window, &pos, color);
 		}
 		i++;
 	}

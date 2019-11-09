@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:54:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:06:57 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:45:33 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_sprite
 	*add_front_sprite(t_sprite **sprites, double distance, t_pos *pos)
 {
-	t_sprite 	*new;
+	t_sprite	*new;
 
 	if (!(new = (t_sprite*)malloc(sizeof(*new))))
 		return (NULL);

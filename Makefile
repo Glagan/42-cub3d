@@ -6,22 +6,23 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/09 12:23:12 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/09 14:46:41 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=	main.c cub3d.c game.c \
 					config/config.c config/map.c config/map_check.c \
-					config/parse_params.c \
+					config/parse_params.c config/parse_texture.c \
 					utils/ft_strlen.c utils/ft_substr.c utils/ft_in_set.c \
 					utils/str.c utils/ft_strdup.c utils/ft_split.c utils/ft_atoi.c \
 					utils/pos.c utils/ft_itoa.c utils/ft_memmove.c \
 					utils/ft_strcmp.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c \
 					engine/window.c engine/camera.c engine/shortcuts.c \
-					engine/raycast.c engine/draw_image.c engine/sprite.c \
+					engine/raycast.c engine/draw.c engine/sprite.c \
 					engine/color.c engine/screen.c engine/ui.c \
-					engine/texture.c engine/tables.c  \
+					engine/texture.c engine/tables.c engine/draw_wall.c \
+					engine/draw_sky_floor.c \
 					engine/sprite_utils.c engine/crosshair.c \
 					libattopng/create_png.c libattopng/libattopng.c \
 					libattopng/libattopng2.c libattopng/libattopng3.c \

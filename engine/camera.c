@@ -6,14 +6,14 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 19:22:37 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:49:06 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "engine.h"
 
-static void
+void
 	find_start_pos(t_config *config, t_camera *camera)
 {
 	int	stop;
@@ -39,7 +39,7 @@ static void
 	camera->pos.y += .5;
 }
 
-static void
+void
 	find_start_angle(t_config *config, t_camera *camera)
 {
 	if (MAP(camera->pos, *config) == 'N')
@@ -64,13 +64,6 @@ static void
 	}
 	set_pos(&camera->x_dir, camera->dir.y, camera->dir.x);
 	MAP(camera->pos, *config) = '0';
-}
-
-void
-	init_camera(t_config *config, t_camera *camera)
-{
-	find_start_pos(config, camera);
-	find_start_angle(config, camera);
 }
 
 int
@@ -130,46 +123,4 @@ int
 	c->x_dir.x = (c->x_dir.x * game->cos[dir]) - (c->x_dir.y * game->sin[dir]);
 	c->x_dir.y = (old.x * game->sin[dir]) + (c->x_dir.y * game->cos[dir]);
 	return (1);
-}
-
-void
-	debug_print_camera(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < game->config.rows)
-	{
-		if (i == 0)
-			printf("   0 1 2 3 4 5 6 7 8 9101112131415161718192021222324252627282930\n 0 ");
-		else
-			printf("%2d ", i);
-		j = 0;
-		while (j < game->config.columns)
-		{
-			if (i == (int)game->camera.pos.y
-				&& j == (int)game->camera.pos.x)
-				printf("  ");
-			else
-				printf("%c ", MAP_XY(j, i, game->config));
-			j++;
-		}
-		if (i == game->config.rows - 1)
-			printf("\n");
-		else
-			printf("\n");
-		i++;
-	}
-	printf("#CAMERA" \
-		"\nx:\t%lf" \
-		"\ny:\t%lf" \
-		"\nplane:\t%lfx %lfy" \
-		"\ndir:\t%lfx %lfy" \
-		"\nx_dir:\t%lfx %lfy\n",
-		game->camera.pos.x, game->camera.pos.y,
-		game->camera.plane.x, game->camera.plane.y,
-		game->camera.dir.x, game->camera.dir.y,
-		game->camera.x_dir.x, game->camera.x_dir.y);
-	printf("#OPTIONS\t%8x\n", game->options);
 }

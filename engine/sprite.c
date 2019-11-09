@@ -6,82 +6,100 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 12:08:30 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:56:26 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
 static void
-	draw_sprite(t_game *game, t_sprite *sprite, double inv_det)
+	init_draw_sprite(t_game *game, t_sprite *sprite, double inv_det,
+		t_sprite_draw *spr)
 {
-	t_pos	pos;
-	t_pos	transform;
-	int		sprite_screen;
-	t_pos	spr_s;
-	int		i;
-	int		j;
-	t_pos	draw_x;
-	t_pos	draw_y;
-	t_pos	tex_pos;
 	t_tex	*tex;
-	int		d;
-	int		color;
-	t_pos	pixel;
 
 	tex = &game->tex[TEX_SPRITE];
-	set_pos(&pos, sprite->pos.x - game->camera.pos.x,
+	set_pos(&spr->pos, sprite->pos.x - game->camera.pos.x,
 				sprite->pos.y - game->camera.pos.y);
-	set_pos(&transform, inv_det * (game->camera.dir.y * pos.x - game->camera.dir.x * pos.y),
-					inv_det * (-game->camera.plane.y * pos.x + game->camera.plane.x * pos.y));
-	sprite_screen = (int)((game->window.size.x / 2.) * (1. + transform.x / transform.y));
-	spr_s.x = fabs(game->window.size.y / transform.y);
-	spr_s.y = fabs(game->window.size.y / transform.y);
-	set_pos(&draw_x, (int)(max(0, -spr_s.x / 2. + sprite_screen)),
-					(int)(max(0, spr_s.x / 2. + sprite_screen)));
-	set_pos(&draw_y, (int)(max(0, -spr_s.y / 2. + game->window.size.y / 2.)),
-					(int)(max(0, spr_s.y / 2. + game->window.size.y / 2.)));
-	i = draw_x.x;
-	//printf("{draw %lfx %lfy to %lfx %lfy}\n", draw_x.x, draw_x.y, draw_y.x, draw_y.y);
-	while (i < game->window.size.x && i < draw_x.y)
+	set_pos(&spr->transform,
+		inv_det * (game->camera.dir.y * spr->pos.x
+					- game->camera.dir.x * spr->pos.y),
+		inv_det * (-game->camera.plane.y * spr->pos.x
+					+ game->camera.plane.x * spr->pos.y));
+	spr->sprite_screen = (int)((game->window.size.x / 2.)
+						* (1. + spr->transform.x / spr->transform.y));
+	spr->spr_s.x = fabs(game->window.size.y / spr->transform.y);
+	spr->spr_s.y = fabs(game->window.size.y / spr->transform.y);
+	set_pos(&spr->draw_x,
+		(int)(MAX(0, -spr->spr_s.x / 2. + spr->sprite_screen)),
+		(int)(MAX(0, spr->spr_s.x / 2. + spr->sprite_screen)));
+	set_pos(&spr->draw_y,
+		(int)(MAX(0, -spr->spr_s.y / 2. + game->window.size.y / 2.)),
+		(int)(MAX(0, spr->spr_s.y / 2. + game->window.size.y / 2.)));
+}
+
+static void
+	set_tex_pos(t_game *game, t_sprite_draw *spr, t_tex *tex,
+		t_pos *tex_pos)
+{
+	tex_pos->x = (int)(256
+		* (((int)spr->draw_x.x - (-spr->spr_s.x / 2. + spr->sprite_screen)))
+			* tex->width / spr->spr_s.x) / 256;
+	spr->fact = ((int)spr->draw_y.x * 256.) - (game->window.size.y * 128.)
+		+ (spr->spr_s.y * 128.);
+	tex_pos->y = ((spr->fact * tex->height) / spr->spr_s.y) / 256.;
+}
+
+static void
+	draw_sprite(t_game *game, t_sprite *sprite, t_sprite_draw *spr,
+		t_tex *tex)
+{
+	t_pos	pixel;
+	t_pos	tex_pos;
+
+	while (spr->draw_x.x < game->window.size.x
+		&& spr->draw_x.x < spr->draw_x.y)
 	{
-		pixel.x = i;
-		tex_pos.x = (int)(256 * ((i - (-spr_s.x / 2. + sprite_screen))) * tex->width / spr_s.x) / 256;
-		j = draw_y.x;
-		if (transform.y > 0. && transform.y < game->depth[i])
+		if (spr->transform.y > 0.
+			&& spr->transform.y < game->depth[(int)spr->draw_x.x])
 		{
-			while (j < game->window.size.y && j < draw_y.y)
+			while (spr->draw_y.x < game->window.size.y
+				&& spr->draw_y.x < spr->draw_y.y)
 			{
-				pixel.y = j;
-				d = (j * 256.) - (game->window.size.y * 128.) + (spr_s.y * 128.);
-				tex_pos.y = ((d * tex->height) / spr_s.y) / 256.;
-				color = shade_color(get_tex_color(tex, &tex_pos),
+				set_tex_pos(game, spr, tex, &tex_pos);
+				spr->color = shade_color(get_tex_color(tex, &tex_pos),
 					(game->options & FLAG_SHADOWS) ? sprite->distance / 3 : 1);
-				if (color != 0x0)
-					draw_pixel_img(&game->window, &pixel, color);
-				j++;
+				set_pos(&pixel, (int)spr->draw_x.x, (int)spr->draw_y.x);
+				if (spr->color != 0x0)
+					draw_pixel(&game->window, &pixel, spr->color);
+				spr->draw_y.x++;
 			}
 		}
-		i++;
+		spr->draw_x.x++;
 	}
 }
 
-int
+void
 	draw_sprites(t_game *game)
 {
-	t_sprite	*sorted;
-	double		inv_det;
+	t_sprite		*sorted;
+	double			inv_det;
+	t_sprite_draw	spr;
 
+	if (!game->tex[TEX_SPRITE].tex)
+		return ;
 	inv_det = 1. / ((game->camera.plane.x * game->camera.dir.y)
 				- (game->camera.plane.y * game->camera.dir.x));
 	sorted = sort_sprites(game, game->sprites);
 	while (sorted)
 	{
 		if (sorted->distance > .1)
-			draw_sprite(game, sorted, inv_det);
+		{
+			init_draw_sprite(game, sorted, inv_det, &spr);
+			draw_sprite(game, sorted, &spr, &game->tex[TEX_SPRITE]);
+		}
 		sorted = sorted->sorted;
 	}
-	return (1);
 }
 
 int

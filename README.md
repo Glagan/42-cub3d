@@ -2,15 +2,13 @@
 
 ## TODO
 
-1. Check leaks
-2. Minimap
-3. Better UI:
+* Minimap
+* Better UI:
 	* Position
 	* Number of Items
-4. Items to collect (-> change level)
-5. NORMINETTE
-6. Crash when going forward or backward or rotating map 1, 6
-7. segfault map 4
+* Items to collect (-> change level)
+* Crash when going forward or backward or rotating map 1, 6
+* segfault map 4
 
 ## Ressources
 

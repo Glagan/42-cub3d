@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:28:30 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 14:07:46 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,12 @@ int
 	static int	update = 1;
 	static int	last_opt = 0x00000111;
 
-	if (game->move.x)
-		update = move_camera(game, 0);
-	else if (game->move.y)
-		update = move_camera(game, 1);
-	if (game->x_move.x)
-		update = move_perp_camera(game, 0);
-	else if (game->x_move.y)
-		update = move_perp_camera(game, 1);
-	if (game->rotate.x)
-		update = rotate_camera(game, 0);
-	else if (game->rotate.y)
-		update = rotate_camera(game, 1);
+	if (game->move.x || game->move.y)
+		update = move_camera(game, (game->move.x) ? 0 : 1);
+	if (game->x_move.x || game->x_move.y)
+		update = move_perp_camera(game, (game->x_move.x) ? 0 : 1);
+	if (game->rotate.x || game->rotate.y)
+		update = rotate_camera(game, (game->rotate.x) ? 0 : 1);
 	if (last_opt != game->options)
 	{
 		update = 1;
@@ -87,7 +81,6 @@ int
 	}
 	if (update)
 	{
-		//debug_print_camera(game);
 		update_screen(game);
 		update_window(game);
 	}

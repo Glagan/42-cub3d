@@ -6,11 +6,23 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:10:05 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 12:33:09 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:54:00 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int
+	save_destroy_png(t_libattopng *png)
+{
+	if (!libattopng_save(png, "screenshot.png"))
+	{
+		libattopng_destroy(png);
+		return (0);
+	}
+	libattopng_destroy(png);
+	return (1);
+}
 
 int
 	save_png(t_game *game)
@@ -30,21 +42,13 @@ int
 		while (x < game->window.size.x)
 		{
 			tmp = *(int*)(game->window.screen.ptr
-					+ (4 * (int)game->window.size.x * y)
-					+ (4 * x));
-			libattopng_set_pixel(png, x, y,
+					+ (4 * (int)game->window.size.x * y) + (4 * x));
+			libattopng_set_pixel(png, x++, y,
 				RGB((tmp & 0x00FF0000) >> 16,
 					(tmp & 0x0000FF00) >> 8,
 					tmp & 0x000000FF));
-			x++;
 		}
 		y++;
 	}
-	if (!libattopng_save(png, "screenshot.png"))
-	{
-		libattopng_destroy(png);
-		return (0);
-	}
-	libattopng_destroy(png);
-	return (1);
+	return (save_destroy_png(png));
 }

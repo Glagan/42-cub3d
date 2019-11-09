@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:07:37 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:19:59 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@
 # define FLAG_CROSSHAIR		0x00001000
 # define FLAG_SAVE			0x00000001
 
+typedef struct	s_sprite_draw
+{
+	int			sprite_screen;
+	t_pos		pos;
+	t_pos		transform;
+	t_pos		spr_s;
+	t_pos		draw_x;
+	t_pos		draw_y;
+	t_pos		tex_pos;
+	int			color;
+	int			fact;
+}				t_sprite_draw;
+
 typedef struct	s_sprite
 {
 	t_pos			pos;
@@ -40,6 +53,8 @@ typedef struct	s_sprite
 
 typedef struct	s_raysult
 {
+	int			column;
+	int			row;
 	double		distance;
 	int			direction;
 	int			side;
@@ -51,7 +66,8 @@ typedef struct	s_raysult
 	t_pos		delta_dist;
 	t_pos		step;
 	double		wall_x;
-	t_sprite	*sprites;
+	t_pos		floor_wall;
+	t_pos		c_floor;
 }				t_raysult;
 
 typedef struct	s_image
@@ -110,7 +126,9 @@ typedef	struct	s_game
 	double		sin[2];
 }				t_game;
 
-void			init_camera(t_config *config, t_camera *camera);
+void			find_start_pos(t_config *config, t_camera *camera);
+
+void			find_start_angle(t_config *config, t_camera *camera);
 
 int				move_camera(t_game *game, int direction);
 
@@ -141,7 +159,7 @@ int				draw_string(t_window *window, t_pos *s_pos, char *str,
 
 int				wall_direction(t_raysult *ray);
 
-void			ray_cast(t_game *game, t_raysult *ray, double camera_x);
+void			ray_cast(t_game *game, t_raysult *ray, int column);
 
 double			ray_distance(t_game *game, t_raysult *ray);
 
@@ -149,15 +167,17 @@ int				init_image(t_window *window, t_image *img);
 
 void			destroy_image(t_window *window, t_image *img);
 
-void			draw_pixel_img(t_window *w, t_pos *pos, int color);
+void			draw_pixel(t_window *w, t_pos *pos, int color);
 
-int				draw_vertical_line_img(t_window *window, t_pos *start,
+int				draw_vertical_line(t_window *window, t_pos *start,
 					int length, int color);
 
-int				draw_rectangle_img(t_window *window, t_pos *p1,
+int				draw_rectangle(t_window *window, t_pos *p1,
 					t_pos *p2, int color);
 
 int				shade_color(int color, double divide);
+
+int				distance_shade(int options, int color, double distance);
 
 int				get_tex_color(t_tex *tex, t_pos *pos);
 
@@ -168,7 +188,7 @@ t_sprite		*add_front_sprite(t_sprite **sprites,
 
 t_sprite		*add_sorted_sprite(t_sprite **sprites, t_sprite *sprite);
 
-int				draw_sprites(t_game *game);
+void			draw_sprites(t_game *game);
 
 t_sprite		*add_front_sprite(t_sprite **sprites,
 					double distance, t_pos *pos);
@@ -183,6 +203,8 @@ void			make_tables(t_game *game);
 
 void			display_crosshair(t_game *game);
 
-void 			debug_print_camera(t_game *game);
+void			draw_wall(t_game *game, t_raysult *ray);
+
+void			draw_sky_floor(t_game *game, t_raysult *ray);
 
 #endif

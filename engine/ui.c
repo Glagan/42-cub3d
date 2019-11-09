@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:40:14 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 12:00:07 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 14:47:50 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void
 	w = &game->window;
 	set_pos(&start, 2, w->size.y - 52);
 	set_pos(&end, 270, w->size.y - 2);
-	draw_rectangle_img(w, &start, &end, 0x77FFFFFF);
+	draw_rectangle(w, &start, &end, 0x77FFFFFF);
 }
 
 void
