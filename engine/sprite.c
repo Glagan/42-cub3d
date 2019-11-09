@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 15:56:26 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:01:00 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void
 	set_pos(&spr->draw_y,
 		(int)(MAX(0, -spr->spr_s.y / 2. + game->window.size.y / 2.)),
 		(int)(MAX(0, spr->spr_s.y / 2. + game->window.size.y / 2.)));
+	spr->draw_y_org = spr->draw_y.x;
 }
 
 static void
@@ -43,9 +44,9 @@ static void
 		t_pos *tex_pos)
 {
 	tex_pos->x = (int)(256
-		* (((int)spr->draw_x.x - (-spr->spr_s.x / 2. + spr->sprite_screen)))
+		* (((int)(spr->draw_x.x) - (-spr->spr_s.x / 2. + spr->sprite_screen)))
 			* tex->width / spr->spr_s.x) / 256;
-	spr->fact = ((int)spr->draw_y.x * 256.) - (game->window.size.y * 128.)
+	spr->fact = ((int)(spr->draw_y.x) * 256.) - (game->window.size.y * 128.)
 		+ (spr->spr_s.y * 128.);
 	tex_pos->y = ((spr->fact * tex->height) / spr->spr_s.y) / 256.;
 }
@@ -56,6 +57,7 @@ static void
 {
 	t_pos	pixel;
 	t_pos	tex_pos;
+	int		color;
 
 	while (spr->draw_x.x < game->window.size.x
 		&& spr->draw_x.x < spr->draw_x.y)
@@ -63,15 +65,16 @@ static void
 		if (spr->transform.y > 0.
 			&& spr->transform.y < game->depth[(int)spr->draw_x.x])
 		{
+			spr->draw_y.x = spr->draw_y_org;
 			while (spr->draw_y.x < game->window.size.y
 				&& spr->draw_y.x < spr->draw_y.y)
 			{
+				set_pos(&pixel, spr->draw_x.x, spr->draw_y.x);
 				set_tex_pos(game, spr, tex, &tex_pos);
-				spr->color = shade_color(get_tex_color(tex, &tex_pos),
+				color = shade_color(get_tex_color(tex, &tex_pos),
 					(game->options & FLAG_SHADOWS) ? sprite->distance / 3 : 1);
-				set_pos(&pixel, (int)spr->draw_x.x, (int)spr->draw_y.x);
-				if (spr->color != 0x0)
-					draw_pixel(&game->window, &pixel, spr->color);
+				if (color != 0x0)
+					draw_pixel(&game->window, &pixel, color);
 				spr->draw_y.x++;
 			}
 		}
