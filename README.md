@@ -3,13 +3,7 @@
 ## TODO
 
 * Minimap
-* Better UI:
-	* Position
-	* Number of Items
-* Items to collect (-> change level)
-
-* Crash when going forward or backward or rotating map 1, 6
-* segfault map 4
+* Collect items when walking on them
 
 ## Ressources
 
