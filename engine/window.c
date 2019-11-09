@@ -6,12 +6,10 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:59:23 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 12:16:50 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:36:07 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <time.h>
 #include "engine.h"
 
 int

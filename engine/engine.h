@@ -6,14 +6,13 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:17:04 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:17:55 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENGINE_H
 # define ENGINE_H
 
-# include <stdio.h>
 # include <math.h>
 # include "mlx/mlx.h"
 # include "config/config.h"
@@ -120,6 +119,7 @@ typedef	struct	s_game
 	t_pos		x_move;
 	t_pos		rotate;
 	int			options;
+	int			collected;
 	double		camera_x[1920];
 	double		depth[1920];
 	double		sf_dist[1080];

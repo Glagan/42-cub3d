@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:08:03 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:16:25 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void
 	config->c[TEX_SKY] = 0x000000;
 	config->c[TEX_SPRITE] = 0x00000000;
 	config->c[TEX_SPRITE_UP] = 0x00000000;
+	config->c[TEX_SPRITE_C] = 0x00000000;
 	config->map = NULL;
 	config->rows = 0;
 	config->columns = 0;
@@ -76,7 +77,8 @@ int
 			|| (line[0] == 'S' && line[1] == 'T')
 			|| (line[0] == 'F' && line[1] == 'T')
 			|| (line[0] == 'S' && line[1] == ' ')
-			|| (line[0] == 'S' && line[1] == 'U'))
+			|| (line[0] == 'S' && line[1] == 'U')
+			|| (line[0] == 'S' && line[1] == 'C'))
 		return (parse_texture(config, line));
 	else if (line[0] == 'F' || line[0] == 'C')
 		return (parse_color(config, line));

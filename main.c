@@ -6,11 +6,10 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:32:32 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:37:35 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "cub3d.h"
 

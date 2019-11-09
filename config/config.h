@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:11:28 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:04:19 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "utils/utils.h"
 
 # define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARACTERS " 0123NSEW"
+# define VALID_MAP_CHARACTERS " 01234NSEW"
 
 # define FINT(x)			((int)floor(x))
 # define CHECK_TOP(p)		(FINT(p.x) >= 0 && FINT(p.y) >= 0)
@@ -28,7 +28,7 @@
 # define MAP(p, c) 			(c).map[(FINT(p.y) * (c).columns) + FINT(p.x)]
 # define MAP_XY(x, y, c) 	(c).map[(FINT(y) * (c).columns) + FINT(x)]
 
-# define TEXTURES			8
+# define TEXTURES			9
 # define TEX_NORTH			0
 # define TEX_SOUTH			1
 # define TEX_WEST			2
@@ -37,6 +37,7 @@
 # define TEX_FLOOR			5
 # define TEX_SPRITE			6
 # define TEX_SPRITE_UP		7
+# define TEX_SPRITE_C		8
 
 typedef struct	s_config
 {

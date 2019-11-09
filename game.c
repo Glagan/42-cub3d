@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:06:28 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:36:47 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void
 	set_pos(&game->move, 0, 0);
 	set_pos(&game->x_move, 0, 0);
 	set_pos(&game->rotate, 0, 0);
+	game->collected = 0;
 	game->options = 0x11111110;
 	game->sprites = NULL;
 	if (save_opt)

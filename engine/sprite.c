@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:34:33 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:32:43 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,8 @@ int
 		{
 			set_pos(&pos, j + .5, i + .5);
 			c = MAP(pos, game->config);
-			tex = (c == '2') ? &game->tex[TEX_SPRITE]
-							: &game->tex[TEX_SPRITE_UP];
-			if ((c == '2' || c == '3') && tex->tex
+			tex = &game->tex[TEX_SPRITE + (c - '0' - 2)];
+			if (c >= '2' && c <= '4' && tex->tex
 				&& !add_front_sprite(&game->sprites, 0., &pos, tex))
 				return (0);
 			j++;
