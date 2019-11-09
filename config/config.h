@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:32:15 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:11:28 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "utils/utils.h"
 
 # define DIRECTIONS "NSEW"
-# define VALID_MAP_CHARACTERS " 012NSEW"
+# define VALID_MAP_CHARACTERS " 0123NSEW"
 
 # define FINT(x)			((int)floor(x))
 # define CHECK_TOP(p)		(FINT(p.x) >= 0 && FINT(p.y) >= 0)
@@ -28,6 +28,7 @@
 # define MAP(p, c) 			(c).map[(FINT(p.y) * (c).columns) + FINT(p.x)]
 # define MAP_XY(x, y, c) 	(c).map[(FINT(y) * (c).columns) + FINT(x)]
 
+# define TEXTURES			8
 # define TEX_NORTH			0
 # define TEX_SOUTH			1
 # define TEX_WEST			2
@@ -35,6 +36,7 @@
 # define TEX_SKY			4
 # define TEX_FLOOR			5
 # define TEX_SPRITE			6
+# define TEX_SPRITE_UP		7
 
 typedef struct	s_config
 {
@@ -46,8 +48,8 @@ typedef struct	s_config
 	int			save_arg;
 	double		rotate_speed;
 	double		move_speed;
-	char		*tex_path[7];
-	unsigned	c[7];
+	char		*tex_path[TEXTURES];
+	unsigned	c[TEXTURES];
 	double		fov;
 }				t_config;
 

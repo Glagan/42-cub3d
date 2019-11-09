@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:25:17 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:08:03 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void
 	config->requested_width = 720;
 	config->requested_height = 480;
 	i = 0;
-	while (i < 7)
+	while (i < TEXTURES)
 		config->tex_path[i++] = NULL;
 	config->c[TEX_NORTH] = 0xFFFFFF;
 	config->c[TEX_SOUTH] = 0xCCCCCC;
@@ -29,6 +29,8 @@ void
 	config->c[TEX_SKY] = 0x33C6E3;
 	config->c[TEX_FLOOR] = 0xA0764C;
 	config->c[TEX_SKY] = 0x000000;
+	config->c[TEX_SPRITE] = 0x00000000;
+	config->c[TEX_SPRITE_UP] = 0x00000000;
 	config->map = NULL;
 	config->rows = 0;
 	config->columns = 0;
@@ -44,7 +46,7 @@ int
 	int	i;
 
 	i = 0;
-	while (i < 7)
+	while (i < TEXTURES)
 	{
 		if (config->tex_path[i])
 			free(config->tex_path[i]);
@@ -73,7 +75,8 @@ int
 			|| (line[0] == 'E' && line[1] == 'A')
 			|| (line[0] == 'S' && line[1] == 'T')
 			|| (line[0] == 'F' && line[1] == 'T')
-			|| (line[0] == 'S' && line[1] == ' '))
+			|| (line[0] == 'S' && line[1] == ' ')
+			|| (line[0] == 'S' && line[1] == 'U'))
 		return (parse_texture(config, line));
 	else if (line[0] == 'F' || line[0] == 'C')
 		return (parse_color(config, line));

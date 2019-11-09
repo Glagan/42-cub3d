@@ -6,14 +6,15 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:54:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:45:33 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:13:17 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
 t_sprite
-	*add_front_sprite(t_sprite **sprites, double distance, t_pos *pos)
+	*add_front_sprite(t_sprite **sprites, double distance, t_pos *pos,
+		t_tex *tex)
 {
 	t_sprite	*new;
 
@@ -22,6 +23,7 @@ t_sprite
 	copy_pos(&new->pos, pos);
 	new->distance = distance;
 	new->next = *sprites;
+	new->tex = tex;
 	*sprites = new;
 	return (new);
 }

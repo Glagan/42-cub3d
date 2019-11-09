@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:30:14 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:12:48 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:06:38 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void
 	int	i;
 
 	i = 0;
-	while (i < 7)
+	while (i < TEXTURES)
 	{
 		if (game->tex[i].tex)
 			mlx_destroy_image(game->window.ptr, game->tex[i].tex);
@@ -51,7 +51,7 @@ int
 	int	i;
 
 	i = 0;
-	while (i < 7)
+	while (i < TEXTURES)
 	{
 		if (!load_tex(&game->window, &game->tex[i], game->config.tex_path[i]))
 			return (0);

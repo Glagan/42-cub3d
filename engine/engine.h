@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 16:59:15 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:17:04 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,6 @@
 # define FLAG_SHADOWS		0x00000100
 # define FLAG_CROSSHAIR		0x00001000
 # define FLAG_SAVE			0x00000001
-
-typedef struct	s_sprite_draw
-{
-	int			sprite_screen;
-	t_pos		pos;
-	t_pos		transform;
-	t_pos		spr_s;
-	t_pos		draw_x;
-	t_pos		draw_y;
-	t_pos		tex_pos;
-	int			fact;
-	int			draw_y_org;
-}				t_sprite_draw;
-
-typedef struct	s_sprite
-{
-	t_pos			pos;
-	double			distance;
-	struct s_sprite	*next;
-	struct s_sprite	*sorted;
-}				t_sprite;
 
 typedef struct	s_raysult
 {
@@ -91,6 +70,28 @@ typedef struct	s_tex
 	int		endian;
 }				t_tex;
 
+typedef struct	s_sprite_draw
+{
+	int			sprite_screen;
+	t_pos		pos;
+	t_pos		transform;
+	t_pos		spr_s;
+	t_pos		draw_x;
+	t_pos		draw_y;
+	t_pos		tex_pos;
+	int			fact;
+	int			draw_y_org;
+}				t_sprite_draw;
+
+typedef struct	s_sprite
+{
+	t_pos			pos;
+	double			distance;
+	t_tex			*tex;
+	struct s_sprite	*next;
+	struct s_sprite	*sorted;
+}				t_sprite;
+
 typedef	struct	s_window
 {
 	void		*ptr;
@@ -114,7 +115,7 @@ typedef	struct	s_game
 	t_window	window;
 	t_camera	camera;
 	t_sprite	*sprites;
-	t_tex		tex[7];
+	t_tex		tex[TEXTURES];
 	t_pos		move;
 	t_pos		x_move;
 	t_pos		rotate;
@@ -181,21 +182,16 @@ int				distance_shade(int options, int color, double distance);
 
 int				get_tex_color(t_tex *tex, t_pos *pos);
 
-int				find_sprites(t_game *game);
-
 t_sprite		*add_front_sprite(t_sprite **sprites,
-					double distance, t_pos *pos);
+					double distance, t_pos *pos, t_tex *tex);
+
+int				find_sprites(t_game *game);
 
 t_sprite		*add_sorted_sprite(t_sprite **sprites, t_sprite *sprite);
 
-void			draw_sprites(t_game *game);
-
-t_sprite		*add_front_sprite(t_sprite **sprites,
-					double distance, t_pos *pos);
-
-t_sprite		*add_sorted_sprite(t_sprite **sorted, t_sprite *sprite);
-
 t_sprite		*sort_sprites(t_game *game, t_sprite *sprites);
+
+void			draw_sprites(t_game *game);
 
 void			clear_sprites(t_sprite **sprites);
 

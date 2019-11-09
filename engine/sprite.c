@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:01:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:21:08 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static void
 	init_draw_sprite(t_game *game, t_sprite *sprite, double inv_det,
 		t_sprite_draw *spr)
 {
-	t_tex	*tex;
-
-	tex = &game->tex[TEX_SPRITE];
 	set_pos(&spr->pos, sprite->pos.x - game->camera.pos.x,
 				sprite->pos.y - game->camera.pos.y);
 	set_pos(&spr->transform,
@@ -89,17 +86,15 @@ void
 	double			inv_det;
 	t_sprite_draw	spr;
 
-	if (!game->tex[TEX_SPRITE].tex)
-		return ;
 	inv_det = 1. / ((game->camera.plane.x * game->camera.dir.y)
 				- (game->camera.plane.y * game->camera.dir.x));
 	sorted = sort_sprites(game, game->sprites);
 	while (sorted)
 	{
-		if (sorted->distance > .1)
+		if (sorted->tex->tex && sorted->distance > .1)
 		{
 			init_draw_sprite(game, sorted, inv_det, &spr);
-			draw_sprite(game, sorted, &spr, &game->tex[TEX_SPRITE]);
+			draw_sprite(game, sorted, &spr, sorted->tex);
 		}
 		sorted = sorted->sorted;
 	}
@@ -111,6 +106,7 @@ int
 	int		i;
 	int		j;
 	t_pos	pos;
+	char	c;
 
 	game->sprites = NULL;
 	i = 0;
@@ -121,8 +117,11 @@ int
 		while (j < game->config.columns)
 		{
 			pos.x = j + .5;
-			if (MAP(pos, game->config) == '2'
-				&& !add_front_sprite(&game->sprites, 0., &pos))
+			c = MAP(pos, game->config);
+			if ((c == '2' || c == '3')
+				&& !add_front_sprite(&game->sprites, 0., &pos,
+				(c == '2') ? &game->tex[TEX_SPRITE]
+							: &game->tex[TEX_SPRITE_UP]))
 				return (0);
 			j++;
 		}

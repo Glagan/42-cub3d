@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 13:33:50 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:52:42 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:06:01 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int
 		return (TEX_SKY);
 	else if (c1 == 'F' && c2 == 'T')
 		return (TEX_FLOOR);
+	else if (c1 == 'S' && c2 == 'U')
+		return (TEX_SPRITE_UP);
 	return (TEX_SPRITE);
 }
 

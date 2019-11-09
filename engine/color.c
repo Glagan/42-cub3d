@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:33:48 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 14:07:13 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:20:42 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@ int
 		return (shade_color(color, distance / 1.5));
 	return (color);
 }
-
-/*
-** TODO: removed limit check, be careful
-*/
 
 int
 	get_tex_color(t_tex *tex, t_pos *pos)

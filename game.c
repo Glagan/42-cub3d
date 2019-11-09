@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:59:20 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:06:28 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void
 	if (save_opt)
 		game->options = game->options | FLAG_SAVE;
 	i = 0;
-	while (i < 7)
+	while (i < TEXTURES)
 		game->tex[i++].tex = NULL;
 }
 
