@@ -6,11 +6,10 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 16:05:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:25:17 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "config.h"
 
 void
@@ -89,7 +88,6 @@ int
 	int			r;
 	t_str		*map_buffer;
 
-	init_config(config);
 	if ((c_fd = open(conf_path, O_RDONLY)) < 0)
 		return (0);
 	map_buffer = NULL;
@@ -103,7 +101,8 @@ int
 		r = !!str_add_back(&map_buffer, line);
 	free(line);
 	close(c_fd);
-	if ((!r || !parse_map(config, map_buffer)) && !clear_config(config))
+	if (!r || !parse_map(config, map_buffer))
 		return (str_clear(&map_buffer));
+	str_clear(&map_buffer);
 	return (1);
 }

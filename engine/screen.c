@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:38:10 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 17:43:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 12:27:16 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static int
 	return (1);
 }
 
-int
+void
 	update_screen(t_game *game)
 {
 	t_window	*w;
@@ -135,14 +135,12 @@ int
 
 
 	w = &game->window;
-	w->active_img = &w->screen;
 	set_pos(&start, 0, 0);
 	draw_rectangle_img(w, &start, &w->size, 0x0);
 	i = 0;
 	while (i < w->size.x)
 	{
-		if (!ray_cast(game, &ray, game->camera_x[i]))
-			return (0);
+		ray_cast(game, &ray, game->camera_x[i]);
 		game->depth[i] = ray.distance;
 		ray.height = fabs(w->size.y / ray.distance);
 		draw_column(i, game, &ray);
@@ -152,7 +150,8 @@ int
 	}
 	if (game->sprites)
 		draw_sprites(game);
+	if (game->options & FLAG_SAVE)
+		update_ui(game);
 	if (game->options & FLAG_CROSSHAIR)
 		display_crosshair(game);
-	return (1);
 }

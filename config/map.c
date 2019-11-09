@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 15:24:13 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 20:27:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:28:13 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ int
 {
 	int		*map;
 
+	map = NULL;
 	if ((config->columns = check_top_bottom_borders(map_buffer)) <= 2
 		|| (config->rows = check_left_right_borders(map_buffer)) <= 2
 		|| !check_valid(config, map_buffer))
 		return (0);
-	if (!(map = (int*)malloc(sizeof(*map) * (config->rows * config->columns)))
-		|| copy_map(config, map_buffer, map) != 1)
+	if (!(map = (int*)malloc(sizeof(*map) * (config->rows * config->columns))))
+		return (0);
+	if (copy_map(config, map_buffer, map) != 1)
 		return (0);
 	config->map = map;
-	str_clear(&map_buffer);
 	return (1);
 }

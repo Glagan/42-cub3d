@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 18:47:57 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:07:37 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ typedef	struct	s_window
 	void		*ptr;
 	void		*win;
 	t_image		screen;
-	t_image		ui;
-	t_image		*active_img;
 	t_pos		size;
 	t_pos		half;
 }				t_window;
@@ -124,9 +122,7 @@ int				init_window(t_window *window, t_config *config);
 
 int				clear_window(t_window *window);
 
-int				destroy_window(t_window *win);
-
-int				update_screen(t_game *game);
+void			update_screen(t_game *game);
 
 void			clear_ui(t_window *window);
 
@@ -138,16 +134,18 @@ void			update_window(t_game *game);
 
 int				load_textures(t_game *game);
 
+void			clear_textures(t_game *game);
+
 int				draw_string(t_window *window, t_pos *s_pos, char *str,
 					int color);
 
 int				wall_direction(t_raysult *ray);
 
-int				ray_cast(t_game *game, t_raysult *ray, double camera_x);
+void			ray_cast(t_game *game, t_raysult *ray, double camera_x);
 
 double			ray_distance(t_game *game, t_raysult *ray);
 
-void			init_image(t_window *window, t_image *img);
+int				init_image(t_window *window, t_image *img);
 
 void			destroy_image(t_window *window, t_image *img);
 
@@ -178,6 +176,8 @@ t_sprite		*add_front_sprite(t_sprite **sprites,
 t_sprite		*add_sorted_sprite(t_sprite **sorted, t_sprite *sprite);
 
 t_sprite		*sort_sprites(t_game *game, t_sprite *sprites);
+
+void			clear_sprites(t_sprite **sprites);
 
 void			make_tables(t_game *game);
 

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:10:05 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 19:10:49 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 12:33:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ int
 	int				y;
 	int				tmp;
 
-	png = libattopng_new(game->window.size.x, game->window.size.y, PNG_RGBA);
+	if (!(png =
+		libattopng_new(game->window.size.x, game->window.size.y, PNG_RGBA)))
+		return (0);
 	y = 0;
 	while (y < game->window.size.y)
 	{
 		x = 0;
 		while (x < game->window.size.x)
 		{
-			tmp = *(int*)(game->window.active_img->ptr
+			tmp = *(int*)(game->window.screen.ptr
 					+ (4 * (int)game->window.size.x * y)
 					+ (4 * x));
 			libattopng_set_pixel(png, x, y,
@@ -38,8 +40,11 @@ int
 		}
 		y++;
 	}
-	libattopng_save(png, "screenshot.png");
+	if (!libattopng_save(png, "screenshot.png"))
+	{
+		libattopng_destroy(png);
+		return (0);
+	}
 	libattopng_destroy(png);
-	clear_game(game);
-	return (EXIT_SUCCESS);
+	return (1);
 }

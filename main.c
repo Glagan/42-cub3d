@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:45:06 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 19:00:57 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:28:49 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,9 @@
 int
 	exit_error(t_game *game, char const *str)
 {
-	clear_config(&game->config);
-	destroy_window(&game->window);
 	if (str)
 		write(STDOUT_FILENO, str, ft_strlen(str));
+	exit_game(game, EXIT_FAILURE);
 	return (EXIT_FAILURE);
 }
 
@@ -101,15 +100,15 @@ int
 	init_game(&game, save_opt);
 	if (!parse_config(&game.config, argv[1 + save_opt]))
 		return (exit_error(&game, "Error:\ninvalid map.\n"));
-	if (finish_init(&game))
+	if (!finish_init(&game))
 		return (EXIT_FAILURE);
 	if (game.options & FLAG_SAVE)
 		return (screenshot(&game));
+	//printf_infos(&game);
 	mlx_hook(game.window.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.window.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
 	mlx_hook(game.window.win, X_EVENT_EXIT, 0, &exit_hook, &game);
 	mlx_loop_hook(game.window.ptr, &main_loop, &game);
-	//printf_infos(&game);
 	mlx_loop(game.window.ptr);
 	return (EXIT_SUCCESS);
 }

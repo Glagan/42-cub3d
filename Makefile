@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/08 18:45:40 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/09 12:23:12 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ SRCS			=	main.c cub3d.c game.c \
 					utils/ft_strcmp.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c \
 					engine/window.c engine/camera.c engine/shortcuts.c \
-					engine/raycast.c engine/image.c engine/draw_image.c \
+					engine/raycast.c engine/draw_image.c engine/sprite.c \
 					engine/color.c engine/screen.c engine/ui.c \
-					engine/texture.c engine/tables.c engine/sprite.c \
+					engine/texture.c engine/tables.c  \
 					engine/sprite_utils.c engine/crosshair.c \
 					libattopng/create_png.c libattopng/libattopng.c \
 					libattopng/libattopng2.c libattopng/libattopng3.c \

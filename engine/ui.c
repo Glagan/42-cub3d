@@ -6,22 +6,12 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:40:14 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/06 18:48:47 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 12:00:07 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "engine.h"
-
-void
-	clear_ui(t_window *w)
-{
-	t_pos		start;
-
-	set_pos(&start, 0, 0);
-	w->active_img = &w->ui;
-	draw_rectangle_img(w, &start, &w->size, 0xFF000000);
-}
 
 void
 	update_ui(t_game *game)
@@ -31,8 +21,6 @@ void
 	t_pos		end;
 
 	w = &game->window;
-	clear_ui(w);
-	w->active_img = &w->ui;
 	set_pos(&start, 2, w->size.y - 52);
 	set_pos(&end, 270, w->size.y - 2);
 	draw_rectangle_img(w, &start, &end, 0x77FFFFFF);

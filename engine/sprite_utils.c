@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:54:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 14:48:39 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:06:57 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,18 @@ t_sprite
 		sprites = sprites->next;
 	}
 	return (sorted);
+}
+
+void
+	clear_sprites(t_sprite **sprites)
+{
+	t_sprite	*tmp;
+
+	while (*sprites)
+	{
+		tmp = (*sprites)->next;
+		free(*sprites);
+		*sprites = tmp;
+	}
+	*sprites = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 19:01:50 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 13:28:30 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int
 	exit_hook(t_game *game)
 {
-	return (clear_game(game));
+	return (exit_game(game, EXIT_SUCCESS));
 }
 
 int
@@ -52,7 +52,7 @@ int
 	else if (keycode == KEY_E || keycode == KEY_RIGHT)
 		game->rotate.y = 0;
 	else if (keycode == KEY_ESC)
-		return (clear_game(game));
+		return (exit_game(game, EXIT_SUCCESS));
 	else if (keycode == KEY_I)
 		game->options = game->options ^ FLAG_UI;
 	else if (keycode == KEY_L)
@@ -87,10 +87,8 @@ int
 	}
 	if (update)
 	{
-		debug_print_camera(game);
-		if (!update_screen(game))
-			return (clear_game(game));
-		update_ui(game);
+		//debug_print_camera(game);
+		update_screen(game);
 		update_window(game);
 	}
 	update = 0;

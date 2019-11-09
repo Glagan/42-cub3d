@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:50:30 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/08 13:55:14 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 12:26:53 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ double
 				+ (1. - ray->step.x) / 2.) / ray->ray_dir.x));
 }
 
-int
+void
 	ray_cast(t_game *game, t_raysult *ray, double camera_x)
 {
 	int		hit;
@@ -82,5 +82,4 @@ int
 	}
 	ray->distance = ray_distance(game, ray);
 	ray->direction = wall_direction(ray);
-	return (1);
 }
