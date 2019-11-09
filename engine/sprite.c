@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 23:18:31 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:21:08 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:34:33 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void
 	sorted = sort_sprites(game, game->sprites);
 	while (sorted)
 	{
-		if (sorted->tex->tex && sorted->distance > .1)
+		if (sorted->distance > .1)
 		{
 			init_draw_sprite(game, sorted, inv_det, &spr);
 			draw_sprite(game, sorted, &spr, sorted->tex);
@@ -107,21 +107,21 @@ int
 	int		j;
 	t_pos	pos;
 	char	c;
+	t_tex	*tex;
 
 	game->sprites = NULL;
 	i = 0;
 	while (i < game->config.rows)
 	{
-		pos.y = i + .5;
 		j = 0;
 		while (j < game->config.columns)
 		{
-			pos.x = j + .5;
+			set_pos(&pos, j + .5, i + .5);
 			c = MAP(pos, game->config);
-			if ((c == '2' || c == '3')
-				&& !add_front_sprite(&game->sprites, 0., &pos,
-				(c == '2') ? &game->tex[TEX_SPRITE]
-							: &game->tex[TEX_SPRITE_UP]))
+			tex = (c == '2') ? &game->tex[TEX_SPRITE]
+							: &game->tex[TEX_SPRITE_UP];
+			if ((c == '2' || c == '3') && tex->tex
+				&& !add_front_sprite(&game->sprites, 0., &pos, tex))
 				return (0);
 			j++;
 		}
