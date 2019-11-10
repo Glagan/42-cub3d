@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:59:23 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 18:36:07 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 16:13:11 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ int
 		window->size.x = 1920;
 	if (window->size.y > 1080)
 		window->size.y = 1080;
+	if (window->size.x < 720)
+		window->size.x = 720;
+	if (window->size.y < 480)
+		window->size.y = 480;
 	window->ptr = NULL;
 	window->win = NULL;
 	window->screen.img = NULL;
