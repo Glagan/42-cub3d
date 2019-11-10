@@ -1,15 +1,17 @@
 R 720 480
-NO textures/sky_1.xpm
-SO textures/sky_1.xpm
-WE textures/sky_1.xpm
-EA textures/sky_1.xpm
+NO textures/wall_1.xpm
+SO textures/wall_1.xpm
+WE textures/wall_1.xpm
+EA textures/wall_1.xpm
 S textures/sprite_1.xpm
 SU textures/sprite_2.xpm
 SC textures/sprite_3.xpm
 ST textures/sky_1.xpm
-FT textures/sky_1.xpm
+FT textures/floor_1.xpm
+
 F 184,113,39
 C 51,198,227
+
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 4 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1

@@ -1,22 +1,26 @@
 # cub3d
 
+The goal of ``cub3d`` is to make *something* using raycasting (like [Wolfenstein 3D](https://fr.wikipedia.org/wiki/Wolfenstein_3D)).
+
+<p align="center">
+	![Screenshot](screenshot.png)
+</p>
+
+* WASD to move, QE or Left/Right directional keys to rotate camera
+* I to toggle Interface, O to toggle crosshair, L to toggle shadows
+* ESC to quit
+* Textures or colors for each sides (North, South, West, East) and Sky/Floor
+* Shadows based on the distance
+* Crosshair
+* 3 different sprites
+* Minimap
+* Collectable items
+
 ## Ressources
 
-* http://users.atw.hu/wolf3d/
-* https://fr.wikipedia.org/wiki/Wolfenstein_3D
-* http://projet-moteur-3d.e-monsite.com/pages/raycasting/raycasting.html
-* http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/affichage/3d/raycasting
-* https://guy-grave.developpez.com/tutoriels/jeux/doom-wolfenstein-raycasting/#LI
-* http://www.playfuljs.com/a-first-person-engine-in-265-lines/
-* https://web.archive.org/web/20160325100729/http://freespace.virgin.net/hugo.elias/graphics/x_main.htm
-* https://github.com/qst0/ft_libgfx
-* https://lodev.org/cgtutor/raycasting.html
-* https://calcworkshop.com/wp-content/uploads/unit-circle-radians-degrees.png
-* https://upload.wikimedia.org/wikipedia/commons/e/ed/30_degree_rotations_expressed_in_radian_measure.svg
-* https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique#/media/Fichier:Unit_circle_angles_color.svg
-* https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/
-* http://tigcc.ticalc.org/tut/raycasting.html
-* http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/affichage/3d/raycasting
-* https://github.com/GlThibault/Wolf3D/blob/master/srcs/draw.c
-* https://en.wikipedia.org/wiki/X_PixMap
-* https://github.com/keuhdall/images_example
+* [Playable Wolfenstein 3D](http://users.atw.hu/wolf3d/)
+* [Raycasting in JS](http://www.playfuljs.com/a-first-person-engine-in-265-lines/)
+* [Some X11 event numbers](https://github.com/qst0/ft_libgfx)
+* [Full tutorial in English](https://lodev.org/cgtutor/raycasting.html)
+* [Full tutorial in French (translation of the English tutorial)](http://forums.mediabox.fr/wiki/tutoriaux/flashplatform/affichage/3d/raycasting)
+* [Images in minilibx](https://github.com/keuhdall/images_example)
