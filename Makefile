@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/10 13:27:01 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/10 15:23:14 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS			=	main.c cub3d.c game.c \
 					utils/ft_strlen.c utils/ft_substr.c utils/ft_in_set.c \
 					utils/str.c utils/ft_strdup.c utils/ft_split.c utils/ft_atoi.c \
 					utils/pos.c utils/ft_itoa.c utils/ft_memmove.c \
-					utils/ft_strcmp.c \
+					utils/ft_strcmp.c utils/ft_write.c \
 					gnl/get_next_line.c gnl/get_next_line_utils.c \
 					engine/window.c engine/camera.c engine/shortcuts.c \
 					engine/raycast.c engine/draw.c engine/sprite.c \

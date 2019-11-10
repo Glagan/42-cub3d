@@ -1,10 +1,5 @@
 # cub3d
 
-## TODO
-
-* Minimap
-* Performanc for sprites
-
 ## Ressources
 
 * http://users.atw.hu/wolf3d/
@@ -25,5 +20,3 @@
 * https://github.com/GlThibault/Wolf3D/blob/master/srcs/draw.c
 * https://en.wikipedia.org/wiki/X_PixMap
 * https://github.com/keuhdall/images_example
-
-* https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C

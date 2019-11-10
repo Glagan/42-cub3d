@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 14:34:07 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 15:14:53 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,9 @@ int
 int
 	screenshot(t_game *game)
 {
-	if (game->options & FLAG_UI)
-		game->options = game->options ^ FLAG_UI;
 	update_screen(game);
+	update_ui(game);
 	update_window(game);
-	mlx_do_sync(game->window.ptr);
 	if (!save_png(game))
 		exit_error(game, "Error:\nfailed to save screenshot.");
 	return (exit_game(game, EXIT_SUCCESS));

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 14:00:10 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 15:08:26 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int
 	{
 		if (game->to_collect > 0)
 			check_quest(game);
+		MAP(game->camera.pos, game->config) = 'A';
 		update_screen(game);
 		update_window(game);
 	}
