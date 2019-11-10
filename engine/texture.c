@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:30:14 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:37:45 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 14:20:25 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,67 @@ void
 	}
 }
 
+static int
+	line_is_empty(t_tex *tex, int line)
+{
+	int		i;
+	t_pos	pos;
+
+	pos.y = line;
+	i = 0;
+	while (i < tex->width)
+	{
+		pos.x = i;
+		if (get_tex_color(tex, &pos) != 0x0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int
+	column_is_empty(t_tex *tex, int column)
+{
+	int		i;
+	t_pos	pos;
+
+	pos.x = column;
+	i = 0;
+	while (i < tex->height)
+	{
+		pos.y = i;
+		if (get_tex_color(tex, &pos) != 0x0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int
 	load_textures(t_game *game)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < TEXTURES)
 	{
 		if (!load_tex(&game->window, &game->tex[i], game->config.tex_path[i]))
 			return (0);
+		j = 0;
+		while (j < game->tex[i].height && column_is_empty(&game->tex[i], j))
+			j++;
+		game->tex[i].start.x = j;
+		while (j < game->tex[i].height && !column_is_empty(&game->tex[i], j))
+			j++;
+		game->tex[i].end.x = j;
+		j = 0;
+		while (j < game->tex[i].height && line_is_empty(&game->tex[i], j))
+			j++;
+		game->tex[i].start.y = j;
+		while (j < game->tex[i].height && !line_is_empty(&game->tex[i], j))
+			j++;
+		game->tex[i].end.y = j;
 		i++;
 	}
 	return (1);

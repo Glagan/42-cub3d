@@ -6,11 +6,40 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 13:50:09 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 14:34:07 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int
+	find_sprites(t_game *game)
+{
+	int		i;
+	int		j;
+	t_pos	pos;
+	char	c;
+	t_tex	*tex;
+
+	game->sprites = NULL;
+	i = 0;
+	while (i < game->config.rows)
+	{
+		j = 0;
+		while (j < game->config.columns)
+		{
+			set_pos(&pos, j + .5, i + .5);
+			c = MAP(pos, game->config);
+			tex = &game->tex[TEX_SPRITE + (c - '0' - 2)];
+			if (c >= '2' && c <= '4' && tex->tex
+				&& !add_front_sprite(&game->sprites, 0., &pos, tex))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 int
 	exit_game(t_game *game, int code)

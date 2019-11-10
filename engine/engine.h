@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 14:01:36 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 14:34:20 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct	s_tex
 	char	*path;
 	void	*tex;
 	void	*ptr;
-	int		start;
-	int		end;
+	t_pos	start;
+	t_pos	end;
 	int		width;
 	int		height;
 	int		bpp;
@@ -187,8 +187,6 @@ int				get_tex_color(t_tex *tex, t_pos *pos);
 
 t_sprite		*add_front_sprite(t_sprite **sprites,
 					double distance, t_pos *pos, t_tex *tex);
-
-int				find_sprites(t_game *game);
 
 t_sprite		*add_sorted_sprite(t_sprite **sprites, t_sprite *sprite);
 

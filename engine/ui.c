@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:40:14 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 13:59:55 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 14:32:44 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void
 	w = &game->window;
 	set_pos(&start, 2, w->size.y - 52);
 	set_pos(&end, 160, w->size.y - 2);
-	draw_rectangle(w, &start, &end, 0x77FFFFFF); // TODO: Blend
+	draw_rectangle(w, &start, &end, 0xFFFFFF);
 }
 
 static int
