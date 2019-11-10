@@ -2,9 +2,9 @@
 
 The goal of ``cub3d`` is to make *something* using raycasting (like [Wolfenstein 3D](https://fr.wikipedia.org/wiki/Wolfenstein_3D)).
 
-<p align="center">
-	![Screenshot](screenshot.png)
-</p>
+<div style="text-align:center">
+	<img src="screenshot.png" alt="Screenshot of the game" />
+</div>
 
 * WASD to move, QE or Left/Right directional keys to rotate camera
 * I to toggle Interface, O to toggle crosshair, L to toggle shadows
