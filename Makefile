@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/10 15:23:14 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/10 15:45:48 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,19 +34,25 @@ CC				= gcc
 RM				= rm -f
 CFLAGS			= -g -Wall -Wextra -Werror -I.
 LIBS			= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
+MLX				= libmlx.dylib
 
 NAME			= cub3d
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS)
+$(NAME):		$(MLX) $(OBJS)
 				gcc ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
 
+$(MLX):
+				@$(MAKE) -C mlx
+				@mv mlx/$(MLX) .
+
 clean:
+				@$(MAKE) -C mlx clean
 				$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean:			clean
-				$(RM) $(NAME)
+				$(RM) $(NAME) $(MLX)
 
 re:				fclean $(NAME)
 
