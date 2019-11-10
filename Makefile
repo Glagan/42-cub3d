@@ -6,11 +6,11 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/10 17:35:17 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/10 18:18:40 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			=	main.c cub3d.c game.c \
+SRCS			=	main.c cub3d.c game.c bmp.c \
 					config/config.c config/map.c config/map_check.c \
 					config/parse_params.c config/parse_texture.c \
 					utils/ft_strlen.c utils/ft_substr.c utils/ft_in_set.c \

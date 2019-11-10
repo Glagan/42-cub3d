@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 17:17:33 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 18:18:34 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ int				key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_game *game);
 
 int				main_loop(t_game *game);
+
+int				save_bmp(t_game *game);
 
 #endif

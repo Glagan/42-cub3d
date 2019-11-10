@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 17:17:41 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 18:17:35 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int
 	update_screen(game);
 	update_ui(game);
 	update_window(game);
-	/*if (!save_png(game))
-		exit_error(game, "Error:\nfailed to save screenshot.");*/
+	if (!save_bmp(game))
+		exit_error(game, "Error:\nfailed to save screenshot.");
 	return (exit_game(game, EXIT_SUCCESS));
 }
