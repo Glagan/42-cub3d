@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:32 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 14:07:46 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 14:00:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int
 	}
 	if (update)
 	{
+		if (game->to_collect > 0)
+			check_quest(game);
 		update_screen(game);
 		update_window(game);
 	}

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:36:47 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 13:50:09 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int
 		return (exit_error(game, "Error:\nfailed to load texture(s).\n"));
 	if (!find_sprites(game))
 		return (exit_error(game, "Error:\nfailed to malloc sprites.\n"));
+	count_items(game);
 	make_tables(game);
 	return (1);
 }

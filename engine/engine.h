@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 18:17:55 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 14:01:36 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct	s_tex
 	char	*path;
 	void	*tex;
 	void	*ptr;
+	int		start;
+	int		end;
 	int		width;
 	int		height;
 	int		bpp;
@@ -119,6 +121,7 @@ typedef	struct	s_game
 	t_pos		x_move;
 	t_pos		rotate;
 	int			options;
+	int			to_collect;
 	int			collected;
 	double		camera_x[1920];
 	double		depth[1920];
@@ -191,6 +194,8 @@ t_sprite		*add_sorted_sprite(t_sprite **sprites, t_sprite *sprite);
 
 t_sprite		*sort_sprites(t_game *game, t_sprite *sprites);
 
+void			delete_sprite(t_sprite **sprites, t_pos *pos);
+
 void			draw_sprites(t_game *game);
 
 void			clear_sprites(t_sprite **sprites);
@@ -202,5 +207,9 @@ void			display_crosshair(t_game *game);
 void			draw_wall(t_game *game, t_raysult *ray);
 
 void			draw_sky_floor(t_game *game, t_raysult *ray);
+
+void			check_quest(t_game *game);
+
+void			count_items(t_game *game);
 
 #endif

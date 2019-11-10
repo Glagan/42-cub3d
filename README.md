@@ -3,7 +3,7 @@
 ## TODO
 
 * Minimap
-* Collect items when walking on them
+* Performanc for sprites
 
 ## Ressources
 

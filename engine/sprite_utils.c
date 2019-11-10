@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:54:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 17:13:17 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 13:46:00 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,36 @@ t_sprite
 		sprites = sprites->next;
 	}
 	return (sorted);
+}
+
+void
+	delete_sprite(t_sprite **sprites, t_pos *pos)
+{
+	t_sprite	*tmp;
+	t_sprite	*previous;
+	t_sprite	*first;
+
+	first = *sprites;
+	previous = NULL;
+	while (*sprites)
+	{
+		if ((int)(*sprites)->pos.x == (int)pos->x
+			&& (int)(*sprites)->pos.y == (int)pos->y)
+		{
+			tmp = *sprites;
+			if (!previous)
+				*sprites = tmp->next;
+			else
+				previous->next = tmp->next;
+			free(tmp);
+			if (previous)
+				*sprites = first;
+			return ;
+		}
+		previous = *sprites;
+		*sprites = (*sprites)->next;
+	}
+	*sprites = first;
 }
 
 void
