@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:44:11 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 12:25:09 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:17:33 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "engine/engine.h"
 # include "config/config.h"
 # include "utils/utils.h"
-# include "libattopng/libattopng.h"
 
 # define LEFT_CLICK 	1
 # define RIGHT_CLICK 	2

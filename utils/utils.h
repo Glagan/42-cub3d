@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 15:22:58 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:35:52 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ int				ft_strcmp(const char *s1, const char *s2);
 int				ft_write_int(char *buf, int val, int start);
 
 int				ft_write_str(char *buf, char *str, int start);
+
+int				ft_endwith(char const *str, char const *end);
 
 #endif

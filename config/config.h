@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 18:04:19 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:58:51 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@
 # define IN_MAP(p, c)		(CHECK_TOP(p) && CHECK_BOT(p, c))
 # define MAP(p, c) 			(c).map[(FINT(p.y) * (c).columns) + FINT(p.x)]
 # define MAP_XY(x, y, c) 	(c).map[(FINT(y) * (c).columns) + FINT(x)]
+
+# define C_R				0
+# define C_NO				1
+# define C_SO				2
+# define C_WE				3
+# define C_EA				4
+# define C_S				5
+# define C_SU				6
+# define C_SC				7
+# define C_FT				8
+# define C_ST				9
+# define C_F				10
+# define C_C				11
+# define C_MAP				12
+# define C_LAST				13
 
 # define TEXTURES			9
 # define TEX_NORTH			0
@@ -51,6 +66,7 @@ typedef struct	s_config
 	double		move_speed;
 	char		*tex_path[TEXTURES];
 	unsigned	c[TEXTURES];
+	int			set[C_LAST];
 	double		fov;
 }				t_config;
 
@@ -60,9 +76,9 @@ int				clear_config(t_config *config);
 
 int				parse_dimensions(t_config *config, char const *line);
 
-int				parse_texture(t_config *config, char const *line);
+int				parse_texture(t_config *config, int key, char const *line);
 
-int				parse_color(t_config *config, char const *line);
+int				parse_color(t_config *config, int key, char const *line);
 
 int				parse_config(t_config *config, char const *conf_path);
 

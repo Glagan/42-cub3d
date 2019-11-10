@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:00:15 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 13:33:46 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:58:15 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int
 }
 
 int
-	parse_color(t_config *config, char const *line)
+	parse_color(t_config *config, int key, char const *line)
 {
 	int			i;
 	unsigned	color;
@@ -81,6 +81,6 @@ int
 	str[2] = str[1];
 	if ((int)((color = str_to_color(str[2]))) < 0)
 		return (str_clear(&str[0]) && str_clear(&str[1]));
-	config->c[(line[0] == 'F') ? TEX_FLOOR : TEX_SKY] = color;
+	config->c[(key == C_F) ? TEX_FLOOR : TEX_SKY] = color;
 	return ((str_clear(&str[0]) && str_clear(&str[1])) | 1);
 }

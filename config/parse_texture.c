@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 13:33:50 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 18:06:41 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/10 18:00:01 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,34 @@ static char
 }
 
 static int
-	texture_index(char c1, char c2)
+	texture_index(int key)
 {
-	if (c1 == 'N' && c2 == 'O')
+	if (key == C_NO)
 		return (TEX_NORTH);
-	else if (c1 == 'S' && c2 == 'O')
+	else if (key == C_SO)
 		return (TEX_SOUTH);
-	else if (c1 == 'W' && c2 == 'E')
+	else if (key == C_WE)
 		return (TEX_WEST);
-	else if (c1 == 'E' && c2 == 'A')
+	else if (key == C_EA)
 		return (TEX_EAST);
-	else if (c1 == 'S' && c2 == 'T')
+	else if (key == C_ST)
 		return (TEX_SKY);
-	else if (c1 == 'F' && c2 == 'T')
+	else if (key == C_FT)
 		return (TEX_FLOOR);
-	else if (c1 == 'S' && c2 == 'U')
+	else if (key == C_SU)
 		return (TEX_SPRITE_UP);
-	else if (c1 == 'S' && c2 == 'C')
+	else if (key == C_SC)
 		return (TEX_SPRITE_C);
 	return (TEX_SPRITE);
 }
 
 int
-	parse_texture(t_config *config, char const *line)
+	parse_texture(t_config *config, int key, char const *line)
 {
 	char	*path;
 	int		index;
 
-	index = texture_index(line[0], line[1]);
+	index = texture_index(key);
 	if (config->tex_path[index])
 	{
 		free(config->tex_path[index]);
