@@ -55,8 +55,8 @@ void
 	i[0] = 0;
 	while (i[0] < r->height && (pixel.y = i[1]++) < g->window.size.y)
 	{
-		p_tex.y = (pixel.y * 2 - g->window.size.y + r->height)
-				* ((tex->height / 2.) / r->height);
+		p_tex.y = (int)((pixel.y * 2 - g->window.size.y + r->height)
+				* ((tex->height / 2.) / r->height)) % tex->height;
 		draw_pixel(&g->window, &pixel, distance_shade(g->options,
 			get_tex_color(tex, &p_tex), r->distance));
 		i[0]++;
