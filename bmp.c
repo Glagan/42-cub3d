@@ -6,12 +6,10 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 18:13:15 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/11 13:21:16 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/12 22:09:07 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "cub3d.h"
 
 static void

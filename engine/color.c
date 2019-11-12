@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:33:48 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/12 16:54:02 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/12 22:07:37 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ int
 {
 	if (pos->x >= 0 && pos->x < tex->width
 		&& pos->y >= 0 && pos->y < tex->height)
+	{
 		return (*(int*)(tex->ptr
 			+ (4 * tex->width * (int)pos->y)
 			+ (4 * (int)pos->x)));
+	}
 	return (0x0);
 }
