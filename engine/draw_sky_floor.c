@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:40:26 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 14:50:26 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:10:47 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ void
 	t_pos	pixel;
 	double	weight;
 	t_pos	p_tex;
-	t_tex	*tex;
 
 	init_draw_sky_floor(ray);
 	pixel.x = ray->column;
-	tex = &game->tex[TEX_SKY];
 	i = game->window.half.y + (ray->height / 2.);
 	while (i < game->window.size.y)
 	{

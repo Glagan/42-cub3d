@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 00:05:58 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/12 16:39:00 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:14:01 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static void
 	if (pos->x < 0)
 		pos->x = 0;
 	if (pos->x > size->x)
-		pos->x = size->x;
+		pos->x = size->x - 1;
 	if (pos->y < 0)
 		pos->y = 0;
 	if (pos->y > size->y)
-		pos->y = size->y;
+		pos->y = size->y - 1;
 }
 
 int
