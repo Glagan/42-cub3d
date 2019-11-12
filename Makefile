@@ -6,7 +6,7 @@
 #    By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/29 12:45:02 by ncolomer          #+#    #+#              #
-#    Updated: 2019/11/10 18:18:40 by ncolomer         ###   ########.fr        #
+#    Updated: 2019/11/12 16:37:58 by ncolomer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -g -Wall -Wextra -Werror -I.
+CFLAGS			= -O3 -Wall -Wextra -Werror -I.
 LIBS			= -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
 MLX				= libmlx.dylib
 

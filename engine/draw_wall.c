@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:41:29 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/09 15:49:23 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/12 16:56:47 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void
 	while (i[0] < r->height && (pixel.y = i[1]++) < g->window.size.y)
 	{
 		p_tex.y = (int)((pixel.y * 2 - g->window.size.y + r->height)
-				* ((tex->height / 2.) / r->height)) % tex->height;
+				* ((tex->height / 2.) / r->height));
 		draw_pixel(&g->window, &pixel, distance_shade(g->options,
 			get_tex_color(tex, &p_tex), r->distance));
 		i[0]++;
