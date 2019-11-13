@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/12 22:08:18 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:17:33 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int
 	int	key;
 
 	length = ft_strlen(line);
-	if (length == 0)
+	if (length == 0 && !config->set[C_MAP])
 		return (1);
 	key = config_key(line);
 	if (key != C_MAP && (config->set[key] || config->set[C_MAP]))
