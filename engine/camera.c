@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 13:24:41 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 15:27:31 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:59:08 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void
 		set_pos(&camera->dir, -1., 0.);
 		set_pos(&camera->plane, 0., -config->fov);
 	}
-	set_pos(&camera->x_dir, camera->dir.y, camera->dir.x);
+	set_pos(&camera->x_dir, camera->dir.y, -camera->dir.x);
 	MAP(camera->pos, *config) = '0';
 }
 

@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/13 14:24:46 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:50:17 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,17 @@ static int
 int
 	parse_line(t_config *config, char const *line, t_str **map_buffer)
 {
-	int	length;
-	int	key;
+	static int	empty_in_map = 0;
+	static int	content_after = 0;
+	int			length;
+	int			key;
 
 	length = ft_strlen(line);
-	if (length == 0 && !config->set[C_MAP])
+	if (length == 0 && config->set[C_MAP])
+		empty_in_map = 1;
+	if (empty_in_map && content_after)
+		return (0);
+	if (length == 0)
 		return (1);
 	key = config_key(line);
 	if (key != C_MAP && (config->set[key] || config->set[C_MAP]))
@@ -108,6 +114,8 @@ int
 	else if (key == C_F || key == C_C)
 		return (parse_color(config, key, line));
 	config->set[key] = 1;
+	if (empty_in_map)
+		content_after = 1;
 	return (!!str_add_back(map_buffer, ft_strdup(line)));
 }
 
