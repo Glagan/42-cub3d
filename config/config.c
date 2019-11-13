@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/13 14:17:33 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:24:46 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int
 	else if (key == C_F || key == C_C)
 		return (parse_color(config, key, line));
 	config->set[key] = 1;
-	return (!!str_add_back(map_buffer, line));
+	return (!!str_add_back(map_buffer, ft_strdup(line)));
 }
 
 int
@@ -131,7 +131,7 @@ int
 		free(line);
 	}
 	if (r && ft_strlen(line) > 0)
-		r = !!str_add_back(&map_buffer, line);
+		r = !!str_add_back(&map_buffer, ft_strdup(line));
 	free(line);
 	close(c_fd);
 	if (!r || !parse_map(config, map_buffer))

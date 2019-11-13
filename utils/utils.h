@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 13:25:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 17:35:52 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:25:37 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char			*ft_itoa(int n);
 
 int				str_length(t_str *str);
 
-t_str			*str_add_back(t_str **str, char const *content);
+t_str			*str_add_back(t_str **str, char *content);
 
 t_str			*str_last(t_str *str);
 

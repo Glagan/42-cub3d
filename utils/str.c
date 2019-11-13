@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 12:09:03 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/31 10:44:10 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:28:10 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ int
 }
 
 t_str
-	*str_add_back(t_str **str, char const *content)
+	*str_add_back(t_str **str, char *content)
 {
 	t_str	*first;
 	t_str	*new;
 
+	if (!content)
+		return (NULL);
 	if (!(new = (t_str*)malloc(sizeof(*new))))
 		return (0);
-	new->content = NULL;
+	new->content = content;
 	new->next = NULL;
 	if (!*str)
 		*str = new;
@@ -46,8 +48,6 @@ t_str
 		(*str)->next = new;
 		*str = first;
 	}
-	if (!(new->content = ft_strdup(content)))
-		return (NULL);
 	return (new);
 }
 
@@ -73,6 +73,5 @@ int
 		free(*list);
 		(*list) = tmp;
 	}
-	*list = NULL;
 	return (0);
 }

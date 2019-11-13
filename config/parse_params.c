@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:00:15 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 17:58:15 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:32:12 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int
 {
 	int			i;
 	unsigned	color;
-	t_str		*str[3];
+	t_str		*str[2];
 
 	i = 1;
 	while (line[i])
@@ -77,10 +77,9 @@ int
 	if (!(str[0] = ft_split(line, ' ')) || str_length(str[0]) != 2
 		|| !(str[1] = ft_split(str[0]->next->content, ','))
 		|| str_length(str[1]) != 3)
-		return (str_clear(&str[0]) && str_clear(&str[1]));
-	str[2] = str[1];
-	if ((int)((color = str_to_color(str[2]))) < 0)
-		return (str_clear(&str[0]) && str_clear(&str[1]));
+		return (str_clear(&str[0]) || str_clear(&str[1]));
+	if ((int)((color = str_to_color(str[1]))) < 0)
+		return (str_clear(&str[0]) || str_clear(&str[1]));
 	config->c[(key == C_F) ? TEX_FLOOR : TEX_SKY] = color;
-	return ((str_clear(&str[0]) && str_clear(&str[1])) | 1);
+	return ((str_clear(&str[0]) || str_clear(&str[1])) | 1);
 }
