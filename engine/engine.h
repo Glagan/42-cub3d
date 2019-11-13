@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:55:59 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 14:34:20 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:31:22 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define FLAG_SHADOWS		0x00000100
 # define FLAG_CROSSHAIR		0x00001000
 # define FLAG_SAVE			0x00000001
+
+# define BEST_RATIO			1.7777777778
 
 typedef struct	s_raysult
 {
@@ -100,6 +102,7 @@ typedef	struct	s_window
 	t_image		screen;
 	t_pos		size;
 	t_pos		half;
+	double		ratio;
 }				t_window;
 
 typedef struct	s_camera

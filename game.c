@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:51:35 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/10 18:17:35 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:04:33 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void
 int
 	finish_init(t_game *game)
 {
-	find_start_pos(&game->config, &game->camera);
-	find_start_angle(&game->config, &game->camera);
 	if (!init_window(&game->window, &game->config))
 	{
 		return (exit_error(game,
 			"Error:\nmlx failed to create window or image.\n"));
 	}
+	find_start_pos(&game->config, &game->camera);
+	find_start_angle(&game->config, &game->camera);
 	if (!load_textures(game))
 		return (exit_error(game, "Error:\nfailed to load texture(s).\n"));
 	if (!find_sprites(game))

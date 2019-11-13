@@ -6,7 +6,7 @@
 /*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:51:45 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/13 14:50:17 by ncolomer         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:37:27 by ncolomer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void
 {
 	int	i;
 
-	config->requested_width = 720;
+	config->requested_width = 848;
 	config->requested_height = 480;
 	i = 0;
 	while (i < TEXTURES)
